@@ -1,0 +1,227 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table osoby {
+  id integer [primary key]
+  imie varchar
+  pozostale_imiona varchar
+  nazwisko_rodowe varchar
+/*
+  rok_ur numeric(4)
+  miesiac_ur numeric(2)
+  dzien_ur numeric(2)
+  data_ur_okolo boolean [not null]
+*/
+  data_ur undefined
+  miejsce_ur integer
+  wciaz_zyje boolean [not null]
+/*
+  rok_sm numeric(4)
+  miesiac_sm numeric(2)
+  dzien_sm numeric(2)
+  data_sm_okolo boolean [not null]
+*/
+  miejsce_sm integer
+  data_sm undefined
+  plec boolean
+/*
+  uwagi varchar
+*/
+}
+
+Table relacje_symetryczne {
+  id integer [primary key]
+  osoba1 integer
+  osoba2 integer
+  typ_rs integer [not null]
+  miejsce integer
+/*
+  rok numeric(4)
+  miesiac numeric(2)
+  dzien numeric(2)
+  data_okolo boolean [not null]
+*/
+  data undefined
+}
+
+Table relacje_niesymetryczne {
+  id integer [primary key]
+  osoba1 integer
+  osoba2 integer
+  typ_rns integer [not null]
+  miejsce integer
+  data undefined
+}
+
+Table typy_rs {
+  id integer
+  nazwa varchar
+}
+
+Table typy_rns {
+  id integer
+  nazwa varchar
+}
+
+Table miejsca {
+  id integer
+  nazwa varchar
+  nadobszar integer
+  typ_miejsca integer [not null]
+}
+
+Table typy_miejsc {
+  id integer
+  nazwa varchar
+  nadrodzaj integer
+}
+
+Table uwagi_osoby{
+  id_uwagi integer
+  id_osoby integer
+}
+
+Table uwagi{
+  id_uwagi integer [primary key]
+  id_osoby integer
+  zawartosc varchar
+  typ_uwagi integer
+}
+
+Table typ_uwagi{
+  typ_uwagi integer [primary key]
+  nazwa varchar
+}
+
+Table zawody{
+  id_zawodu integer [primary key]
+  nazwa varchar
+}
+
+Table zawody_osoby{
+  id integer
+  id_osoby integer
+  id_zawodu integer
+}
+
+Table miejsce_pracy{
+  id_zawody_osoby integer
+  stanowisko integer
+  miejsce integer
+  data_od undefined
+  data_do undefined
+}
+
+Table stanowisko{
+  id_stanowiska integer
+  nazwa integer
+}
+
+Table stanowisko_zawod{
+  id_stanowiska integer
+  id_zawodu integer
+}
+
+Table tytuly{
+  id_tytulu integer [primary key]
+  nazwa integer
+  nadtytul integer
+  podtytul integer
+}
+
+Table tytuly_osoby{
+  id_osoby integer
+  id_tytulu integer
+  data_zdobycia undefined 
+  miejsce_zdobycia integer
+}
+
+Table tytul_zawod{
+  id_tytulu integer
+  id_zawodu integer
+}
+
+Table grupy{
+  id_grupy integer
+  nazwa integer
+  nadgrupa integer
+}
+
+Table grupy_osoby{
+  id_grupy integer
+  id_osoby integer
+}
+
+Table grupy_uwagi{
+  id_grupy integer
+  id_uwagi integer
+}
+
+Ref: "osoby"."id" < "relacje_symetryczne"."osoba1"
+
+Ref: "osoby"."id" < "relacje_symetryczne"."osoba2"
+
+Ref: "osoby"."id" < "relacje_niesymetryczne"."osoba1"
+
+Ref: "osoby"."id" < "relacje_niesymetryczne"."osoba2"
+
+Ref: "typy_rs"."id" < "relacje_symetryczne"."typ_rs"
+
+Ref: "typy_rns"."id" < "relacje_niesymetryczne"."typ_rns"
+
+Ref: "miejsca"."nadobszar" < "miejsca"."id"
+
+Ref: "relacje_symetryczne"."miejsce" < "miejsca"."id"
+
+Ref: "miejsca"."id" < "osoby"."miejsce_sm"
+
+Ref: "miejsca"."id" < "osoby"."miejsce_ur"
+
+Ref: "miejsca"."typ_miejsca" < "typy_miejsc"."id"
+
+Ref: "typ_uwagi"."typ_uwagi" < "uwagi"."typ_uwagi"
+
+Ref: "zawody_osoby"."id_osoby" < "osoby"."id"
+
+Ref: "zawody_osoby"."id_zawodu" < "zawody"."id_zawodu"
+
+Ref: "tytuly"."id_tytulu" < "tytuly_osoby"."id_tytulu"
+
+Ref: "tytuly_osoby"."id_osoby" < "osoby"."id"
+
+Ref: "tytuly_osoby"."miejsce_zdobycia" < "miejsca"."id"
+
+Ref: "relacje_niesymetryczne"."miejsce" < "miejsca"."id"
+
+
+Ref: "osoby"."id" < "uwagi_osoby"."id_osoby"
+
+Ref: "uwagi_osoby"."id_uwagi" < "uwagi"."id_uwagi"
+
+Ref: "tytuly"."nadtytul" < "tytuly"."id_tytulu"
+
+Ref: "grupy_osoby"."id_osoby" < "osoby"."id"
+
+Ref: "grupy_osoby"."id_grupy" < "grupy"."id_grupy"
+
+Ref: "grupy"."nadgrupa" < "grupy"."id_grupy"
+
+Ref: "grupy_uwagi"."id_grupy" < "grupy"."id_grupy"
+
+Ref: "grupy_uwagi"."id_uwagi" < "uwagi"."id_uwagi"
+
+Ref: "tytuly"."id_tytulu" < "tytul_zawod"."id_tytulu"
+
+Ref: "zawody"."id_zawodu" < "tytul_zawod"."id_zawodu"
+
+Ref: "tytuly"."podtytul" < "tytuly"."id_tytulu"
+
+Ref: "zawody_osoby"."id" < "miejsce_pracy"."id_zawody_osoby"
+
+Ref: "miejsce_pracy"."miejsce" < "miejsca"."id"
+
+Ref: "stanowisko_zawod"."id_zawodu" < "zawody"."id_zawodu"
+
+Ref: "stanowisko_zawod"."id_stanowiska" < "stanowisko"."id_stanowiska"
+
+Ref: "stanowisko"."id_stanowiska" < "miejsce_pracy"."stanowisko"
