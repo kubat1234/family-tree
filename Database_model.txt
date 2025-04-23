@@ -66,14 +66,14 @@ Table typy_rns {
 Table miejsca {
   id integer
   nazwa varchar
-  nadobszar integer
+  nadmiejsce integer
   typ_miejsca integer [not null]
 }
 
 Table typy_miejsc {
   id integer
   nazwa varchar
-  nadrodzaj integer
+  nadtyp integer
 }
 
 Table uwagi_osoby{
@@ -83,7 +83,6 @@ Table uwagi_osoby{
 
 Table uwagi{
   id_uwagi integer [primary key]
-  id_osoby integer
   zawartosc varchar
   typ_uwagi integer
 }
@@ -112,16 +111,6 @@ Table miejsce_pracy{
   data_do undefined
 }
 
-Table stanowisko{
-  id_stanowiska integer
-  nazwa integer
-}
-
-Table stanowisko_zawod{
-  id_stanowiska integer
-  id_zawodu integer
-}
-
 Table tytuly{
   id_tytulu integer [primary key]
   nazwa integer
@@ -136,11 +125,6 @@ Table tytuly_osoby{
   miejsce_zdobycia integer
 }
 
-Table tytul_zawod{
-  id_tytulu integer
-  id_zawodu integer
-}
-
 Table grupy{
   id_grupy integer
   nazwa integer
@@ -152,9 +136,24 @@ Table grupy_osoby{
   id_osoby integer
 }
 
-Table grupy_uwagi{
+Table uwagi_grupy{
   id_grupy integer
   id_uwagi integer
+}
+
+Table data{
+  id_daty integer [primary key]
+  rok integer
+  miesiac integer
+  dzien integer
+  czy_dokladna boolen [not null]
+}
+
+Table nazwiska{
+  id_osoby integer
+  wartosc varchar
+  data_od undefined_date
+  kolejnosc integer [not null] 
 }
 
 Ref: "osoby"."id" < "relacje_symetryczne"."osoba1"
@@ -169,7 +168,7 @@ Ref: "typy_rs"."id" < "relacje_symetryczne"."typ_rs"
 
 Ref: "typy_rns"."id" < "relacje_niesymetryczne"."typ_rns"
 
-Ref: "miejsca"."nadobszar" < "miejsca"."id"
+Ref: "miejsca"."nadmiejsce" < "miejsca"."id"
 
 Ref: "relacje_symetryczne"."miejsce" < "miejsca"."id"
 
@@ -206,13 +205,9 @@ Ref: "grupy_osoby"."id_grupy" < "grupy"."id_grupy"
 
 Ref: "grupy"."nadgrupa" < "grupy"."id_grupy"
 
-Ref: "grupy_uwagi"."id_grupy" < "grupy"."id_grupy"
+Ref: "uwagi_grupy"."id_grupy" < "grupy"."id_grupy"
 
-Ref: "grupy_uwagi"."id_uwagi" < "uwagi"."id_uwagi"
-
-Ref: "tytuly"."id_tytulu" < "tytul_zawod"."id_tytulu"
-
-Ref: "zawody"."id_zawodu" < "tytul_zawod"."id_zawodu"
+Ref: "uwagi_grupy"."id_uwagi" < "uwagi"."id_uwagi"
 
 Ref: "tytuly"."podtytul" < "tytuly"."id_tytulu"
 
@@ -220,8 +215,5 @@ Ref: "zawody_osoby"."id" < "miejsce_pracy"."id_zawody_osoby"
 
 Ref: "miejsce_pracy"."miejsce" < "miejsca"."id"
 
-Ref: "stanowisko_zawod"."id_zawodu" < "zawody"."id_zawodu"
 
-Ref: "stanowisko_zawod"."id_stanowiska" < "stanowisko"."id_stanowiska"
-
-Ref: "stanowisko"."id_stanowiska" < "miejsce_pracy"."stanowisko"
+Ref: "osoby"."id" < "nazwiska"."id_osoby"
