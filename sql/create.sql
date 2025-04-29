@@ -2,36 +2,43 @@ BEGIN;
 
 CREATE TABLE daty (
   id serial PRIMARY KEY,
-  rok int,
-  miesiac int,
-  dzien int,
-  czy_dokladna boolean NOT NULL
+  rok int NOT NULL CHECK(rok > 0),
+  miesiac int CHECK(miesiac BETWEEN 1 AND 12),
+  dzien int CHECK(dzien BETWEEN 1 AND 31), --TODO lepszy check na dzien
+  czy_dokladna boolean NOT NULL,
+  CHECK (miesiac is not null or dzien is null),
 );
 
 CREATE TABLE typy_miejsc (
   id serial PRIMARY KEY,
   nazwa varchar NOT NULL,
-  nadtyp int REFERENCES typy_miejsc(id)
+  nadtyp int REFERENCES typy_miejsc(id) --TODO check na cykle
 );
 
 CREATE TABLE miejsca (
   id serial PRIMARY KEY,
   nazwa varchar NOT NULL,
-  nadmiejsce int REFERENCES miejsca(id),
+  nadmiejsce int REFERENCES miejsca(id), --TODO check na typ nadmiejsca
   typ_miejsca int NOT NULL REFERENCES typy_miejsc(id)
 );
 
 CREATE TABLE osoby (
   id serial PRIMARY KEY,
   imie varchar,
-  pozostale_imiona varchar,
+  pozostale_imiona varchar CHECK(imie is not null or pozostale_imiona is null),
   nazwisko_rodowe varchar,
+  matka int REFERENCES osoby(id),
+  ojciec int REFERENCES osoby(id),
   data_ur int REFERENCES daty(id),
   miejsce_ur int REFERENCES miejsca(id),
   wciaz_zyje boolean NOT NULL,
   miejsce_sm int REFERENCES miejsca(id),
   data_sm int REFERENCES daty(id),
   plec boolean
+  --TODO  check data_ur < data_sm , własna funkcja porównująca daty
+  -- check na wciaz_zyje = false, jeżeli data_sm < now()
+  -- ckeck na cykle
+  -- check na plec rodziców
 );
 
 CREATE TABLE typy_rs (
@@ -50,7 +57,8 @@ CREATE TABLE relacje_symetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rs int NOT NULL REFERENCES typy_rs(id),
   miejsce int REFERENCES miejsca(id),
-  data int REFERENCES daty(id)
+  data int REFERENCES daty(id), --TODO check czy osoby wtedy żyły
+  CHECK(osoba1 is not null or osoba2 is not null)
 );
 
 CREATE TABLE relacje_niesymetryczne (
@@ -59,7 +67,8 @@ CREATE TABLE relacje_niesymetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rns int NOT NULL REFERENCES typy_rns(id),
   miejsce int REFERENCES miejsca(id),
-  data int REFERENCES daty(id)
+  data int REFERENCES daty(id), --TODO check czy osoby wtedy żyły
+  CHECK(osoba1 is not null or osoba2 is not null)
 );
 
 CREATE TABLE typy_uwag (
@@ -87,22 +96,20 @@ CREATE TABLE zawody (
 CREATE TABLE zawody_osoby (
   id_osoby int REFERENCES osoby(id),
   id_zawodu int REFERENCES zawody(id),
-  PRIMARY KEY (id_osoby, id_zawodu)
-);
-
-CREATE TABLE miejsce_pracy (
-  id_zawody_osoby int, --???
   stanowisko varchar,
   miejsce int REFERENCES miejsca(id),
   data_od int REFERENCES daty(id),
-  data_do int REFERENCES daty(id)
+  data_do int REFERENCES daty(id),
+  PRIMARY KEY (id_osoby, id_zawodu),
+  --check data_od < data_do
+  --check czy osoba wtedy żyła
 );
 
 CREATE TABLE tytuly (
   id serial PRIMARY KEY,
-  nazwa int NOT NULL,
-  nadtytul int REFERENCES tytuly(id),
-  podtytul int REFERENCES tytuly(id) --???
+  nazwa varchar NOT NULL,
+  skrot varchar,
+  nadtytul int REFERENCES tytuly(id) --TODO check na cykle
 );
 
 CREATE TABLE tytuly_osoby (
@@ -113,8 +120,7 @@ CREATE TABLE tytuly_osoby (
 
 CREATE TABLE grupy (
   id serial PRIMARY KEY,
-  nazwa int NOT NULL,
-  nadgrupa int REFERENCES grupy(id)
+  nazwa int NOT NULL
 );
 
 CREATE TABLE grupy_osoby (
@@ -135,10 +141,10 @@ CREATE SEQUENCE nazwiska_kolejnosc_seq
 
 CREATE TABLE nazwiska (
   id_osoby int REFERENCES osoby(id),
-  wartosc varchar NOT NULL,
-  data_od int REFERENCES daty(id),
+  nazwisko varchar NOT NULL,
+  data_od int REFERENCES daty(id), --TODO check czy osoba wtedy żyła
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
-  PRIMARY KEY (id_osoby, wartosc) --???
+  PRIMARY KEY (id_osoby, wartosc)
 );
 
 COMMIT;

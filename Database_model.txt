@@ -3,27 +3,14 @@ Table osoby {
   imie varchar
   pozostale_imiona varchar
   nazwisko_rodowe varchar
-/*
-  rok_ur numeric(4)
-  miesiac_ur numeric(2)
-  dzien_ur numeric(2)
-  data_ur_okolo boolean [not null]
-*/
-  data_ur undefined
+  matka integer
+  ojciec integer
+  data_ur integer
   miejsce_ur integer
   wciaz_zyje boolean [not null]
-/*
-  rok_sm numeric(4)
-  miesiac_sm numeric(2)
-  dzien_sm numeric(2)
-  data_sm_okolo boolean [not null]
-*/
   miejsce_sm integer
-  data_sm undefined
+  data_sm integer
   plec boolean
-/*
-  uwagi varchar
-*/
 }
 
 Table relacje_symetryczne {
@@ -32,13 +19,7 @@ Table relacje_symetryczne {
   osoba2 integer
   typ_rs integer [not null]
   miejsce integer
-/*
-  rok numeric(4)
-  miesiac numeric(2)
-  dzien numeric(2)
-  data_okolo boolean [not null]
-*/
-  data undefined
+  data integer
 }
 
 Table relacje_niesymetryczne {
@@ -47,29 +28,29 @@ Table relacje_niesymetryczne {
   osoba2 integer
   typ_rns integer [not null]
   miejsce integer
-  data undefined
+  data integer
 }
 
 Table typy_rs {
-  id integer
-  nazwa varchar
+  id integer [primary key]
+  nazwa varchar [not null]
 }
 
 Table typy_rns {
-  id integer
-  nazwa varchar
+  id integer [primary key]
+  nazwa varchar [not null]
 }
 
 Table miejsca {
-  id integer
-  nazwa varchar
+  id integer [primary key]
+  nazwa varchar [not null]
   nadmiejsce integer
   typ_miejsca integer [not null]
 }
 
 Table typy_miejsc {
-  id integer
-  nazwa varchar
+  id integer [primary key]
+  nazwa varchar [not null]
   nadtyp integer
 }
 
@@ -79,8 +60,8 @@ Table uwagi_osoby{
 }
 
 Table uwagi{
-  id_uwagi integer [primary key]
-  zawartosc varchar
+  id integer [primary key]
+  zawartosc varchar [not null]
   typ_uwagi integer
 }
 
@@ -90,29 +71,24 @@ Table typ_uwagi{
 }
 
 Table zawody{
-  id_zawodu integer [primary key]
-  nazwa varchar
+  id integer [primary key]
+  nazwa varchar [not null]
 }
 
 Table zawody_osoby{
-  id integer
   id_osoby integer
   id_zawodu integer
-}
-
-Table miejsce_pracy{
-  id_zawody_osoby integer
-  stanowisko integer
+  stanowisko varchar
   miejsce integer
-  data_od undefined
-  data_do undefined
+  data_od integer
+  data_do integer
 }
 
 Table tytuly{
-  id_tytulu integer [primary key]
+  id integer [primary key]
   nazwa integer
+  skrot varchar
   nadtytul integer
-  podtytul integer
 }
 
 Table tytuly_osoby{
@@ -121,9 +97,8 @@ Table tytuly_osoby{
 }
 
 Table grupy{
-  id_grupy integer
+  id integer
   nazwa integer
-  nadgrupa integer
 }
 
 Table grupy_osoby{
@@ -138,7 +113,7 @@ Table uwagi_grupy{
 
 Table data{
   id_daty integer [primary key]
-  rok integer
+  rok integer [not null]
   miesiac integer
   dzien integer
   czy_dokladna boolen [not null]
@@ -146,8 +121,8 @@ Table data{
 
 Table nazwiska{
   id_osoby integer
-  wartosc varchar
-  data_od undefined_date
+  nazwisko varchar
+  data_od integer
   kolejnosc integer [not null] 
 }
 
@@ -165,48 +140,30 @@ Ref: "typy_rns"."id" < "relacje_niesymetryczne"."typ_rns"
 
 Ref: "miejsca"."nadmiejsce" < "miejsca"."id"
 
-Ref: "relacje_symetryczne"."miejsce" < "miejsca"."id"
-
-Ref: "miejsca"."id" < "osoby"."miejsce_sm"
-
-Ref: "miejsca"."id" < "osoby"."miejsce_ur"
-
 Ref: "miejsca"."typ_miejsca" < "typy_miejsc"."id"
 
 Ref: "typ_uwagi"."typ_uwagi" < "uwagi"."typ_uwagi"
 
 Ref: "zawody_osoby"."id_osoby" < "osoby"."id"
 
-Ref: "zawody_osoby"."id_zawodu" < "zawody"."id_zawodu"
+Ref: "zawody_osoby"."id_zawodu" < "zawody"."id"
 
-Ref: "tytuly"."id_tytulu" < "tytuly_osoby"."id_tytulu"
+Ref: "tytuly"."id" < "tytuly_osoby"."id_tytulu"
 
 Ref: "tytuly_osoby"."id_osoby" < "osoby"."id"
 
-Ref: "relacje_niesymetryczne"."miejsce" < "miejsca"."id"
-
-
 Ref: "osoby"."id" < "uwagi_osoby"."id_osoby"
 
-Ref: "uwagi_osoby"."id_uwagi" < "uwagi"."id_uwagi"
+Ref: "uwagi_osoby"."id_uwagi" < "uwagi"."id"
 
-Ref: "tytuly"."nadtytul" < "tytuly"."id_tytulu"
+Ref: "tytuly"."nadtytul" < "tytuly"."id"
 
 Ref: "grupy_osoby"."id_osoby" < "osoby"."id"
 
-Ref: "grupy_osoby"."id_grupy" < "grupy"."id_grupy"
+Ref: "grupy_osoby"."id_grupy" < "grupy"."id"
 
-Ref: "grupy"."nadgrupa" < "grupy"."id_grupy"
+Ref: "uwagi_grupy"."id_grupy" < "grupy"."id"
 
-Ref: "uwagi_grupy"."id_grupy" < "grupy"."id_grupy"
-
-Ref: "uwagi_grupy"."id_uwagi" < "uwagi"."id_uwagi"
-
-Ref: "tytuly"."podtytul" < "tytuly"."id_tytulu"
-
-Ref: "zawody_osoby"."id" < "miejsce_pracy"."id_zawody_osoby"
-
-Ref: "miejsce_pracy"."miejsce" < "miejsca"."id"
-
+Ref: "uwagi_grupy"."id_uwagi" < "uwagi"."id"
 
 Ref: "osoby"."id" < "nazwiska"."id_osoby"
