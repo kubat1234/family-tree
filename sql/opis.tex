@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\usepackage[utf8]{inputenc}   % dla UTF-8
+\usepackage[T1]{fontenc}      % obsługa polskich liter
+\usepackage[polish]{babel}
+
+\title{Metody Programowania Blok 3}
+\author{Krzysztof Peszko }
+\date{April 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Zadanie 1 (Zestaw 7)}
+Główną ideą rozwiązania, jest puszczenie BFS z wsyztskich czarnych wierzchołków, aż jakieś BFS-y różnych wierzchołków się spotkają.
+\subsection{ Przygotowanie}
+Dla każdego wierzchołka ustawamy 3 tablice:
+\\
+-odl[] - odległość od najbliżeszgo czarnego wierzchołka
+\\
+-ost[] - element, z którego aktywowana ten wierzchołek(więcej póżniej w ramach algorytmu BFS.
+\\
+-leader[] - czarny element z którego zaczyna się ścieżka
+\subsection{Równoległy BFS}
+Robimy klasyczną interpretacje BFS-a, tylko zmieniając kilka rzeczy \\
+Na start, wrzucamy nie jeden wierzchołek, a tyle wierzchołków ile jest czarnych wierzchołków. \\
+W ramach jednego wywołania, trzymamy krawędź, która dodajemy (z wierzchołka u, który już obsłużyliśmy do wierzchołka v) \\
+W przypadku startowym wrzucamy, że poprzedni wierzchołek to wirtualny wiezrchołek 0.
+\subsection{Algorytm obsługi kolejnych krawędzi}
+Krawędz ma dwie wartości u, czyli wierzchołek, z którego przyszła i v czyli wiezchołek do któejo doszła.
+\subsubsection{Pierwsza krawedź ($u == 0$)}
+Jeśli krawędź jest pierwsza, to ustawiamy: \\
+$odl[v] = 0$ \\
+$ost[v] = -1$ \\
+$leader[v] = v$ \\
+Oraz na koniec aktywujemy wierzchołek v.
+\subsubsection{Co jeśli wierzchołek v nie był aktywowany wcześniej}
+Wówczas ustwawiamy wiezrzchołkowi $v$ wartości: \\
+$odl[v] = odl[u] + 1$ \\
+$ost[v] = u$ \\
+$leader[v] = leader[u]$ \\
+Po ustawieniu aktywujemy wierzchołek $v$
+\subsubsection{Co jeśli wierzchołek v był aktywowany wcześniej}
+Wówczas sprawdzmy rzecz, czy $leader[v] = leader[u]$. Jeśli odpowiedż jest poporawna, oznacza, to, że znaleźliśmy ścieżkę, prowadzącą z wierzchoka $w$ do wierzchołka $w$, co nas nie interesuje, więc taki przypadek po prostu ignorujemy.\\
+Jeśli chodzi, o negatywną odpowiedź to wóczas oznacza, że znaleźliśmy ścieżkę między dwoma różnymi wierzchołkami. Długość tej ścieżki obliczamy jako $l = odl[u] + odl[v] + 1$, w miarę prosty wzorek, $odl[u]$ od odległość między czarnym wierzchołkiem, a $u$, a +1 to krawędź między $u$  i $v$. \\
+Niestety ścieżka, którą otrzymaliśmy nie musi być najkrótsza (może być o 1 dłuższa od najkrótszej). Dla tego musimy nie kończyć, po tym jak znajdziemy pierwszą ścieżkę. Dla ułatwienia powiem, że kończymy, cały BFS(da się lepiej, ale nie zmienia to złożoności pesymisteczej) i bierzemy minimumu, bo długości wszystkich ścieżek. 
+
+\subsubsection{Złożoność Algorytmiczna}
+Każdy wierzchołek aktywujemy raz, a po każdej krawędzi przechodzimy maksymalnie 2 razy, więc złożoność to $O(n+m)$.
+
+\subsubsection{Poprawność}
+Łatwo da się odowodnić (przez sprzeczność), że najkrótsza ścieżka zostanie wybrana. Natomiast reszta jest równoważna z działaniem algorytmu BFS.
+
+\subsection{Jak ze znalezionej najkrótszej ścieżki odzyskać, kolejny elementy na ścieżce}
+Wystarczy nam zapamiętać tylko 3 informacje długość, i wierzchołki ($u$ i $v$), gdzie doszło do spotkania.\\
+Tworzymy więc tablice kolejnych wierzchołków na ścieżce, a korzystamy z tego przy użyciu tablicy $ost[]$. Działa to tak, żę zaczynamy od $u$ i a potem tworzymy tymczasową wartość $t = ost[u]$ i wrzucamy to na początek listy. Kontynujemy to, wrzucając w pętli $while$, kolejne elementyy, które definiujemy, jako: $t = ost[t]$ i robimy to aż $ost[t]$ jest równy $-1$. Robimy podobmnie z wierzchołkami generowanymi w ten sposób przez $v$, tylko, że zamiast na początek, wrzcuamy na koniec listy. Można zauważyć, że powstała lista zaczyan się od 1 czarnego wierzchołka przechodzi po sąsaidach, dochodzi do $u$, a następnie jest $v$ i potem idziemy nadal po sąsiadach, aż dochodzimy do czarnego wierzchołka. Czyli otrzymaliśmu kolejne numery na najkrótszej ścieżce, jakich szukaliśmy. \\
+Łatwo zauważyć, że ta cześć algorytmu jest liniowa względem liczby wiezchołków, więc ma $O(n)$.
+\subsection{Końcowa złożoność}
+\[
+    O(n+m) + O(n) = O(n+m)
+\]
+\end{document}
