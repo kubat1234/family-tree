@@ -65,8 +65,8 @@ Table uwagi{
   typ_uwagi integer
 }
 
-Table typ_uwagi{
-  typ_uwagi integer [primary key]
+Table typy_uwag{
+  id integer [primary key]
   nazwa varchar
 }
 
@@ -138,32 +138,32 @@ Ref: "typy_rs"."id" < "relacje_symetryczne"."typ_rs"
 
 Ref: "typy_rns"."id" < "relacje_niesymetryczne"."typ_rns"
 
-Ref: "miejsca"."nadmiejsce" < "miejsca"."id"
+Ref: "miejsca"."id" < "miejsca"."nadmiejsce"
 
-Ref: "miejsca"."typ_miejsca" < "typy_miejsc"."id"
+Ref: "typy_miejsc"."id" < "miejsca"."typ_miejsca" 
 
-Ref: "typ_uwagi"."typ_uwagi" < "uwagi"."typ_uwagi"
+Ref: "typy_uwag"."id" < "uwagi"."typ_uwagi"
 
-Ref: "zawody_osoby"."id_osoby" < "osoby"."id"
+Ref: "osoby"."id" < "zawody_osoby"."id_osoby"
 
-Ref: "zawody_osoby"."id_zawodu" < "zawody"."id"
+Ref: "zawody"."id" < "zawody_osoby"."id_zawodu" 
 
 Ref: "tytuly"."id" < "tytuly_osoby"."id_tytulu"
 
-Ref: "tytuly_osoby"."id_osoby" < "osoby"."id"
+Ref: "osoby"."id" < "tytuly_osoby"."id_osoby"
 
 Ref: "osoby"."id" < "uwagi_osoby"."id_osoby"
 
-Ref: "uwagi_osoby"."id_uwagi" < "uwagi"."id"
+Ref: "uwagi"."id" < "uwagi_osoby"."id_uwagi"
 
-Ref: "tytuly"."nadtytul" < "tytuly"."id"
+Ref: "tytuly"."id" < "tytuly"."nadtytul"
 
-Ref: "grupy_osoby"."id_osoby" < "osoby"."id"
+Ref: "osoby"."id" < "grupy_osoby"."id_osoby"
 
-Ref: "grupy_osoby"."id_grupy" < "grupy"."id"
+Ref: "grupy"."id" < "grupy_osoby"."id_grupy" 
 
-Ref: "uwagi_grupy"."id_grupy" < "grupy"."id"
+Ref: "grupy"."id" < "uwagi_grupy"."id_grupy" 
 
-Ref: "uwagi_grupy"."id_uwagi" < "uwagi"."id"
+Ref: "uwagi"."id" < "uwagi_grupy"."id_uwagi" 
 
 Ref: "osoby"."id" < "nazwiska"."id_osoby"
