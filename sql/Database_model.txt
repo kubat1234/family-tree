@@ -76,8 +76,9 @@ Table zawody{
 }
 
 Table zawody_osoby{
-  id_osoby integer
-  id_zawodu integer
+  id [primary key]
+  id_osoby integer [not null]
+  id_zawodu integer [not null]
   stanowisko varchar
   miejsce integer
   data_od integer

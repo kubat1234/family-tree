@@ -94,13 +94,13 @@ CREATE TABLE zawody (
 );
 
 CREATE TABLE zawody_osoby (
-  id_osoby int REFERENCES osoby(id),
-  id_zawodu int REFERENCES zawody(id),
+  id serial PRIMARY KEY
+  id_osoby int NOT NULL REFERENCES osoby(id),
+  id_zawodu int NOT NULL REFERENCES zawody(id),
   stanowisko varchar,
   miejsce int REFERENCES miejsca(id),
   data_od int REFERENCES daty(id),
   data_do int REFERENCES daty(id),
-  PRIMARY KEY (id_osoby, id_zawodu),
   --check data_od < data_do
   --check czy osoba wtedy żyła
 );
