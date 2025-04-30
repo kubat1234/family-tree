@@ -5,67 +5,71 @@
 \usepackage[T1]{fontenc}      % obsługa polskich liter
 \usepackage[polish]{babel}
 
-\iffalse
-\title{Metody Programowania Blok 3}
-\author{Krzysztof Peszko }
-\date{April 2025}
-\fi
 
 \title{Drzewo genealogiczne}
-\author{Krzysztof Peszko (gr. 1), 
-Jakub Sułkowski (gr 3), Jakub Trela (gr 1)}
+\author{Krzysztof Peszko (gr. 1) \\
+Jakub Sułkowski (gr. 3) \\ Jakub Trela (gr. 1)}
 \date{Inżynieria Danych 2025}
 
 \begin{document}
 
 \maketitle
 
-\section{Zadanie 1 (Zestaw 7)}
-Główną ideą rozwiązania, jest puszczenie BFS z wsyztskich czarnych wierzchołków, aż jakieś BFS-y różnych wierzchołków się spotkają.
-\subsection{ Przygotowanie}
-Dla każdego wierzchołka ustawamy 3 tablice:
-\\
--odl[] - odległość od najbliżeszgo czarnego wierzchołka
-\\
--ost[] - element, z którego aktywowana ten wierzchołek(więcej póżniej w ramach algorytmu BFS.
-\\
--leader[] - czarny element z którego zaczyna się ścieżka
-\subsection{Równoległy BFS}
-Robimy klasyczną interpretacje BFS-a, tylko zmieniając kilka rzeczy \\
-Na start, wrzucamy nie jeden wierzchołek, a tyle wierzchołków ile jest czarnych wierzchołków. \\
-W ramach jednego wywołania, trzymamy krawędź, która dodajemy (z wierzchołka u, który już obsłużyliśmy do wierzchołka v) \\
-W przypadku startowym wrzucamy, że poprzedni wierzchołek to wirtualny wiezrchołek 0.
-\subsection{Algorytm obsługi kolejnych krawędzi}
-Krawędz ma dwie wartości u, czyli wierzchołek, z którego przyszła i v czyli wiezchołek do któejo doszła.
-\subsubsection{Pierwsza krawedź ($u == 0$)}
-Jeśli krawędź jest pierwsza, to ustawiamy: \\
-$odl[v] = 0$ \\
-$ost[v] = -1$ \\
-$leader[v] = v$ \\
-Oraz na koniec aktywujemy wierzchołek v.
-\subsubsection{Co jeśli wierzchołek v nie był aktywowany wcześniej}
-Wówczas ustwawiamy wiezrzchołkowi $v$ wartości: \\
-$odl[v] = odl[u] + 1$ \\
-$ost[v] = u$ \\
-$leader[v] = leader[u]$ \\
-Po ustawieniu aktywujemy wierzchołek $v$
-\subsubsection{Co jeśli wierzchołek v był aktywowany wcześniej}
-Wówczas sprawdzmy rzecz, czy $leader[v] = leader[u]$. Jeśli odpowiedż jest poporawna, oznacza, to, że znaleźliśmy ścieżkę, prowadzącą z wierzchoka $w$ do wierzchołka $w$, co nas nie interesuje, więc taki przypadek po prostu ignorujemy.\\
-Jeśli chodzi, o negatywną odpowiedź to wóczas oznacza, że znaleźliśmy ścieżkę między dwoma różnymi wierzchołkami. Długość tej ścieżki obliczamy jako $l = odl[u] + odl[v] + 1$, w miarę prosty wzorek, $odl[u]$ od odległość między czarnym wierzchołkiem, a $u$, a +1 to krawędź między $u$  i $v$. \\
-Niestety ścieżka, którą otrzymaliśmy nie musi być najkrótsza (może być o 1 dłuższa od najkrótszej). Dla tego musimy nie kończyć, po tym jak znajdziemy pierwszą ścieżkę. Dla ułatwienia powiem, że kończymy, cały BFS(da się lepiej, ale nie zmienia to złożoności pesymisteczej) i bierzemy minimumu, bo długości wszystkich ścieżek. 
+\section{Tematyka}
+Projektem jest baza danych genealogicznych. Projekt jest łączony z kursem Programowanie Obiektowe, na który przygotowujemy aplikację do wyświetlania drzew i modyfikacji danych. Dla każdej osoby, poza danymi osobowymi oraz informacjami o pokrewieństwie, przechowujemy także między innymi wykonywane zawody, zdobyte tytuły oraz przynależności do różnych społeczności.
 
-\subsubsection{Złożoność Algorytmiczna}
-Każdy wierzchołek aktywujemy raz, a po każdej krawędzi przechodzimy maksymalnie 2 razy, więc złożoność to $O(n+m)$.
+\section{Schemat}
+\includegraphics[width=\textwidth]{example-image-golden}
+Centralną tabelą w bazie jest tabela \texttt{osoby}. Pozostałe tabele można podzielić na kilka grup.
 
-\subsubsection{Poprawność}
-Łatwo da się odowodnić (przez sprzeczność), że najkrótsza ścieżka zostanie wybrana. Natomiast reszta jest równoważna z działaniem algorytmu BFS.
+\subsection{Daty i miejsca}
+Do tych dwóch tabel odwołuje się bardzo wiele tabel z różnych części schematu. Dla czytelności pozwoliliśmy sobie nie rysować wszystkich tych połączeń.
 
-\subsection{Jak ze znalezionej najkrótszej ścieżki odzyskać, kolejny elementy na ścieżce}
-Wystarczy nam zapamiętać tylko 3 informacje długość, i wierzchołki ($u$ i $v$), gdzie doszło do spotkania.\\
-Tworzymy więc tablice kolejnych wierzchołków na ścieżce, a korzystamy z tego przy użyciu tablicy $ost[]$. Działa to tak, żę zaczynamy od $u$ i a potem tworzymy tymczasową wartość $t = ost[u]$ i wrzucamy to na początek listy. Kontynujemy to, wrzucając w pętli $while$, kolejne elementyy, które definiujemy, jako: $t = ost[t]$ i robimy to aż $ost[t]$ jest równy $-1$. Robimy podobmnie z wierzchołkami generowanymi w ten sposób przez $v$, tylko, że zamiast na początek, wrzcuamy na koniec listy. Można zauważyć, że powstała lista zaczyan się od 1 czarnego wierzchołka przechodzi po sąsaidach, dochodzi do $u$, a następnie jest $v$ i potem idziemy nadal po sąsiadach, aż dochodzimy do czarnego wierzchołka. Czyli otrzymaliśmu kolejne numery na najkrótszej ścieżce, jakich szukaliśmy. \\
-Łatwo zauważyć, że ta cześć algorytmu jest liniowa względem liczby wiezchołków, więc ma $O(n)$.
-\subsection{Końcowa złożoność}
-\[
-    O(n+m) + O(n) = O(n+m)
-\]
+W przypadku miejsc wprowadziliśmy strukturę hierarchiczną, np. dom jest na ulicy, ulica jest w miejscowości itp.
+
+Często daty z życia przodków jesteśmy w stanie oszacować jedynie z pewną dokładnością, dlatego dodaliśmy w tabeli \texttt{daty} atrybut \texttt{czy\_dokladna}, a dzień i miesiąc są nieobowiązkowe.
+
+\subsection{Osoby}
+Jest to centralna tabela, zawierająca podstawowe informacje o każdej osobie.
+
+Pozostałe imiona nie są w trzeciej postaci normalnej, ponieważ zapytania o osobne imiona (późniejsze) nie mają wystarczających zastosować, by uzasadniało to tworzenie nowej tabeli.
+
+Informacja z kolumny \texttt{wciaz\_zyje} może wydawać się na pierwszy rzut oka redundantną skoro znamy datę śmierci, ale data śmierci może być nieznana (\texttt{null}), a więc w takich przypadkach atrybut \texttt{wciaz\_zyje} jest przydatny.
+
+Płeć ma 3 stany (\texttt{true} - mężczyzna, \texttt{false} - kobieta, \texttt{null} - inne/nieznane), sytuacje inne mogą być doprecyzowane w uwagach.
+
+Tabela \texttt{nazwiska} pozwala na przypisanie wielu nazwisk do danej osoby. Domyślnie \texttt{kolejnosc} przydzielana jest co 100, co daje nam łatwą możliwość, mając dane nazwiska “a” (o przydzielonej stałej 100) i “b” (200), dodać nazwisko “c” pomiędzy “a” i “b” o stałej 150. Klucz główny tej relacji jest parą (\texttt{id\_osoby}, \texttt{nazwisko}), bo każda osoba można mieć wiele nazwisk, ale każde inne, a różne osoby mogą nosić to samo nazwisko.
+
+Stworzyliśmy osobny atrybut \texttt{nazwisko\_rodowe} w tabeli \texttt{osoby}, ponieważ jest ono jedyne, wyszczególnione i zawsze (o ile jest znane) pierwsze w kolejności nazwisk.
+
+\subsection{Relacje}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{example-image-golden}
+\end{center}
+
+Ta część bazy zawiera dwie główne tabele. Tabela \texttt{relacje\_niesymetryczne} opisuje między innymi adopcję jako relację między rodzicem a przysposobionym.
+
+Celowo relacja dziecka z rodzicami biologicznymi została zawarta w tabeli \texttt{osoby}, gdyż w przeciwnym wypadku prowadziłoby to do pewnej redundancji - relacja
+rodzic-dziecko powstaje dokładnie w momencie urodzenia, którego data jest już znana.
+
+Druga tabela to \texttt{relacje\_symetryczne}. Opisuje powiązania binarne, takie jak małżeństwa czy związki nieformalne.
+
+\subsection{Grupy}
+
+Dla każdej osoby przechowujemy społeczności (np. grupy wyznaniowe, nielubiana część rodziny) do których należy w relacji wiele do wielu.
+
+\subsection{Tytuły}
+
+Dla każdej osoby przechowujemy tytuły w relacji wiele do wielu.
+
+\subsection{Zawody}
+
+Zawody są w relacji wiele do wielu z osobami. Tabela odpowiadająca za tę relację, \texttt{zawody\_osoby}, zawiera dodatkowe informacje o pracy, którą dana osoba wykonywała w danym zawodzie.
+
+\subsection{Uwagi}
+
+Na wypadek nieprzewidzianych sytuacji dajemy możliwość dodania dodatkowych informacji. W tym momencie dajemy możliwość dodania uwagi dla konkretnej osoby lub dla grupy osób, ale nie wykluczamy rozbudowania tej funkcjonalności o bardziej szczegółowe uwagi, np. do daty lub do miejsca.
+
+
 \end{document}
