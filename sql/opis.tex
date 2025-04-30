@@ -19,7 +19,9 @@ Jakub Sułkowski (gr. 3) \\ Jakub Trela (gr. 1)}
 Projektem jest baza danych genealogicznych. Projekt jest łączony z kursem Programowanie Obiektowe, na który przygotowujemy aplikację do wyświetlania drzew i modyfikacji danych. Dla każdej osoby, poza danymi osobowymi oraz informacjami o pokrewieństwie, przechowujemy także między innymi wykonywane zawody, zdobyte tytuły oraz przynależności do różnych społeczności.
 
 \section{Schemat}
-\includegraphics[width=\textwidth]{example-image-golden}
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{img/Database_plan.png}
+\end{center}
 Centralną tabelą w bazie jest tabela \texttt{osoby}. Pozostałe tabele można podzielić na kilka grup.
 
 \subsection{Daty i miejsca}
@@ -45,7 +47,7 @@ Stworzyliśmy osobny atrybut \texttt{nazwisko\_rodowe} w tabeli \texttt{osoby}, 
 \subsection{Relacje}
 
 \begin{center}
-    \includegraphics[width=0.6\textwidth]{example-image-golden}
+    \includegraphics[width=0.9\textwidth]{img/Database_plan_a}
 \end{center}
 
 Ta część bazy zawiera dwie główne tabele. Tabela \texttt{relacje\_niesymetryczne} opisuje między innymi adopcję jako relację między rodzicem a przysposobionym.
@@ -71,5 +73,22 @@ Zawody są w relacji wiele do wielu z osobami. Tabela odpowiadająca za tę rela
 
 Na wypadek nieprzewidzianych sytuacji dajemy możliwość dodania dodatkowych informacji. W tym momencie dajemy możliwość dodania uwagi dla konkretnej osoby lub dla grupy osób, ale nie wykluczamy rozbudowania tej funkcjonalności o bardziej szczegółowe uwagi, np. do daty lub do miejsca.
 
+\section{Plany rozwoju bazy}
 
+\subsection{Funkcje}
+W dalszych etapach pracy planujemy napisać różne funkcje, między innymi:
+\begin{itemize}
+\item funkcje przechodzące po drzewie genealogicznym, np. funkcja sprawdzająca, czy ktoś nie jest swoim własnym przodkiem, zwracająca przodków lub zwracająca potomków danej osoby.
+\item funkcje przydatne do sprawdzania integralności bazy, np. sprawdzająca, czy tytuł nie jest swoim nadtytułem, lub czy dana osoba żyła w danym okresie (20 latek nie może pracować od 30 lat)
+\item funkcje obsługujące nasz typ dat (miesiąc albo dzień mogą być \texttt{null}), np. porównująca dwie daty lub konwertująca na datę w formacie sql
+\item funkcje ułatwiające zapytania do bazy
+\end{itemize}
+
+\subsection{Checki}
+
+Planujemy napisać dodatkowe checki wykorzystujące napisane funkcje, m.in. sprawdzanie, czy w drzewie genealogicznym nie ma cykli, czy data urodzenia jest przed datą śmierci, albo czy dana osoba nie pracowała przed urodzeniem lub po śmierci.
+
+\subsection{Perspektywy}
+
+Planujemy napisać różne perspektywy, aby ułatwić złożone zapytania.
 \end{document}
