@@ -284,20 +284,13 @@ COPY tytuly_osoby(id_osoby, id_tytulu) FROM stdin WITH DELIMITER ' ';
 8 3
 \.
 
-COPY nazwiska(id_osoby, nazwisko) FROM stdin WITH DELIMITER ' ';
-1 Nowak
-2 Nowak
-3 Nowak
-4 Nowak
-5 Nowak
-5 Kowal
-6 Kowal
-7 Kowal
-8 Kowal
-9 Kowal
-10 Kowal
-11 Kowal
-12 Kowal
+COPY nazwiska(id_osoby, nazwisko, data_od) FROM stdin WITH DELIMITER ' ';
+1 Nowak \N
+3 Nowak 21
+5 Kowal \N
+5 Nowak-Kowal 8
+9 Kowal 12
+10 Kowal 18
 \.
 
 COMMIT;
