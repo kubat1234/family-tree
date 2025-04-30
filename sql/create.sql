@@ -161,4 +161,6 @@ CREATE TABLE nazwiska (
   PRIMARY KEY (id_osoby, nazwisko)
 );
 
+COPY daty(rok, miesiac, dzien, czy_dokladna)
+
 COMMIT;
