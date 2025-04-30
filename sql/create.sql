@@ -134,7 +134,7 @@ CREATE TABLE tytuly_osoby (
 
 CREATE TABLE grupy (
   id serial PRIMARY KEY,
-  nazwa int NOT NULL
+  nazwa varchar NOT NULL
 );
 
 CREATE TABLE grupy_osoby (
@@ -161,6 +161,143 @@ CREATE TABLE nazwiska (
   PRIMARY KEY (id_osoby, nazwisko)
 );
 
-COPY daty(rok, miesiac, dzien, czy_dokladna)
+COPY daty(id, rok, miesiac, dzien, czy_dokladna) FROM stdin WITH DELIMITER ' ';
+1 1899 \N \N 0
+2 1921 \N \N 0
+3 1949 \N \N 0
+4 1956 4 \N 0
+5 1925 1 \N 0
+6 1935 9 19 0
+7 1933 12 12 0
+8 1966 7 18 1
+9 1975 3 3 1
+10 1983 5 5 1
+11 1985 \N \N 0
+12 1988 3 \N 0
+13 1956 4 \N 0
+14 1949 \N \N 0
+15 2003 6 9 1
+16 2005 1 1 1
+17 2008 11 17 1
+18 1010 3 3 1
+19 2009 4 22 1
+20 1925 1 \N 0
+21 2013 11 13 1
+22 2015 12 18 1
+\.
+
+COPY typy_miejsc (nazwa, nadtyp) FROM stdin WITH DELIMITER ' ';
+kraj \N
+miasto 1
+ulica 2
+dom 3
+\.
+
+COPY miejsca (nazwa, nadmiejsce, typ_miejsca) FROM stdin WITH DELIMITER ' ';
+Polska \N 1
+Kraków 1 2
+Basztowa 2 3
+8 3 4
+\.
+
+COPY osoby (id,imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur, miejsce_ur, wciaz_zyje, miejsce_sm, data_sm, plec) FROM stdin WITH DELIMITER ' ';
+1 Stefania \N \N \N \N \N \N 0 \N \N 1
+2 Jan \N Nowak 1 \N \N \N 0 \N 14 0
+3 Genowefa \N Wilkoryj \N \N 1 \N 0 \N 13 1
+4 Stanisław \N Nowak 3 2 20 \N 0 \N 19 0
+5 Dorota \N Nowak 3 2 6 \N 0 \N 16 1
+6 Krzysztof \N Kowal \N \N 7 \N 0 \N 21 0
+7 Adam \N Kowal 5 6 9 \N 0 \N 15 0
+8 Antoni \N Kowal 5 6 9 \N 0 \N 15 0
+9 Konrad \N \N \N \N 11 \N 1 \N \N 0
+10 Martyna Weronika Wielka \N \N 10 2 1 \N \N 1
+11 Jakub Piotr Kowal 10 9 17 3 1 \N \N 0
+12 Maria Martyna Kowal 10 9 22 4 1 \N \N 1
+\.
+
+COPY typy_rs (nazwa) FROM stdin WITH DELIMITER ' ';
+małżeństwo
+narzeczeństwo
+\.
+
+COPY typy_rns (nazwa) FROM stdin WITH DELIMITER ' ';
+adopcja
+\.
+
+COPY relacje_symetryczne(osoba1, osoba2, typ_rs, miejsce, data) FROM stdin WITH DELIMITER ' ';
+2 3 1 \N 2
+5 6 1 2 8
+9 10 2 2 18
+\.
+
+COPY relacje_niesymetryczne(osoba1, osoba2, typ_rns, miejsce, data) FROM stdin WITH DELIMITER ' ';
+5 9 1 \N 12
+6 9 1 \N 12
+\.
+
+COPY typy_uwag (nazwa) FROM stdin WITH DELIMITER ' ';
+rozwód
+\.
+
+COPY uwagi (zawartosc, typ_uwagi) FROM stdin WITH DELIMITER ',';
+Rozwód w 1990,1
+Rodzina ich nie lubi,\N
+\.
+
+COPY uwagi_osoby (id_uwagi, id_osoby) FROM stdin WITH DELIMITER ' ';
+1 5
+1 6
+\.
+
+COPY grupy (nazwa) FROM stdin WITH DELIMITER ' ';
+Bliźniaki
+\.
+
+COPY grupy_osoby(id_grupy, id_osoby) FROM stdin WITH DELIMITER ' ';
+1 7
+1 8
+\.
+
+COPY uwagi_grupy(id_grupy, id_uwagi) FROM stdin WITH DELIMITER ' ';
+1 1
+\.
+
+COPY zawody(nazwa) FROM stdin WITH DELIMITER ',';
+stolarz
+informatyk
+\.
+
+COPY zawody_osoby(id_osoby, id_zawodu, stanowisko, miejsce) FROM stdin WITH DELIMITER ',';
+2,1,\N,\N
+9,2,senior project manager, 2
+\.
+
+COPY tytuly(nazwa, skrot, nadtytul) FROM stdin WITH DELIMITER ' ';
+Ksiądz ks \N
+Porucznik \N \N
+Podporucznik \N 2
+\.
+
+COPY tytuly_osoby(id_osoby, id_tytulu) FROM stdin WITH DELIMITER ' ';
+4 1
+7 2
+8 3
+\.
+
+COPY nazwiska(id_osoby, nazwisko) FROM stdin WITH DELIMITER ' ';
+1 Nowak
+2 Nowak
+3 Nowak
+4 Nowak
+5 Nowak
+5 Kowal
+6 Kowal
+7 Kowal
+8 Kowal
+9 Kowal
+10 Kowal
+11 Kowal
+12 Kowal
+\.
 
 COMMIT;
