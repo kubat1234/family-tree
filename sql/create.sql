@@ -1,12 +1,26 @@
 BEGIN;
 
+CREATE OR REPLACE FUNCTION dni_w_miesiacu(p_rok INT, p_miesiac INT)
+RETURNS INT AS $$
+BEGIN
+    RETURN EXTRACT(DAY FROM (DATE_TRUNC('month', MAKE_DATE(p_rok, p_miesiac, 1)) + INTERVAL '1 month - 1 day'));
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION czy_rok_przestepny(p_rok INT)
+RETURNS BOOLEAN AS $$
+BEGIN
+    RETURN (p_rok % 4 = 0 AND p_rok % 100 != 0) OR (p_rok % 400 = 0);
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TABLE daty (
   id serial PRIMARY KEY,
   rok int NOT NULL CHECK(rok > 0),
   miesiac int CHECK(miesiac BETWEEN 1 AND 12),
   dzien int CHECK(dzien BETWEEN 1 AND 31), --TODO lepszy check na dzien
   czy_dokladna boolean NOT NULL,
-  CHECK (miesiac is not null or dzien is null),
+  CHECK (miesiac is not null or dzien is null)
 );
 
 CREATE TABLE typy_miejsc (
@@ -94,13 +108,13 @@ CREATE TABLE zawody (
 );
 
 CREATE TABLE zawody_osoby (
-  id serial PRIMARY KEY
+  id serial PRIMARY KEY,
   id_osoby int NOT NULL REFERENCES osoby(id),
   id_zawodu int NOT NULL REFERENCES zawody(id),
   stanowisko varchar,
   miejsce int REFERENCES miejsca(id),
   data_od int REFERENCES daty(id),
-  data_do int REFERENCES daty(id),
+  data_do int REFERENCES daty(id)
   --check data_od < data_do
   --check czy osoba wtedy żyła
 );
@@ -144,7 +158,9 @@ CREATE TABLE nazwiska (
   nazwisko varchar NOT NULL,
   data_od int REFERENCES daty(id), --TODO check czy osoba wtedy żyła
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
-  PRIMARY KEY (id_osoby, wartosc)
+  PRIMARY KEY (id_osoby, nazwisko)
 );
+
+COPY daty(rok, miesiac, dzien, czy_dokladna)
 
 COMMIT;
