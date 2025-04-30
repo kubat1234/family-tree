@@ -23,4 +23,7 @@ DROP TABLE IF EXISTS nazwiska CASCADE;
 
 DROP SEQUENCE IF EXISTS nazwiska_kolejnosc_seq;
 
+DROP FUNCTION IF EXISTS dni_w_miesiacu;
+DROP FUNCTION IF EXISTS czy_rok_przestepny;
+
 COMMIT;
