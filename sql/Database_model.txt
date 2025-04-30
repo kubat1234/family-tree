@@ -55,8 +55,8 @@ Table typy_miejsc {
 }
 
 Table uwagi_osoby{
-  id_uwagi integer
-  id_osoby integer
+  id_uwagi integer [primary key]
+  id_osoby integer [primary key]
 }
 
 Table uwagi{
@@ -67,7 +67,7 @@ Table uwagi{
 
 Table typy_uwag{
   id integer [primary key]
-  nazwa varchar
+  nazwa varchar [not null]
 }
 
 Table zawody{
@@ -87,32 +87,32 @@ Table zawody_osoby{
 
 Table tytuly{
   id integer [primary key]
-  nazwa integer
+  nazwa integer [not null]
   skrot varchar
   nadtytul integer
 }
 
 Table tytuly_osoby{
-  id_osoby integer
-  id_tytulu integer
+  id_osoby integer [primary key]
+  id_tytulu integer [primary key]
 }
 
 Table grupy{
-  id integer
+  id integer [primary key]
   nazwa integer
 }
 
 Table grupy_osoby{
-  id_grupy integer
-  id_osoby integer
+  id_grupy integer [primary key]
+  id_osoby integer [primary key]
 }
 
 Table uwagi_grupy{
-  id_grupy integer
-  id_uwagi integer
+  id_grupy integer [primary key]
+  id_uwagi integer [primary key]
 }
 
-Table data{
+Table daty{
   id_daty integer [primary key]
   rok integer [not null]
   miesiac integer
@@ -121,19 +121,19 @@ Table data{
 }
 
 Table nazwiska{
-  id_osoby integer
-  nazwisko varchar
+  id_osoby integer [primary key]
+  nazwisko varchar [primary key]
   data_od integer
   kolejnosc integer [not null] 
 }
 
-Ref: "osoby"."id" < "relacje_symetryczne"."osoba1"
+Ref: "osoby"."id" > "relacje_symetryczne"."osoba1"
 
-Ref: "osoby"."id" < "relacje_symetryczne"."osoba2"
+Ref: "osoby"."id" > "relacje_symetryczne"."osoba2"
 
-Ref: "osoby"."id" < "relacje_niesymetryczne"."osoba1"
+Ref: "osoby"."id" > "relacje_niesymetryczne"."osoba1"
 
-Ref: "osoby"."id" < "relacje_niesymetryczne"."osoba2"
+Ref: "osoby"."id" > "relacje_niesymetryczne"."osoba2"
 
 Ref: "typy_rs"."id" < "relacje_symetryczne"."typ_rs"
 
@@ -168,3 +168,7 @@ Ref: "grupy"."id" < "uwagi_grupy"."id_grupy"
 Ref: "uwagi"."id" < "uwagi_grupy"."id_uwagi" 
 
 Ref: "osoby"."id" < "nazwiska"."id_osoby"
+
+Ref: "osoby"."id" < "osoby"."matka"
+
+Ref: "osoby"."id" < "osoby"."ojciec"
