@@ -27,3 +27,8 @@ sql/opis.fdb_latexmk
 sql/opis.fls
 sql/opis.synctex.gz
 sql/opis.pdf
+
+FamiliTree/
+FamilyTree/clear.sql
+FamilyTree/create.sql
+FamilyTree/diagram.png
