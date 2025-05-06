@@ -1,8 +1,9 @@
-package tcs.familytree.views;
+package tcs.familytree;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import tcs.familytree.viewmodels.DummyViewModel;
+import tcs.familytree.views.DummyView;
 
 public class HelloController {
     @FXML
@@ -10,6 +11,6 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText(new DummyViewModel().getDummyData() + " and Views!");
+        welcomeText.setText(new DummyView().getDummyData());
     }
 }
