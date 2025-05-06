@@ -1,11 +1,20 @@
 package tcs.familytree.core;
 
 public class DummyPerson implements Person{
-    private Integer id;
+    private Integer id = 0;
     private final Data name = new DataString();
 
     public DummyPerson(){
+        id = 0;
+    }
 
+    public DummyPerson(int id){
+        this.id = id;
+    }
+
+    @Override
+    public Integer getId(){
+        return id;
     }
 
     @Override

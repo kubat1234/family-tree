@@ -12,6 +12,8 @@ public interface Person {
 
     // Names getters
 
+    Integer getId();
+
     default Data getName(){
         throw new NotImplemented();
     }
