@@ -12,7 +12,13 @@ public interface DatabaseConection {
         throw new NotImplemented();
     }
 
+    default boolean checkIfPersonExist(int id){
+        throw new NotImplemented();
+    }
 
+    default boolean checkIfPersonExist(Person person){
+        throw new NotImplemented();
+    }
 
     // More Connection
 }

@@ -16,4 +16,13 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
         }
     }
 
+    @Override
+    public boolean checkIfPersonExist(int id) {
+        return allPeople.containsKey(id);
+    }
+
+    @Override
+    public boolean checkIfPersonExist(Person person) {
+        return allPeople.containsValue(person);
+    }
 }

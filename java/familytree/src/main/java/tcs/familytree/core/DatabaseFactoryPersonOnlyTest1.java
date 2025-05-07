@@ -2,14 +2,14 @@ package tcs.familytree.core;
 
 public class DatabaseFactoryPersonOnlyTest1 extends DatabaseFactoryPersonOnly{
     DatabaseFactoryPersonOnlyTest1(){
-        Person pr = new DummyPerson();
-        pr.setName(new DataString("Kuba"));
+        PersonFactory personFactory = new PersonFactoryDummyPerson();
+        Person pr = personFactory.setId(1).setName(new DataString("Kuba")).build();
+//        Person pr = new DummyPerson(1);
+//        pr.setName(new DataString("Kuba"));
         list.add(pr);
-        pr = new DummyPerson();
-        pr.setName(new DataString("Alice"));
+        pr = personFactory.setId(2).setName(new DataString("Alice")).build();
         list.add(pr);
-        pr = new DummyPerson();
-        pr.setName(new DataString("Unnamed Person"));
+        pr = personFactory.setId(3).setName(new DataString("Alice")).build();
         list.add(pr);
     }
 }
