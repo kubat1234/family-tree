@@ -3,8 +3,8 @@ package tcs.familytree.core;
 import java.util.List;
 
 public interface DatabaseConection {
-
-    default List<Person> getAllPearson(){
+    
+    default List<Person> getAllPersons(){
         throw new NotImplemented();
     }
 

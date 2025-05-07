@@ -2,7 +2,6 @@ package tcs.familytree.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DatabaseFactoryPersonOnly implements DatabaseFactory {
     List<Person> list = new ArrayList<>();
