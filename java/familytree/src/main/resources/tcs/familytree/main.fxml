@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.MainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.MainController">
    <children>
         <HBox prefHeight="80.0" style="-fx-background-color: orange;" HBox.hgrow="ALWAYS">
          <children>
@@ -10,6 +10,6 @@
              <AnchorPane onMouseClicked="#green" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #cdefab;" HBox.hgrow="ALWAYS" />
              <AnchorPane onMouseClicked="#blue" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #abcdef;" HBox.hgrow="ALWAYS" />
          </children></HBox>
-      <Pane fx:id="mainContainer" prefWidth="200.0" style="-fx-background-color: #ffffd0;" VBox.vgrow="ALWAYS" />
+      <StackPane fx:id="mainContainer" prefWidth="200.0" style="-fx-background-color: #ffffd0;" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

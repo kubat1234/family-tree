@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="100.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tcs.familytree.views.SimpleGraphVertex">
+   <children>
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#a0a0a0" height="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Label fx:id="firstNameLabel" alignment="BASELINE_RIGHT" layoutX="15.0" layoutY="14.0" prefHeight="22.0" prefWidth="120.0" text="Label1">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="surnameLabel" alignment="BASELINE_RIGHT" layoutX="15.0" layoutY="39.0" prefHeight="22.0" prefWidth="120.0" text="Label2">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateOfBirthLabel" layoutX="14.0" layoutY="70.0" prefHeight="16.0" prefWidth="63.0" text="01.01.1970">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateOfDeathLabel" alignment="BASELINE_RIGHT" layoutX="72.0" layoutY="70.0" prefHeight="16.0" prefWidth="63.0" text="13.05.2025">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="container" maxHeight="+Infinity" maxWidth="+Infinity" style="-fx-background-color: #a0e0c0;"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tcs.familytree.views.SimpleGraphPainter">
+
+</AnchorPane>

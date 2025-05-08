@@ -4,31 +4,40 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import tcs.familytree.views.SimpleGraphPainter;
+import tcs.familytree.views.SimpleGraphVertex;
 
 public class MainController {
     @FXML
     private Pane mainContainer;
 
-    @FXML
-    private Label helloLabel;
-
-    private void changeLabel(String value) {
+    private void colorClicked(String value) {
         System.out.println(value);
     }
 
     @FXML
     protected void red() {
-        changeLabel("Red");
+        colorClicked("Red");
     }
 
     @FXML
     protected void green() {
-        changeLabel("Green");
+        colorClicked("Green");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/simple-graph-painter.fxml"));
+        try {
+            Pane view = loader.load();
+            SimpleGraphPainter graphPainter = loader.getController();
+            mainContainer.getChildren().setAll(view);
+            graphPainter.fillSomeData();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     protected void blue() {
-        changeLabel("Blue");
+        colorClicked("Blue");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         try {
             Pane view = loader.load();
