@@ -13,4 +13,8 @@ public class HelloController {
     protected void onHelloButtonClick() {
         welcomeText.setText(new DummyView().getDummyData());
     }
+
+    public void setWelcomeText(String value) {
+        welcomeText.setText(value);
+    }
 }
