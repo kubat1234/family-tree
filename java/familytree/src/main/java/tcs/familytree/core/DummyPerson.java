@@ -2,20 +2,21 @@ package tcs.familytree.core;
 
 public class DummyPerson implements Person{
     private Integer id = 0;
-    private final Data name = new DataString();
+    private Data name = new DataString();
 
-
-    public DummyPerson(){
-        id = 0;
-    }
-
-    public DummyPerson(int id){
-        this.id = id;
-    }
-
-    public DummyPerson(int id, Data name){
+    DummyPerson(int id, Data name){
         this.id = id;
         this.name.set(name.get());
+    }
+
+    DummyPerson(Person person){
+        id = person.getId();
+        name = person.getName();
+    }
+
+    @Override
+    public Person copy() {
+        return new DummyPerson(this);
     }
 
     @Override
@@ -29,8 +30,22 @@ public class DummyPerson implements Person{
     }
 
     @Override
+    public String getNameAsString(){
+        Object o = name.get();
+        if(o instanceof String){
+            return (String) o;
+        }
+        throw new IllegalArgumentException("Name is not a string");
+    }
+
+    @Override
     public void setName(Data name){
-        name.set(name.get());
+        this.name.set(name.get());
+    }
+
+    @Override
+    public void setNameAsString(String name){
+        this.name.set(name);
     }
 
 

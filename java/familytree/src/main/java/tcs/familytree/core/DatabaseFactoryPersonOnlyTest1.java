@@ -9,7 +9,7 @@ public class DatabaseFactoryPersonOnlyTest1 extends DatabaseFactoryPersonOnly{
         list.add(pr);
         pr = personFactory.setId(2).setName(new DataString("Alice")).build();
         list.add(pr);
-        pr = personFactory.setId(3).setName(new DataString("Alice")).build();
+        pr = personFactory.setId(3).setName(new DataString("Unknown Member of Delta Cult")).build();
         list.add(pr);
     }
 }
