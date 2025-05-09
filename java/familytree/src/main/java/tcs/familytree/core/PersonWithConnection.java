@@ -36,25 +36,13 @@ public class PersonWithConnection implements Person{
     }
 
     @Override
-    public Data getName() {
+    public String getName() {
         load();
         return innerPerson.getName();
     }
 
     @Override
-    public String getNameAsString() {
-        load();
-        return innerPerson.getNameAsString();
-    }
-
-    @Override
-    public void setNameAsString(String name) {
-        load();
-        innerPerson.setNameAsString(name);
-    }
-
-    @Override
-    public void setName(Data name) {
+    public void setName(String name) {
         load();
         innerPerson.setName(name);
     }

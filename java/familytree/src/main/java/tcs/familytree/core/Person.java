@@ -6,7 +6,7 @@ import java.util.List;
 public interface Person {
     // Interface to Person
 
-    default  public List<Data> getAllData(){
+    default  public List<Object> getAllData(){
         throw new NotImplemented();
     }
 
@@ -16,52 +16,43 @@ public interface Person {
 
     Integer getId();
 
-    default Data getName(){
+    default String getName(){
         throw new NotImplemented();
     }
 
-    default String getNameAsString(){
+    default List<String> getAllName(){
         throw new NotImplemented();
     }
 
-    default List<Data> getAllName(){
+    default void setName(String name){
         throw new NotImplemented();
     }
-
-    default void setName(Data name){
-        throw new NotImplemented();
-    }
-
-    default void setNameAsString(String name){
-        throw new NotImplemented();
-    }
-
 
     default void addName(){
         throw new NotImplemented();
     }
 
-    default Data getSurname(){
+    default String getSurname(){
         throw new NotImplemented();
     }
 
-    default Data getSurname(int numberOfSurname){
+    default String getSurname(int numberOfSurname){
         throw new NotImplemented();
     }
 
-    default void addSurname(){
+    default void addSurname(String surname, int numberSurname){
         throw new NotImplemented();
     }
 
-    default void addSurname(int numberSurname){
+    default void addSurname(String surname){
         throw new NotImplemented();
     }
 
-    default Data getFamilySurname(){
+    default String getFamilySurname(){
         throw new NotImplemented();
     }
 
-    default List<Data> getSurnamesAsList(){
+    default List<String> getSurnamesAsList(){
         throw new NotImplemented();
     }
 

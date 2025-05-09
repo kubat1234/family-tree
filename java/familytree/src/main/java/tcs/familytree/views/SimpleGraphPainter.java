@@ -29,8 +29,8 @@ public class SimpleGraphPainter {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("simple-graph-vertex.fxml"));
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
-                controllers[i].setAllDataFromStrings(((DataString) personList.get(i).getName()).get(),
-                        ((DataString) personList.get(i).getSurname()).get(), TmpUtil.randDate(20), TmpUtil.randDate(60));
+                controllers[i].setAllDataFromStrings(personList.get(i).getName(),
+                         personList.get(i).getSurname(), TmpUtil.randDate(20), TmpUtil.randDate(60));
                 panes[i].setLayoutX(TmpUtil.rand(900) + 10);
                 panes[i].setLayoutY(TmpUtil.rand(500) + 10);
             }

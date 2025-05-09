@@ -1,7 +1,7 @@
 package tcs.familytree.core;
 
 public class DatabaseFactoryPersonOnlyTest1 extends DatabaseFactoryPersonOnly{
-    DatabaseFactoryPersonOnlyTest1(){
+    public DatabaseFactoryPersonOnlyTest1(){
         PersonFactory personFactory = new PersonFactoryDummyPerson();
         Person pr = personFactory.setId(1).setName(new DataString("Kuba")).build();
 //        Person pr = new DummyPerson(1);

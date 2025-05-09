@@ -11,7 +11,7 @@ public class DummyPerson implements Person{
 
     DummyPerson(Person person){
         id = person.getId();
-        name = person.getName();
+        name.set(person.getName());
     }
 
     @Override
@@ -25,28 +25,16 @@ public class DummyPerson implements Person{
     }
 
     @Override
-    public Data getName(){
-        return name.copy();
+    public String getName(){
+        return (String) name.get();
     }
 
-    @Override
-    public String getNameAsString(){
-        Object o = name.get();
-        if(o instanceof String){
-            return (String) o;
-        }
-        throw new IllegalArgumentException("Name is not a string");
-    }
 
     @Override
-    public void setName(Data name){
-        this.name.set(name.get());
-    }
-
-    @Override
-    public void setNameAsString(String name){
+    public void setName(String name){
         this.name.set(name);
     }
+
 
 
 }

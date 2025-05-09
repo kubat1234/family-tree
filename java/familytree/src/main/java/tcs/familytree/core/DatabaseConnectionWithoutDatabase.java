@@ -7,7 +7,7 @@ import java.util.Map;
 public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
     Map<Integer, Person> allPeople = new HashMap<>();
 
-    DatabaseConnectionWithoutDatabase(DatabaseFactory databaseFactory){
+    public DatabaseConnectionWithoutDatabase(DatabaseFactory databaseFactory){
         while(databaseFactory.personAvailable()){
             Person pr = databaseFactory.getPerson();
             if(pr == null){

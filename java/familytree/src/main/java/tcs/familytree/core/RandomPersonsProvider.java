@@ -32,13 +32,13 @@ public class RandomPersonsProvider {
         }
 
         @Override
-        public Data getName() {
-            return name;
+        public String getName() {
+            return name.get();
         }
 
         @Override
-        public Data getSurname() {
-            return surname;
+        public String getSurname() {
+            return surname.get();
         }
 
         @Override
