@@ -27,12 +27,6 @@ public class RandomPersonsProvider {
         }
 
         @Override
-        public Person copy() {
-            throw new NotImplemented();
-           // return null;
-        }
-
-        @Override
         public Integer getId() {
             return id;
         }
