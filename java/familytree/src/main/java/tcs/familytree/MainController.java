@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import tcs.familytree.viewmodels.DummyViewModel;
+import tcs.familytree.viewmodels.HardcodedSingleTreeViewModel;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
 import tcs.familytree.views.GraphView;
 import tcs.familytree.views.SimpleGraphPainter;
@@ -14,7 +15,7 @@ public class MainController {
     @FXML
     private Pane mainContainer;
 
-    private final SingleTreeViewModel viewModel = SingleTreeViewModel.getModel();
+    private final SingleTreeViewModel viewModel = HardcodedSingleTreeViewModel.getModel();
 
     private void colorClicked(String value) {
         System.out.println(value);
