@@ -1,8 +1,13 @@
 package tcs.familytree.services;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import tcs.familytree.core.Person;
 import tcs.familytree.core.RandomPersonsProvider;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,8 +15,33 @@ import java.util.List;
  * Connects {@code RandomPersonsProvider}, {@code SimpleGraph} and {@code DummyViewModel}
  */
 public class TemporaryDataProvider {
-    public FamilyGraph provideTemporaryData() {
+
+    SimpleObjectProperty<FamilyGraph> graphProperty;
+
+    public TemporaryDataProvider() {
+        graphProperty = new SimpleObjectProperty<>(TemporaryDataProvider.this, "SimpleGraphProperty", new SimpleGraph());
+    }
+
+    private void updateGraph2() {
         RandomPersonsProvider provider = new RandomPersonsProvider();
-        return new SimpleGraph(provider.getStaticData());
+        graphProperty.set(new SimpleGraph(provider.getStaticData()));
+    }
+
+    public void updateGraph() {
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                    updateGraph2();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    public SimpleObjectProperty<FamilyGraph> provideTemporaryDataAsProperty() {
+        return graphProperty;
     }
 }

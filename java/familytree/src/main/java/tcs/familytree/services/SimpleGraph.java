@@ -9,11 +9,19 @@ import java.util.*;
  * This could be greatly improved.
  */
 public class SimpleGraph implements FamilyGraph{
-    final List<Person> persons;
+    List<Person> persons;
 
     SimpleGraph(List<Person> persons) {
         this.persons = persons;
     };
+
+    SimpleGraph() {
+        persons = Collections.emptyList();
+    }
+
+    public void setData(List<Person> persons) {
+        this.persons = persons;
+    }
 
     @Override
     public List<Person> getAllPersons() {

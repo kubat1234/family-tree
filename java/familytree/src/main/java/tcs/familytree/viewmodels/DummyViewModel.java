@@ -13,13 +13,4 @@ public class DummyViewModel {
     public String getDummyData() {
         return new DummyService().getDummyData() + " and ViewModels!";
     }
-
-    /**
-     * Some ugly code to get our GUI working asap.
-     * @return few people's data
-     */
-    public FamilyGraph provideTemporaryData() {
-        TemporaryDataProvider provider = new TemporaryDataProvider();
-        return provider.provideTemporaryData();
-    }
 }
