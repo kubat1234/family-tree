@@ -20,7 +20,7 @@ public class DummyPerson implements Person{
     }
 
     @Override
-    public Integer getId(){
+    public int getId(){
         return id;
     }
 

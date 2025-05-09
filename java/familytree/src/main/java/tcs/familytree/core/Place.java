@@ -1,5 +1,5 @@
 package tcs.familytree.core;
 
-public interface Place extends Data{
+public interface Place{
 
 }

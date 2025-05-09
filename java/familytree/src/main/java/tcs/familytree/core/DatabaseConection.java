@@ -20,5 +20,26 @@ public interface DatabaseConection {
         throw new NotImplemented();
     }
 
+    default List<Relation> getAllRelation(){
+        throw new NotImplemented();
+    }
+
+    default List<RelationMarriage> getMarriage(Person person){
+        throw new NotImplemented();
+    }
+
+    default List<RelationMarriage> getMarriage(int id){
+        throw new NotImplemented();
+    }
+
+    default List<Person> getChildren(Person person){
+        throw new NotImplemented();
+    }
+
+    default List<Person> getChildren(int id){
+        throw new NotImplemented();
+    }
+
+
     // More Connection
 }

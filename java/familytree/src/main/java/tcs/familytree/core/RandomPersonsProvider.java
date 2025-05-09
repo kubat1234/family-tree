@@ -27,7 +27,7 @@ public class RandomPersonsProvider {
         }
 
         @Override
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 

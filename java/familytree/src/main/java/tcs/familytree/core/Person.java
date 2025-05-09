@@ -6,7 +6,7 @@ import java.util.List;
 public interface Person {
     // Interface to Person
 
-    default  public List<Object> getAllData(){
+    default public List<Object> getAllData(){
         throw new NotImplemented();
     }
 
@@ -14,7 +14,7 @@ public interface Person {
 
     // Names getters
 
-    Integer getId();
+    int getId();
 
     default String getName(){
         throw new NotImplemented();
@@ -78,10 +78,30 @@ public interface Person {
         throw new NotImplemented();
     }
 
+    default List<Person> getPartners(){ throw new NotImplemented();}
 
-    // place/date getters
-    // TODO
+    // TODO relations getters
 
+    default Date getDateOfBirth(){throw new NotImplemented();}
 
+    default Date getDateOfDeath(){throw new NotImplemented();}
+
+    default boolean isAlive(){throw new NotImplemented();}
+
+    default boolean isDead(){throw new NotImplemented();}
+
+    default boolean getGender(){throw new NotImplemented();}
+
+    default boolean isMale(){
+        return !getGender();
+    }
+
+    default boolean isFemale(){
+        return getGender();
+    }
+
+    default Place getPlaceOfBirth(){throw new NotImplemented();}
+
+    default Place getPlaceOfDeath(){throw new NotImplemented();}
 
 }
