@@ -54,6 +54,18 @@ public class RandomPersonsProvider {
         public Person copy() {
             throw new NotImplemented();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if(!(o instanceof Person p))
+                return false;
+            return id == p.getId();
+        }
+
+        @Override
+        public String toString() {
+            return name.get() + " " + surname.get();
+        }
     }
 
     public List<Person> getStaticData() {

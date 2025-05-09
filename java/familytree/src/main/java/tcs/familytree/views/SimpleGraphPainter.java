@@ -12,6 +12,7 @@ import tcs.familytree.services.FamilyGraph;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class SimpleGraphPainter {
     @FXML
@@ -36,6 +37,9 @@ public class SimpleGraphPainter {
             container.getChildren().addAll(panes);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        for(Person p : graph.getAllPersons()) {
+            System.out.println(p.toString() + ": " + graph.getChildren(p).stream().map(Object::toString).collect(Collectors.joining(", ")));
         }
     }
 
