@@ -1,6 +1,7 @@
 module tcs.familytree {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.xml;
 
 
     opens tcs.familytree to javafx.fxml;
@@ -8,4 +9,8 @@ module tcs.familytree {
 
     opens tcs.familytree.views to javafx.fxml;
     exports tcs.familytree.views;
+
+    exports tcs.familytree.core;
+    exports tcs.familytree.services;
+    exports tcs.familytree.viewmodels;
 }

@@ -6,6 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Starts the Main Stage.
+ * Check {@code MainController}
+ */
 public class Main extends Application {
 
     @Override

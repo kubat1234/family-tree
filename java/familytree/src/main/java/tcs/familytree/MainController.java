@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import tcs.familytree.viewmodels.DummyViewModel;
 import tcs.familytree.views.SimpleGraphPainter;
 import tcs.familytree.views.SimpleGraphVertex;
 
@@ -28,7 +29,8 @@ public class MainController {
             Pane view = loader.load();
             SimpleGraphPainter graphPainter = loader.getController();
             mainContainer.getChildren().setAll(view);
-            graphPainter.fillSomeData();
+            graphPainter.paintRandomly(new DummyViewModel().provideTemporaryData());
+//            graphPainter.fillSomeData();
         }
         catch (Exception e) {
             e.printStackTrace();

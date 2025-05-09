@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50298a6c-ea02-413c-b69b-7631c27209ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/views/SimpleGraphPainter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/views/SimpleGraphVertex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/tcs/familytree/views/simple-graph-painter.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/tcs/familytree/views/simple-graph-vertex.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/TmpUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/RandomPersonsProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/services/FamilyGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/services/SimpleGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/services/TemporaryDataProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/DummyMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/NotImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/NotImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tcs/familytree/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tcs/familytree/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/viewmodels/DummyViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/viewmodels/DummyViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/views/SimpleGraphPainter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/views/SimpleGraphPainter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -48,30 +50,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DummyMain.executor": "Run",
-    "Application.HelloApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.SomeTesting.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_directory_selection": "/home/kubaoa/Pulpit/family-tree/java/familytree/src/main/java/tcs/familytree/views",
-    "last_opened_file_path": "/home/kubaoa/Pulpit/niepoprawne PO/family-tree/java/familytree",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DummyMain.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SomeTesting.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/kubaoa/Pulpit/family-tree/java/familytree/src/main/java/tcs/familytree/views&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kubaoa/Pulpit/niepoprawne PO/family-tree/java/familytree&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tcs.familytree.Main" />
@@ -113,6 +115,8 @@
       <workItem from="1746716724335" duration="9351000" />
       <workItem from="1746729855080" duration="5010000" />
       <workItem from="1746734874438" duration="2804000" />
+      <workItem from="1746737762011" duration="15000" />
+      <workItem from="1746772817618" duration="6606000" />
     </task>
     <servers />
   </component>
