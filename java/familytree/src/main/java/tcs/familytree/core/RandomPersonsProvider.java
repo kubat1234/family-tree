@@ -56,6 +56,11 @@ public class RandomPersonsProvider {
         public Person getFather() {
             return father;
         }
+
+        @Override
+        public Person copy() {
+            throw new NotImplemented();
+        }
     }
 
     public List<Person> getStaticData() {

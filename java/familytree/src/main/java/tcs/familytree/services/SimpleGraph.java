@@ -16,17 +16,17 @@ public class SimpleGraph implements FamilyGraph{
     };
 
     @Override
-    public Collection<Person> getAllPersons() {
+    public List<Person> getAllPersons() {
         return persons;
     }
 
     @Override
-    public Collection<Person> getChildren(Person person) {
+    public List<Person> getChildren(Person person) {
         return persons.stream().filter(p -> person.equals(p.getMother()) || person.equals(p.getFather())).toList();
     }
 
     @Override
-    public Collection<Person> getChildren(Integer personId) {
+    public List<Person> getChildren(Integer personId) {
         Optional<Person> person = persons.stream().filter(p -> Objects.equals(p.getId(), personId)).findFirst();
         if(person.isPresent()) {
             return getChildren(person.get());
@@ -35,7 +35,7 @@ public class SimpleGraph implements FamilyGraph{
     }
 
     @Override
-    public Collection<Person> getParents(Person person) {
+    public List<Person> getParents(Person person) {
         if(person == null) {
             throw new NullPointerException();
         }
@@ -50,7 +50,7 @@ public class SimpleGraph implements FamilyGraph{
     }
 
     @Override
-    public Collection<Person> getParents(Integer personId) {
+    public List<Person> getParents(Integer personId) {
         Optional<Person> person = persons.stream().filter(p -> Objects.equals(p.getId(), personId)).findFirst();
         if(person.isPresent()) {
             return getParents(person.get());
@@ -59,12 +59,12 @@ public class SimpleGraph implements FamilyGraph{
     }
 
     @Override
-    public Collection<Person> getPartners(Person person) {
+    public List<Person> getPartners(Person person) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Collection<Person> getPartners(Integer personId) {
+    public List<Person> getPartners(Integer personId) {
         Optional<Person> person = persons.stream().filter(p -> Objects.equals(p.getId(), personId)).findFirst();
         if(person.isPresent()) {
             return getPartners(person.get());
