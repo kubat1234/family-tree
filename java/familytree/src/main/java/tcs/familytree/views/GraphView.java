@@ -13,21 +13,29 @@ import tcs.familytree.viewmodels.SingleTreeViewModel;
 import static javafx.application.Platform.runLater;
 
 public class GraphView {
-    private final SimpleGraphPainter painter;
-    private final SingleTreeViewModel viewModel;
+//    private final SimpleGraphPainter painter;
+//    private final SingleTreeViewModel viewModel;
+    private final SimpleObjectProperty<FamilyGraph> graphProperty;
+    private ChangeListener<FamilyGraph> listener;
 
     public GraphView(SimpleGraphPainter painter, SingleTreeViewModel viewModel) {
-        this.painter = painter;
-        this.viewModel = viewModel;
-        SimpleObjectProperty<FamilyGraph> graphProperty = viewModel.getGraphProperty();
-        graphProperty.addListener((ob, old, newValue) -> {
-            System.out.println("Graph Modified!");
-            runLater(() -> painter.paintRandomly(graphProperty.get()));
-        }); //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
+//        this.painter = painter;
+//        this.viewModel = viewModel;
+        this.graphProperty = viewModel.getGraphProperty();
+        this.listener = new ChangeListener<FamilyGraph>() {
+            @Override
+            public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph familyGraph, FamilyGraph t1) {
+                runLater(() -> painter.paintRandomly(graphProperty.get()));
+            }; //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
+        };
+        graphProperty.addListener(listener);
 
         viewModel.updateGraph();
 //        painter.paintRandomly(new DummyViewModel().provideTemporaryData());
     }
 
+    public void dropListener() {
+        graphProperty.removeListener(listener);
+    }
 
 }

@@ -21,17 +21,18 @@ public class TemporaryDataProvider {
     }
 
     public void updateGraph() {
-        new Thread() {
-            public void run() {
-                try {
-                    Thread.sleep(200);
-                    updateGraph2();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+        /*
+        new Thread(() -> {
+            try {
+                Thread.sleep(200);
+                updateGraph2();
             }
-        }.start();
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+         */
+        updateGraph2();
     }
 
     public SimpleObjectProperty<FamilyGraph> provideTemporaryDataAsProperty() {

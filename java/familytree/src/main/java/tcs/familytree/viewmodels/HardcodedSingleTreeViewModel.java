@@ -10,7 +10,7 @@ public class HardcodedSingleTreeViewModel implements SingleTreeViewModel{
     SimpleObjectProperty<FamilyGraph> graphProperty;
     static HardcodedSingleTreeViewModel model = new HardcodedSingleTreeViewModel();
 
-    public HardcodedSingleTreeViewModel() {
+    private HardcodedSingleTreeViewModel() {
         provider = new TemporaryDataProvider();
         graphProperty = provider.provideTemporaryDataAsProperty();
     }
