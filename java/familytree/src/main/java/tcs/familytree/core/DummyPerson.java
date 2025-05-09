@@ -4,9 +4,9 @@ public class DummyPerson implements Person{
     private Integer id = 0;
     private Data name = new DataString();
 
-    DummyPerson(int id, Data name){
+    DummyPerson(int id, String name){
         this.id = id;
-        this.name.set(name.get());
+        this.name.set(name);
     }
 
     DummyPerson(Person person){
@@ -29,12 +29,8 @@ public class DummyPerson implements Person{
         return (String) name.get();
     }
 
-
     @Override
     public void setName(String name){
         this.name.set(name);
     }
-
-
-
 }

@@ -4,5 +4,5 @@ public interface PersonFactory {
 
     Person build();
     PersonFactory setId(int id);
-    PersonFactory setName(Data name);
+    PersonFactory setName(String name);
 }

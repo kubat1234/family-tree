@@ -10,7 +10,7 @@ public class PersonFactoryDummyPerson implements PersonFactory{
         if(!ifId){
             throw new RuntimeException("Brak id!!!");
         }
-        return new DummyPerson(id, name);
+        return new DummyPerson(id, (String) name.get());
     }
 
     @Override
@@ -21,8 +21,8 @@ public class PersonFactoryDummyPerson implements PersonFactory{
     }
 
     @Override
-    public PersonFactory setName(Data name) {
-        this.name.set(name.get());
+    public PersonFactory setName(String name) {
+        this.name.set(name);
         return this;
     }
 

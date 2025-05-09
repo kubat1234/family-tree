@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="50298a6c-ea02-413c-b69b-7631c27209ae" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DatabaseConnectionWithoutDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DatabaseConnectionWithoutDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DatabaseError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DatabaseError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DatabaseFactoryPersonOnlyTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DatabaseFactoryPersonOnlyTest1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DummyPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/DummyPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/PersonWithConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/PersonWithConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/RandomPersonsProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/RandomPersonsProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/views/SimpleGraphPainter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/views/SimpleGraphPainter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/PersonFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/PersonFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/PersonFactoryDummyPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tcs/familytree/core/PersonFactoryDummyPerson.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
