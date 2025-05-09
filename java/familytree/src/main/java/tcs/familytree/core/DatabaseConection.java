@@ -40,6 +40,9 @@ public interface DatabaseConection {
         throw new NotImplemented();
     }
 
+    default boolean checkIfDateExist(int id){throw new NotImplemented();}
+
+    default Date getDate(int id){throw new NotImplemented();}
 
     // More Connection
 }

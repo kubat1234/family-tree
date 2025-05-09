@@ -17,4 +17,7 @@ public interface Relation {
 
     Place getPlace();
     Date getDate();
+
+    RelationType getType();
+    boolean isSymetric();
 }

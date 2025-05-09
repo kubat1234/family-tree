@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
     Map<Integer, Person> allPeople = new HashMap<>();
-    Map<Integer, List<Relation>> allRelation;
+    Map<Integer, List<Relation>> allRelation = new HashMap<>();
+    Map<Integer, List<Date>> allDates = new HashMap<>();
 
     DatabaseConnectionWithoutDatabase(DatabaseFactory databaseFactory){
         while(databaseFactory.personAvailable()){
@@ -94,6 +95,19 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
             throw new IllegalArgumentException("Person with id = " + id + " not exist in database.");
         }
         return getChildren(allPeople.get(id));
+    }
+
+    @Override
+    public boolean checkIfDateExist(int id) {
+        return allDates.containsKey(id);
+    }
+
+    @Override
+    public Date getDate(int id) {
+        if(!checkIfDateExist(id)){
+            throw new IllegalArgumentException("Date with id = " + id + " not exist in database.");
+        }
+        return allDates.get(id).get(id);
     }
 }
 

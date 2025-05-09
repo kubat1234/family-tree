@@ -80,6 +80,8 @@ public interface Person {
 
     default List<Person> getPartners(){ throw new NotImplemented();}
 
+    default List<Relation> getRelations(){ throw new NotImplemented();}
+
     // TODO relations getters
 
     default Date getDateOfBirth(){throw new NotImplemented();}

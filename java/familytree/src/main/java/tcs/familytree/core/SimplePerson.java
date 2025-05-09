@@ -15,9 +15,9 @@ public class SimplePerson implements Person {
     Place birthPlace;
     Place deathPlace;
     boolean alive;
-    boolean gender;
+    Boolean gender; // can be null
 
-    public SimplePerson(int id, String firstName, List<String> names, String familyName, List<String> surnames, Person mother, Person father, Date birthDate, Date deathDate, Place birthPlace, Place deathPlace, boolean alive, boolean gender){
+    public SimplePerson(int id, String firstName, List<String> names, String familyName, List<String> surnames, Person mother, Person father, Date birthDate, Date deathDate, Place birthPlace, Place deathPlace, boolean alive, Boolean gender){
         this.id = id;
         this.firstName = firstName;
         this.names = names;
@@ -28,7 +28,14 @@ public class SimplePerson implements Person {
     }
 
     public SimplePerson(Person person){
-        this(person.getId(), person.getName(), person.getAllName(), person.getFamilySurname(), person.getSurnamesAsList(), person.getMother(), person.getFather(), person.getDateOfBirth(), person.getDateOfDeath(), person.getPlaceOfBirth(), person.getPlaceOfDeath(), person.isAlive(), person.getGender());
+        if(person == null)throw new NullPointerException();
+        this.id = person.getId();
+        this.firstName = person.getName();
+        this.names = person.getAllName();
+        this.familyName = person.getSurname();
+        this.surnames = person.getSurnamesAsList();
+        this.mother = person.getMother();
+        this.father = person.getFather();
     }
 
     public Person copy(){
