@@ -5,14 +5,17 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.relation.Relation;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class DatabaseFactoryPersonOnly implements DatabaseFactory {
-    List<Person> list = new ArrayList<>();
-    int counter = 0;
+public class DatabaseFactorySimple implements DatabaseFactory {
+    List<Person> personList = new LinkedList<>();
+    int personCounter = 0;
+    List<Relation> relationList = new LinkedList<>();
+    int relationCounter = 0;
+    List<Date> dateList = new LinkedList<>();
+    int dateCounter = 0;
     Class<? extends DatabaseConection> databaseConnectionClass = null;
-    private Class<?> extened;
 
     @Override
     public DatabaseConection build() {
@@ -34,42 +37,49 @@ public class DatabaseFactoryPersonOnly implements DatabaseFactory {
 
     @Override
     public Person getPerson() {
-        if(counter >= list.size()){
-            throw new IllegalArgumentException();
+        if(personCounter >= personList.size()){
+            throw new IllegalArgumentException("Database Factory person get out of bounds");
         }
-        counter++;
-        return list.get(counter - 1);
+        personCounter++;
+        return personList.get(personCounter - 1);
     }
 
     @Override
     public boolean personAvailable(){
-        return counter < list.size();
+        return personCounter < personList.size();
     }
 
     @Override
     public List<Person> getAllPersons() {
-        return list;
+        return personList;
     }
 
     @Override
     public Relation getRelation() {
-        throw new NotImplemented("Get relation in Factory without relation");
+        if(relationCounter >= relationList.size()){
+            throw new IllegalArgumentException("Database Factory relation get out of bounds");
+        }
+        relationCounter++;
+        return relationList.get(relationCounter - 1);
     }
-
-    // Not available functions;
 
     @Override
     public boolean relationAvailable() {
-        return false;
+        return relationCounter < relationList.size();
     }
 
     @Override
     public Date getDate() {
-        throw new NotImplemented("Get date in Factory without relation");
+        if(dateCounter >= dateList.size()){
+            throw new IllegalArgumentException("Database Factory data get out of bounds");
+        }
+        dateCounter++;
+        return dateList.get(dateCounter - 1);
     }
 
     @Override
     public boolean dateAvailable() {
-        return false;
+        return dateCounter < dateList.size();
     }
+
 }
