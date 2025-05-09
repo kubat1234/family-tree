@@ -31,7 +31,7 @@ public class PersonWithConnection implements Person{
     }
 
     @Override
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
