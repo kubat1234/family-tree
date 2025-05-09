@@ -25,6 +25,7 @@ public class RandomPersonsProvider {
         public MyPerson(int id, String name, String surname) {
             this(id, name, surname, null, null);
         }
+
         @Override
         public Integer getId() {
             return id;
