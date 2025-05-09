@@ -32,4 +32,14 @@ public class RelationMarriage implements Relation {
     public Date getDate(){
         return date;
     }
+
+    @Override
+    public boolean isSymetric() {
+        return true;
+    }
+
+    @Override
+    public RelationType getType() {
+        return null;
+    }
 }

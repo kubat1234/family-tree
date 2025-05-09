@@ -1,14 +1,14 @@
 package tcs.familytree.core;
 
-public class SimplePersonWithConnection extends AbstractPersonWithConnection{
+public class SimpleConnectionPerson extends AbstractConnectionPerson {
     DatabaseConection connection;
 
-    SimplePersonWithConnection(int id, DatabaseConection connection){
+    SimpleConnectionPerson(int id, DatabaseConection connection){
         super(id);
         this.connection = connection;
     }
 
-    SimplePersonWithConnection(Person person, DatabaseConection connection){
+    SimpleConnectionPerson(Person person, DatabaseConection connection){
         super(person);
         this.connection = connection;
     }

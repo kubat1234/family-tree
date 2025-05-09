@@ -2,15 +2,15 @@ package tcs.familytree.core;
 
 import java.util.List;
 
-public abstract class AbstractPersonWithConnection implements Person{
+public abstract class AbstractConnectionPerson implements Person{
     int id;
     Person person;
 
-    AbstractPersonWithConnection(int id){
+    AbstractConnectionPerson(int id){
         this.id = id;
     }
 
-    AbstractPersonWithConnection(Person person){
+    AbstractConnectionPerson(Person person){
         this.person = person;
         this.id = person.getId();
     }
