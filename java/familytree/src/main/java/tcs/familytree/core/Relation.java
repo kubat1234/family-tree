@@ -14,7 +14,7 @@ public interface Relation {
         list.add(getSecondPerson());
         return list;
     }
-    
+
     Place getPlace();
     Date getDate();
 }
