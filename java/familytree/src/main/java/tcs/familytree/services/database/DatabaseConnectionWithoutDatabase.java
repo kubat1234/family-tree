@@ -23,6 +23,30 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
             }
             allPeople.put(pr.getId(), pr);
         }
+        while (databaseFactory.dateAvailable()){
+            Date date = databaseFactory.getDate();
+            if(date == null){
+                throw new NullPointerException();
+            }
+            allDates.put(date.getId(), date);
+        }
+        while (databaseFactory.relationAvailable()){
+            Relation relation = databaseFactory.getRelation();
+            if(relation == null){
+                throw new NullPointerException();
+            }
+            Person pr = relation.getFirstPerson();
+            if(!allRelation.containsKey(pr.getId())){
+                allRelation.put(pr.getId(), new LinkedList<>());
+            }
+            allRelation.get(pr.getId()).add(relation);
+            pr = relation.getSecondPerson();
+            if(!allRelation.containsKey(pr.getId())){
+                allRelation.put(pr.getId(), new LinkedList<>());
+            }
+            allRelation.get(pr.getId()).add(relation);
+        }
+
     }
 
     @Override
