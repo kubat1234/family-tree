@@ -6,7 +6,8 @@ import java.util.List;
 public class DatabaseFactoryPersonOnly implements DatabaseFactory {
     List<Person> list = new ArrayList<>();
     int counter = 0;
-    Class<DatabaseConection> databaseConnectionClass = null;
+    Class<? extends DatabaseConection> databaseConnectionClass = null;
+    private Class<?> extened;
 
     @Override
     public DatabaseConection build() {
@@ -16,12 +17,12 @@ public class DatabaseFactoryPersonOnly implements DatabaseFactory {
         if(databaseConnectionClass.equals(DatabaseConnectionWithoutDatabase.class)){
             return new DatabaseConnectionWithoutDatabase(this);
         }
-        throw new NotImplemented("NOT IMPLEMENTED CLASS FACTORY:" + databaseConnectionClass);
+        throw new NotImplemented("NOT IMPLEMENTED CLASS FACTORY: " + databaseConnectionClass);
         //return null;
     }
 
     @Override
-    public DatabaseFactory changeType(Class<DatabaseConection> databaseConectionClass) {
+    public DatabaseFactory changeType(Class<? extends DatabaseConection> databaseConectionClass) {
         this.databaseConnectionClass = databaseConectionClass;
         return this;
     }

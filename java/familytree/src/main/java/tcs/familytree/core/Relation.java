@@ -7,6 +7,7 @@ public interface Relation {
 
     Person getFirstPerson();
     Person getSecondPerson();
+
     default List<Person> getBothPerson(){
         List<Person> list = new LinkedList<>();
         list.add(getFirstPerson());
@@ -14,6 +15,6 @@ public interface Relation {
         return list;
     }
 
-
-
+    Place getPlace();
+    Date getDate();
 }
