@@ -10,11 +10,17 @@ public interface Person {
         throw new NotImplemented();
     }
 
+    Person copy();
+
     // Names getters
 
     Integer getId();
 
     default Data getName(){
+        throw new NotImplemented();
+    }
+
+    default String getNameAsString(){
         throw new NotImplemented();
     }
 
@@ -25,6 +31,11 @@ public interface Person {
     default void setName(Data name){
         throw new NotImplemented();
     }
+
+    default void setNameAsString(String name){
+        throw new NotImplemented();
+    }
+
 
     default void addName(){
         throw new NotImplemented();
@@ -75,6 +86,7 @@ public interface Person {
     default List<Person> getChildren(){
         throw new NotImplemented();
     }
+
 
     // place/date getters
     // TODO
