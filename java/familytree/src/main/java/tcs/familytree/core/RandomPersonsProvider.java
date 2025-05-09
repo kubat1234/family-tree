@@ -25,6 +25,13 @@ public class RandomPersonsProvider {
         public MyPerson(int id, String name, String surname) {
             this(id, name, surname, null, null);
         }
+
+        @Override
+        public Person copy() {
+            throw new NotImplemented();
+           // return null;
+        }
+
         @Override
         public Integer getId() {
             return id;
