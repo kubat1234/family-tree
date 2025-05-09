@@ -16,15 +16,32 @@ import java.util.List;
  */
 public class TemporaryDataProvider {
 
-    SimpleGraph graph = new SimpleGraph();
+    SimpleObjectProperty<FamilyGraph> graphProperty;
 
-    public FamilyGraph provideTemporaryData() {
-        RandomPersonsProvider provider = new RandomPersonsProvider();
-        graph.setData(provider.getStaticData());
-        return graph;
+    public TemporaryDataProvider() {
+        graphProperty = new SimpleObjectProperty<>(TemporaryDataProvider.this, "SimpleGraphProperty", new SimpleGraph());
     }
 
-    public ReadOnlyProperty<FamilyGraph> provideTemporaryDataAsProperty() {
-        return new SimpleObjectProperty<>(TemporaryDataProvider.this, "SimpleGraphProperty", graph);
+    private void updateGraph2() {
+        RandomPersonsProvider provider = new RandomPersonsProvider();
+        graphProperty.set(new SimpleGraph(provider.getStaticData()));
+    }
+
+    public void updateGraph() {
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(200);
+                    updateGraph2();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    public SimpleObjectProperty<FamilyGraph> provideTemporaryDataAsProperty() {
+        return graphProperty;
     }
 }
