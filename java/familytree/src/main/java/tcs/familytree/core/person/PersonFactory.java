@@ -1,4 +1,4 @@
-package tcs.familytree.core;
+package tcs.familytree.core.person;
 
 public interface PersonFactory {
 

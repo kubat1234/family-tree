@@ -1,6 +1,10 @@
-package tcs.familytree.core;
+package tcs.familytree.services.database;
 
-public class DatabaseFactoryPersonOnlyTest1 extends DatabaseFactoryPersonOnly{
+import tcs.familytree.core.person.Person;
+import tcs.familytree.core.person.PersonFactory;
+import tcs.familytree.core.toanihilate.PersonFactoryDummyPerson;
+
+public class DatabaseFactoryPersonOnlyTest1 extends DatabaseFactoryPersonOnly {
     public DatabaseFactoryPersonOnlyTest1(){
         PersonFactory personFactory = new PersonFactoryDummyPerson();
         Person pr = personFactory.setId(1).setName("Kuba").build();

@@ -1,4 +1,9 @@
-package tcs.familytree.core;
+package tcs.familytree.core.relation;
+
+import tcs.familytree.core.relationtype.RelationType;
+import tcs.familytree.core.date.Date;
+import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
 
 import java.util.LinkedList;
 import java.util.List;

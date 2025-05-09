@@ -1,16 +1,16 @@
 package tcs.familytree.core;
 
 public class NotImplemented extends UnsupportedOperationException{
-    NotImplemented(){
+    public NotImplemented(){
         super();
     }
-    NotImplemented(String message){
+    public NotImplemented(String message){
         super(message);
     }
-    NotImplemented(Exception ex){
+    public NotImplemented(Exception ex){
         super(ex);
     }
-    NotImplemented(String message, Exception ex){
+    public NotImplemented(String message, Exception ex){
         super(message, ex);
     }
 

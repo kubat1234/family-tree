@@ -1,4 +1,10 @@
-package tcs.familytree.core;
+package tcs.familytree.core.toanihilate;
+
+import tcs.familytree.core.date.Date;
+import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
+import tcs.familytree.core.relation.Relation;
+import tcs.familytree.core.relationtype.RelationType;
 
 public class RelationMarriage implements Relation {
     final private Person firstPerson;

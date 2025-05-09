@@ -1,4 +1,7 @@
-package tcs.familytree.core;
+package tcs.familytree.core.person;
+
+import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseError;
 
 public class SimpleConnectionPerson extends AbstractConnectionPerson {
     DatabaseConection connection;

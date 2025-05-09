@@ -1,4 +1,4 @@
-package tcs.familytree.core;
+package tcs.familytree.core.toanihilate;
 
 public interface Data {
 

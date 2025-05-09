@@ -1,6 +1,6 @@
-package tcs.familytree.core;
+package tcs.familytree.core.date;
 
-public class SimpleDate implements Date{
+public class SimpleDate implements Date {
     int id;
     int year;
     int month;

@@ -1,12 +1,10 @@
 package tcs.familytree.views;
 
-import tcs.familytree.core.Person;
+import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
-import tcs.familytree.services.SimpleGraph;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 

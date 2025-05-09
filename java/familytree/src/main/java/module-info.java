@@ -13,4 +13,11 @@ module tcs.familytree {
     exports tcs.familytree.core;
     exports tcs.familytree.services;
     exports tcs.familytree.viewmodels;
+    exports tcs.familytree.core.person;
+    exports tcs.familytree.core.date;
+    exports tcs.familytree.core.place;
+    exports tcs.familytree.core.relation;
+    exports tcs.familytree.core.relationtype;
+    exports tcs.familytree.core.toanihilate;
+    exports tcs.familytree.services.database;
 }

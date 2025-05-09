@@ -1,6 +1,9 @@
-package tcs.familytree.core;
+package tcs.familytree.core.toanihilate;
 
-public class PersonFactoryDummyPerson implements PersonFactory{
+import tcs.familytree.core.person.Person;
+import tcs.familytree.core.person.PersonFactory;
+
+public class PersonFactoryDummyPerson implements PersonFactory {
     Integer id;
     boolean ifId = false;
     Data name = new DataString();

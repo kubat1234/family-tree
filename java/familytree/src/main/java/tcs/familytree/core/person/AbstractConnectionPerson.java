@@ -1,8 +1,11 @@
-package tcs.familytree.core;
+package tcs.familytree.core.person;
+
+import tcs.familytree.core.date.Date;
+import tcs.familytree.core.place.Place;
 
 import java.util.List;
 
-public abstract class AbstractConnectionPerson implements Person{
+public abstract class AbstractConnectionPerson implements Person {
     int id;
     Person person;
 

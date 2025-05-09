@@ -1,6 +1,6 @@
-package tcs.familytree.core;
+package tcs.familytree.core.toanihilate;
 
-public class DataString implements Data{
+public class DataString implements Data {
     private String information;
 
     public DataString(){

@@ -1,7 +1,4 @@
-package tcs.familytree.core;
-
-import java.io.IOException;
-import java.nio.file.FileSystemException;
+package tcs.familytree.services.database;
 
 public class DatabaseError extends RuntimeException{
     public DatabaseError() {

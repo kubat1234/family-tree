@@ -1,4 +1,10 @@
-package tcs.familytree.core;
+package tcs.familytree.services.database;
+
+import tcs.familytree.core.*;
+import tcs.familytree.core.date.Date;
+import tcs.familytree.core.person.Person;
+import tcs.familytree.core.relation.Relation;
+import tcs.familytree.core.toanihilate.RelationMarriage;
 
 import java.util.List;
 

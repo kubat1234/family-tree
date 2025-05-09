@@ -1,4 +1,6 @@
-package tcs.familytree.core;
+package tcs.familytree.services.database;
+
+import tcs.familytree.core.person.Person;
 
 import java.util.List;
 

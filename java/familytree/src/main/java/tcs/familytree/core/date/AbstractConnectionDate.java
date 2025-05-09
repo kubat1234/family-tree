@@ -1,8 +1,8 @@
-package tcs.familytree.core;
+package tcs.familytree.core.date;
 
 import java.util.List;
 
-public abstract class AbstractConnectionDate implements Date{
+public abstract class AbstractConnectionDate implements Date {
     int id;
     Date date;
 

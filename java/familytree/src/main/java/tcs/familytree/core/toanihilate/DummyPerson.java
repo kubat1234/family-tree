@@ -1,6 +1,8 @@
-package tcs.familytree.core;
+package tcs.familytree.core.toanihilate;
 
-public class DummyPerson implements Person{
+import tcs.familytree.core.person.Person;
+
+public class DummyPerson implements Person {
     private Integer id = 0;
     private Data name = new DataString();
 

@@ -5,14 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import tcs.familytree.TmpUtil;
-import tcs.familytree.core.DataString;
-import tcs.familytree.core.Person;
+import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class SimpleGraphPainter {
     @FXML

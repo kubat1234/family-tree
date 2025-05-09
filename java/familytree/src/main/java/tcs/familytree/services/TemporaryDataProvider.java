@@ -1,14 +1,7 @@
 package tcs.familytree.services;
 
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import tcs.familytree.core.Person;
-import tcs.familytree.core.RandomPersonsProvider;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import tcs.familytree.core.toanihilate.RandomPersonsProvider;
 
 /**
  * Very dangerous class, please refactor code asap so it's no longer needed.

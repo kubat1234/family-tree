@@ -2,6 +2,10 @@ package tcs.familytree.core;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnectionWithoutDatabase;
+import tcs.familytree.services.database.DatabaseFactory;
+import tcs.familytree.services.database.DatabaseFactoryPersonOnlyTest1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
