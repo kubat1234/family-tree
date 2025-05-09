@@ -30,6 +30,10 @@ public interface DatabaseConnection {
         throw new NotImplemented();
     }
 
+    default boolean updatePerson(Person person){throw new NotImplemented();}
+
+    default boolean addPerson(Person person){throw new NotImplemented();}
+
     default List<Relation> getAllRelation(){
         throw new NotImplemented();
     }
@@ -54,5 +58,8 @@ public interface DatabaseConnection {
 
     default Date getDate(int id){throw new NotImplemented();}
 
+    default boolean updateDate(Date date){throw new NotImplemented();}
+
+    default boolean addDate(Date date){throw new NotImplemented();}
     // More Connection
 }

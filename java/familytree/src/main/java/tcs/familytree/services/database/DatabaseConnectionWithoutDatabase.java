@@ -122,6 +122,25 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConnection {
     }
 
     @Override
+    public boolean updatePerson(Person person) {
+        if(!allPeople.containsKey(person.getId())){
+            return false;
+        }
+        allPeople.remove(person.getId());
+        allPeople.put(person.getId(), person);
+        return true;
+    }
+
+    @Override
+    public boolean addPerson(Person person) {
+        if(allPeople.containsKey(person.getId())){
+            return false;
+        }
+        allPeople.put(person.getId(), person);
+        return true;
+    }
+
+    @Override
     public List<Relation> getAllRelation() {
         List<Relation> allRelationList = new LinkedList<>();
         for(List<Relation> list: allRelation.values()){
@@ -186,6 +205,25 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConnection {
             throw new IllegalArgumentException("Date with id = " + id + " not exist in database.");
         }
         return allDates.get(id);
+    }
+
+    @Override
+    public boolean updateDate(Date date) {
+        if(!allDates.containsKey(date.getId())){
+            return false;
+        }
+        allDates.remove(date.getId(), date);
+        allDates.put(date.getId(), date);
+        return true;
+    }
+
+    @Override
+    public boolean addDate(Date date) {
+        if(allDates.containsKey(date.getId())){
+            return false;
+        }
+        allDates.put(date.getId(), date);
+        return true;
     }
 }
 
