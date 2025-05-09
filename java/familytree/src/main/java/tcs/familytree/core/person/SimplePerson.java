@@ -18,9 +18,9 @@ public class SimplePerson implements Person {
     Place birthPlace;
     Place deathPlace;
     boolean alive;
-    Boolean gender; // can be null
+    Gender gender;
 
-    public SimplePerson(int id, String firstName, List<String> names, String familyName, List<String> surnames, Person mother, Person father, Date birthDate, Date deathDate, Place birthPlace, Place deathPlace, boolean alive, Boolean gender){
+    public SimplePerson(int id, String firstName, List<String> names, String familyName, List<String> surnames, Person mother, Person father, Date birthDate, Date deathDate, Place birthPlace, Place deathPlace, boolean alive, Gender gender){
         this.id = id;
         this.firstName = firstName;
         this.names = names;
@@ -101,7 +101,7 @@ public class SimplePerson implements Person {
         return alive;
     }
 
-    public boolean getGender(){
+    public Gender getGender(){
         return gender;
     }
 }

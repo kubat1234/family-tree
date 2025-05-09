@@ -7,6 +7,7 @@ import tcs.familytree.core.relation.Relation;
 import tcs.familytree.core.relationtype.RelationType;
 
 public class RelationMarriage implements Relation {
+    int id;
     final private Person firstPerson;
     final private Person secondPerson;
     Place place;
@@ -19,6 +20,10 @@ public class RelationMarriage implements Relation {
         this.date = date;
     }
 
+    @Override
+    public int getId() {
+        return id;
+    }
     @Override
     public Person getFirstPerson() {
         return firstPerson;
@@ -43,7 +48,6 @@ public class RelationMarriage implements Relation {
     public boolean isSymetric() {
         return true;
     }
-
     @Override
     public RelationType getType() {
         return null;

@@ -5,10 +5,13 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 public interface Relation {
+
+    int getId();
 
     Person getFirstPerson();
     Person getSecondPerson();

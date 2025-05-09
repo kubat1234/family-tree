@@ -1,11 +1,12 @@
 package tcs.familytree.core.toanihilate;
 
 import tcs.familytree.core.date.Date;
+import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.core.person.PersonFactory;
+import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.place.Place;
 
-public class PersonFactoryDummyPerson implements PersonFactory {
+public class PersonFactoryDummyPerson implements PersonBuilder {
     Integer id;
     boolean ifId = false;
     Data name = new DataString();
@@ -19,71 +20,106 @@ public class PersonFactoryDummyPerson implements PersonFactory {
     }
 
     @Override
-    public PersonFactory setId(int id) {
+    public PersonBuilder setId(int id) {
         this.id = id;
         ifId = true;
         return this;
     }
 
     @Override
-    public PersonFactory setFirstName(String name) {
+    public PersonBuilder setName(String name) {
         this.name.set(name);
         return this;
     }
 
     @Override
-    public PersonFactory addAdditionalName(String name) {
-        return this;
+    public PersonBuilder setNames(String... names) {
+        return null;
     }
 
     @Override
-    public PersonFactory setFamilyName(String name) {
-        return this;
+    public PersonBuilder setFamilyName(String familyName) {
+        return null;
     }
 
     @Override
-    public PersonFactory addSurname(String surName) {
-        return this;
+    public PersonBuilder setSurnames(String... surnames) {
+        return null;
     }
 
     @Override
-    public PersonFactory setMother(Person mother) {
-        return this;
+    public PersonBuilder addSurname(String surname) {
+        return null;
     }
 
     @Override
-    public PersonFactory setFather(Person mother) {
-        return this;
+    public PersonBuilder setMother(Person mother) {
+        return null;
     }
 
     @Override
-    public PersonFactory setBirthDate(Date date) {
-        return this;
+    public PersonBuilder setMother(int motherId) {
+        return null;
     }
 
     @Override
-    public PersonFactory setDeathDate(Date date) {
-        return this;
+    public PersonBuilder setFather(Person father) {
+        return null;
     }
 
     @Override
-    public PersonFactory setBirthPlace(Place date) {
-        return this;
+    public PersonBuilder setFather(int fatherId) {
+        return null;
     }
 
     @Override
-    public PersonFactory setDeathPlace(Place place) {
-        return this;
+    public PersonBuilder setAlive(boolean alive) {
+        return null;
     }
 
     @Override
-    public PersonFactory setAlive(boolean place) {
-        return this;
+    public PersonBuilder setPlaceOfBirth(Place placeOfBirth) {
+        return null;
     }
 
     @Override
-    public PersonFactory setGender(Boolean place) {
-        return this;
+    public PersonBuilder setPlaceOfBirth(int placeOfBirthId) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setPlaceOfDeath(Place placeOfDeath) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setPlaceOfDeath(int placeOfDeathId) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setDateOfBirth(Date dateOfBirth) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setDateOfBirth(int dateOfBirthId) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setDateOfDeath(Date dateOfDeath) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setDateOfDeath(int dateOfDeathId) {
+        return null;
+    }
+
+    @Override
+    public PersonBuilder setGender(Gender gender) {
+        return null;
     }
 
 

@@ -33,7 +33,7 @@ public abstract class AbstractConnectionPerson implements Person {
     }
 
     @Override
-    public boolean getGender() {
+    public Gender getGender() {
         if(isUnloaded()) load();
         return person.getGender();
     }

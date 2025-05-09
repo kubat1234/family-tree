@@ -6,12 +6,12 @@ import tcs.familytree.services.database.DatabaseError;
 public class SimpleConnectionPerson extends AbstractConnectionPerson {
     DatabaseConection connection;
 
-    SimpleConnectionPerson(int id, DatabaseConection connection){
+    public SimpleConnectionPerson(int id, DatabaseConection connection){
         super(id);
         this.connection = connection;
     }
 
-    SimpleConnectionPerson(Person person, DatabaseConection connection){
+    public SimpleConnectionPerson(Person person, DatabaseConection connection){
         super(person);
         this.connection = connection;
     }

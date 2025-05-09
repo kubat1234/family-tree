@@ -97,14 +97,14 @@ public interface Person {
 
     default boolean isDead(){throw new NotImplemented();}
 
-    default boolean getGender(){throw new NotImplemented();}
+    default Gender getGender(){throw new NotImplemented();}
 
     default boolean isMale(){
-        return !getGender();
+        return getGender()==Gender.MALE;
     }
 
     default boolean isFemale(){
-        return getGender();
+        return getGender()==Gender.FEMALE;
     }
 
     default Place getPlaceOfBirth(){throw new NotImplemented();}
