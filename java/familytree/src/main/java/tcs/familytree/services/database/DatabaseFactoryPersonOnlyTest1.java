@@ -7,13 +7,13 @@ import tcs.familytree.core.toanihilate.PersonFactoryDummyPerson;
 public class DatabaseFactoryPersonOnlyTest1 extends DatabaseFactoryPersonOnly {
     public DatabaseFactoryPersonOnlyTest1(){
         PersonFactory personFactory = new PersonFactoryDummyPerson();
-        Person pr = personFactory.setId(1).setName("Kuba").build();
+        Person pr = personFactory.setId(1).setFirstName("Kuba").build();
 //        Person pr = new DummyPerson(1);
 //        pr.setName(new DataString("Kuba"));
         list.add(pr);
-        pr = personFactory.setId(2).setName("Alice").build();
+        pr = personFactory.setId(2).setFirstName("Alice").build();
         list.add(pr);
-        pr = personFactory.setId(3).setName("Unknown Member of Delta Cult").build();
+        pr = personFactory.setId(3).setFirstName("Unknown Member of Delta Cult").build();
         list.add(pr);
     }
 }
