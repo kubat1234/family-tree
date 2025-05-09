@@ -8,6 +8,7 @@ public class SingleTreeViewModel {
 
     TemporaryDataProvider provider;
     SimpleObjectProperty<FamilyGraph> graphProperty;
+    static SingleTreeViewModel model = new SingleTreeViewModel();
 
     public SingleTreeViewModel() {
         provider = new TemporaryDataProvider();
@@ -20,5 +21,9 @@ public class SingleTreeViewModel {
 
     public SimpleObjectProperty<FamilyGraph> getGraphProperty() {
         return graphProperty;
+    }
+
+    public static SingleTreeViewModel getModel() {
+        return model;
     }
 }

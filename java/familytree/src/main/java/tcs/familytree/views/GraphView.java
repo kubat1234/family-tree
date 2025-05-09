@@ -25,7 +25,6 @@ public class GraphView {
             runLater(() -> painter.paintRandomly(graphProperty.get()));
         }); //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
 
-        System.out.println("Listener added");
         viewModel.updateGraph();
 //        painter.paintRandomly(new DummyViewModel().provideTemporaryData());
     }

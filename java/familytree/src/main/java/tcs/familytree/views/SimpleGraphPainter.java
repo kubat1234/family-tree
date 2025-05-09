@@ -38,8 +38,10 @@ public class SimpleGraphPainter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+/*
         for(Person p : graph.getAllPersons()) {
             System.out.println(p.toString() + ": " + graph.getChildren(p).stream().map(Object::toString).collect(Collectors.joining(", ")));
         }
+ */
     }
 }

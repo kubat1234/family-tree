@@ -14,6 +14,8 @@ public class MainController {
     @FXML
     private Pane mainContainer;
 
+    private final SingleTreeViewModel viewModel = SingleTreeViewModel.getModel();
+
     private void colorClicked(String value) {
         System.out.println(value);
     }
@@ -31,7 +33,10 @@ public class MainController {
             Pane view = loader.load();
             SimpleGraphPainter graphPainter = loader.getController();
             mainContainer.getChildren().setAll(view);
-            GraphView graphView = new GraphView(graphPainter, new SingleTreeViewModel());
+            if(viewModel == null) {
+                throw new NullPointerException();
+            }
+            GraphView graphView = new GraphView(graphPainter, viewModel);
         }
         catch (Exception e) {
             e.printStackTrace();
