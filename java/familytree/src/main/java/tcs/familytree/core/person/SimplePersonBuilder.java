@@ -3,14 +3,14 @@ package tcs.familytree.core.person;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.date.SimpleConnectionDate;
 import tcs.familytree.core.place.Place;
-import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SimplePersonBuilder implements PersonBuilder {
-    DatabaseConection connection;
+    DatabaseConnection connection;
     int id;
     String firstName;
     List<String> names;
@@ -25,7 +25,7 @@ public class SimplePersonBuilder implements PersonBuilder {
     boolean alive;
     Gender gender;
 
-    public SimplePersonBuilder(DatabaseConection connection){
+    public SimplePersonBuilder(DatabaseConnection connection){
         this.connection = connection;
     }
     

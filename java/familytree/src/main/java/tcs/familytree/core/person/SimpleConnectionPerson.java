@@ -1,17 +1,17 @@
 package tcs.familytree.core.person;
 
-import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.DatabaseError;
 
 public class SimpleConnectionPerson extends AbstractConnectionPerson {
-    DatabaseConection connection;
+    DatabaseConnection connection;
 
-    public SimpleConnectionPerson(int id, DatabaseConection connection){
+    public SimpleConnectionPerson(int id, DatabaseConnection connection){
         super(id);
         this.connection = connection;
     }
 
-    public SimpleConnectionPerson(Person person, DatabaseConection connection){
+    public SimpleConnectionPerson(Person person, DatabaseConnection connection){
         super(person);
         this.connection = connection;
     }

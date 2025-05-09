@@ -7,8 +7,8 @@ import tcs.familytree.core.relation.Relation;
 import java.util.List;
 
 public interface DatabaseFactory {
-    DatabaseConection build();
-    DatabaseFactory changeType(Class<? extends DatabaseConection> databaseConectionClass);
+    DatabaseConnection build();
+    DatabaseFactory changeType(Class<? extends DatabaseConnection> databaseConectionClass);
     Person getPerson();
     boolean personAvailable();
     List<Person> getAllPersons();

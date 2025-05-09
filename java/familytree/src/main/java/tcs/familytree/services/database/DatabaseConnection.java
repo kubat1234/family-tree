@@ -8,8 +8,12 @@ import tcs.familytree.core.toanihilate.RelationMarriage;
 
 import java.util.List;
 
-public interface DatabaseConection {
-    
+public interface DatabaseConnection {
+
+    void load(DatabaseFactory databaseFactory);
+
+    void unload();
+
     default List<Person> getAllPersons(){
         throw new NotImplemented();
     }

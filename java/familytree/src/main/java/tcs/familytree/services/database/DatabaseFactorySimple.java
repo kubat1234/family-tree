@@ -15,10 +15,10 @@ public class DatabaseFactorySimple implements DatabaseFactory {
     int relationCounter = 0;
     List<Date> dateList = new LinkedList<>();
     int dateCounter = 0;
-    Class<? extends DatabaseConection> databaseConnectionClass = null;
+    Class<? extends DatabaseConnection> databaseConnectionClass = null;
 
     @Override
-    public DatabaseConection build() {
+    public DatabaseConnection build() {
         if(databaseConnectionClass == null){
             return new DatabaseConnectionWithoutDatabase(this);
         }
@@ -30,7 +30,7 @@ public class DatabaseFactorySimple implements DatabaseFactory {
     }
 
     @Override
-    public DatabaseFactory changeType(Class<? extends DatabaseConection> databaseConectionClass) {
+    public DatabaseFactory changeType(Class<? extends DatabaseConnection> databaseConectionClass) {
         this.databaseConnectionClass = databaseConectionClass;
         return this;
     }

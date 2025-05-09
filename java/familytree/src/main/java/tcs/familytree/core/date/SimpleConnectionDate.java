@@ -1,15 +1,15 @@
 package tcs.familytree.core.date;
 
-import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.DatabaseError;
 
 public class SimpleConnectionDate extends AbstractConnectionDate {
-    DatabaseConection connection;
-    public SimpleConnectionDate(int id, DatabaseConection connection){
+    DatabaseConnection connection;
+    public SimpleConnectionDate(int id, DatabaseConnection connection){
         super(id);
         this.connection = connection;
     }
-    public SimpleConnectionDate(Date date, DatabaseConection connection){
+    public SimpleConnectionDate(Date date, DatabaseConnection connection){
         super(date);
         this.connection = connection;
     }

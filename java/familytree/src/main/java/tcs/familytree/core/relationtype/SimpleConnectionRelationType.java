@@ -1,15 +1,14 @@
 package tcs.familytree.core.relationtype;
 
-import tcs.familytree.core.relation.RelationBuilder;
-import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnection;
 
 public class SimpleConnectionRelationType  extends AbstractConnectionRelationType{
-    DatabaseConection connection;
-    public SimpleConnectionRelationType(int id, DatabaseConection connection){
+    DatabaseConnection connection;
+    public SimpleConnectionRelationType(int id, DatabaseConnection connection){
         super(id);
         this.connection = connection;
     }
-    public SimpleConnectionRelationType(RelationType relationType, DatabaseConection connection){
+    public SimpleConnectionRelationType(RelationType relationType, DatabaseConnection connection){
         super(relationType);
         this.id = relationType.getId();
         this.connection = connection;

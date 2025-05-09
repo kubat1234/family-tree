@@ -2,7 +2,7 @@ package tcs.familytree.core;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.DatabaseConnectionWithoutDatabase;
 import tcs.familytree.services.database.DatabaseFactory;
 import tcs.familytree.services.database.DatabaseFactoryPersonOnlyTest1;
@@ -43,10 +43,10 @@ public class DatabaseConnectionTest {
         public void DatabaseBuildTestWithIncorrectType(){
             DatabaseFactory df = new DatabaseFactoryPersonOnlyTest1();
             try{
-                df.changeType(DatabaseConection.class).build();
+                df.changeType(DatabaseConnection.class).build();
                 fail();
             }catch (Exception ex){
-                assertEquals("NOT IMPLEMENTED CLASS FACTORY: " + DatabaseConection.class, ex.getMessage());
+                assertEquals("NOT IMPLEMENTED CLASS FACTORY: " + DatabaseConnection.class, ex.getMessage());
             }
         }
     }

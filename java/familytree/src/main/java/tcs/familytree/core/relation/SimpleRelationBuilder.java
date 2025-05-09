@@ -7,11 +7,10 @@ import tcs.familytree.core.person.SimpleConnectionPerson;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relationtype.RelationType;
 import tcs.familytree.core.relationtype.SimpleConnectionRelationType;
-import tcs.familytree.core.relationtype.SimpleRelationType;
-import tcs.familytree.services.database.DatabaseConection;
+import tcs.familytree.services.database.DatabaseConnection;
 
 public class SimpleRelationBuilder implements RelationBuilder{
-    DatabaseConection connection;
+    DatabaseConnection connection;
     int id;
     RelationType relationType;
     Person person1;
@@ -20,7 +19,7 @@ public class SimpleRelationBuilder implements RelationBuilder{
     Place place;
     boolean isSymetric;
 
-    SimpleRelationBuilder(DatabaseConection connection){
+    SimpleRelationBuilder(DatabaseConnection connection){
         this.connection = connection;
     }
     @Override

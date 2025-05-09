@@ -10,10 +10,58 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
+public class DatabaseConnectionWithoutDatabase implements DatabaseConnection {
     Map<Integer, Person> allPeople = new HashMap<>();
     Map<Integer, List<Relation>> allRelation = new HashMap<>();
     Map<Integer, Date> allDates = new HashMap<>();
+    boolean loaded = false;
+
+
+    public void load(DatabaseFactory databaseFactory){
+        unload();
+        while(databaseFactory.personAvailable()){
+            Person pr = databaseFactory.getPerson();
+            if(pr == null){
+                throw new NullPointerException();
+            }
+            allPeople.put(pr.getId(), pr);
+        }
+        while (databaseFactory.dateAvailable()){
+            Date date = databaseFactory.getDate();
+            if(date == null){
+                throw new NullPointerException();
+            }
+            allDates.put(date.getId(), date);
+        }
+        while (databaseFactory.relationAvailable()){
+            Relation relation = databaseFactory.getRelation();
+            if(relation == null){
+                throw new NullPointerException();
+            }
+            Person pr = relation.getFirstPerson();
+            if(!allRelation.containsKey(pr.getId())){
+                allRelation.put(pr.getId(), new LinkedList<>());
+            }
+            allRelation.get(pr.getId()).add(relation);
+            pr = relation.getSecondPerson();
+            if(!allRelation.containsKey(pr.getId())){
+                allRelation.put(pr.getId(), new LinkedList<>());
+            }
+            allRelation.get(pr.getId()).add(relation);
+        }
+        loaded = true;
+    }
+
+    @Override
+    public void unload() {
+        allPeople.clear();
+        allRelation.clear();
+        allDates.clear();
+    }
+
+    DatabaseConnectionWithoutDatabase(){
+
+    }
 
     DatabaseConnectionWithoutDatabase(DatabaseFactory databaseFactory){
         while(databaseFactory.personAvailable()){
@@ -46,6 +94,7 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConection {
             }
             allRelation.get(pr.getId()).add(relation);
         }
+        loaded = true;
 
     }
 
