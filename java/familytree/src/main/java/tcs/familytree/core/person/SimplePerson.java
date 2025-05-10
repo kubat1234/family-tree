@@ -4,6 +4,7 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SimplePerson implements Person {
     int id;
@@ -103,5 +104,13 @@ public class SimplePerson implements Person {
 
     public Gender getGender(){
         return gender;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Person person)) {
+            return false;
+        }
+        return person.getId() == id;
     }
 }

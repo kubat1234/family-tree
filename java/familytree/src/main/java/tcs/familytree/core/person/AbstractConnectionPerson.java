@@ -164,4 +164,11 @@ public abstract class AbstractConnectionPerson implements Person {
         return person.getSurname(numberOfSurname);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Person p)) {
+            return false;
+        }
+        return p.getId() == id;
+    }
 }

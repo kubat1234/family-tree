@@ -38,7 +38,7 @@ public class DatabaseFactorySimple implements DatabaseFactory {
     @Override
     public Person getPerson() {
         if(personCounter >= personList.size()){
-            throw new IllegalArgumentException("Database Factory person get out of bounds");
+            throw new IndexOutOfBoundsException("Database Factory person get out of bounds");
         }
         personCounter++;
         return personList.get(personCounter - 1);
