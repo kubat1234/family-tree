@@ -3,15 +3,16 @@ package tcs.familytree.viewmodels;
 import javafx.beans.property.SimpleObjectProperty;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.services.TemporaryDataProvider;
+import tcs.familytree.services.TemporaryDataProvider2;
 
 public class HardcodedSingleTreeViewModel implements SingleTreeViewModel{
 
-    TemporaryDataProvider provider;
+    TemporaryDataProvider2 provider;
     SimpleObjectProperty<FamilyGraph> graphProperty;
     static HardcodedSingleTreeViewModel model = new HardcodedSingleTreeViewModel();
 
     private HardcodedSingleTreeViewModel() {
-        provider = new TemporaryDataProvider();
+        provider = new TemporaryDataProvider2();
         graphProperty = provider.provideTemporaryDataAsProperty();
     }
 

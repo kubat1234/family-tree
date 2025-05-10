@@ -6,7 +6,7 @@ import tcs.familytree.core.person.SimplePersonBuilder;
 
 public class DatabaseFactorySimpleInput1 extends DatabaseFactorySimple{
 
-    DatabaseFactorySimpleInput1(){
+    public DatabaseFactorySimpleInput1(){
 
         // TODO
         PersonBuilder pb = new SimplePersonBuilder(null);

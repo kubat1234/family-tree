@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Temporary class, feel free to refactor other classes and remove it.
+ * It exists only in case someone breaks something, and we need just anything running.
  */
 public class RandomPersonsProvider {
     static class MyPerson implements Person {
