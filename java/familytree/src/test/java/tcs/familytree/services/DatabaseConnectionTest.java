@@ -1,4 +1,4 @@
-package tcs.familytree.core;
+package tcs.familytree.services;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
