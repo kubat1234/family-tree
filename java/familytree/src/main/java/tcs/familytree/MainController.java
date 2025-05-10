@@ -43,7 +43,12 @@ public class MainController {
 
     @FXML
     protected void red() {
-        colorClicked("Red");
+        if(!colorClicked("Red", OpenedTab.PAINTER)) {
+            graphView.paintCenteredAtRandom();
+            return;
+        }
+        SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
+        graphView = new GraphView(painter, viewModel);
     }
 
     @FXML
