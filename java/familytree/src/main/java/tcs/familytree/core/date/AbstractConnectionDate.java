@@ -8,10 +8,10 @@ public abstract class AbstractConnectionDate implements Date, ConnectionData {
     int id;
     Date date;
 
-    AbstractConnectionDate(int id){
+    public AbstractConnectionDate(int id){
         this.id = id;
     }
-    AbstractConnectionDate(Date date){
+    public AbstractConnectionDate(Date date){
         this.date = date;
         this.id = date.getId();
     }
@@ -68,5 +68,34 @@ public abstract class AbstractConnectionDate implements Date, ConnectionData {
     public String getDateDescription() {
         if(isUnloaded()) load();
         return date.getDateDescription();
+    }
+
+    @Override
+    public void setYear(int year) {
+        if(isUnloaded()) load();
+        date.setYear(year);
+    }
+
+    @Override
+    public void setMonth(int month) {
+        if(isUnloaded()) load();
+        date.setMonth(month);
+    }
+
+    @Override
+    public void setDay(int day) {
+        if(isUnloaded()) load();
+        date.setDay(day);
+    }
+
+    @Override
+    public void setAccurate(boolean accurate) {
+        if(isUnloaded()) load();
+        date.setAccurate(accurate);
+    }
+
+    @Override
+    public String toString(){
+        return date.toString();
     }
 }

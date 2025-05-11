@@ -2,6 +2,7 @@ package tcs.familytree.core.date;
 
 public interface DateBuilder {
     Date build();
+    DateBuilder setDate(Date date);
     DateBuilder setId(int id);
     DateBuilder setYear(int year);
     DateBuilder setMonth(int month);

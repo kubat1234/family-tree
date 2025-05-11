@@ -6,10 +6,23 @@ public class SimpleDateBuilder implements DateBuilder{
     int month;
     int day;
     boolean accurate;
+    public SimpleDateBuilder(Date date){
+        setDate(date);
+    }
     @Override
     public Date build() {
         return new SimpleDate(id, year, month, day, accurate);
     }
+    @Override
+    public DateBuilder setDate(Date date) {
+        this.id = date.getId();
+        this.year = date.getYear();
+        this.month = date.getMonth();
+        this.day = date.getDay();
+        this.accurate = date.isAccurate();
+        return this;
+    }
+
     @Override
     public DateBuilder setId(int id) {
         this.id = id;

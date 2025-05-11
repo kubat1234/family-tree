@@ -21,5 +21,9 @@ public interface Date {
         return isAccurate() ? "" : "~" + getDate();
     }
 
-    // TODO setters
+    //void setId(int id); // TODO id final ??
+    void setYear(int year);
+    void setMonth(int month);
+    void setDay(int day);
+    void setAccurate(boolean accurate);
 }
