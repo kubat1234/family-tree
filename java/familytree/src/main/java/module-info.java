@@ -2,6 +2,7 @@ module tcs.familytree {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml;
+    requires jdk.jshell;
 
 
     opens tcs.familytree to javafx.fxml;

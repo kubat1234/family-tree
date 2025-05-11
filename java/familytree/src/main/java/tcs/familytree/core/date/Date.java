@@ -1,14 +1,15 @@
 package tcs.familytree.core.date;
 
+import tcs.familytree.core.Identifiable;
+
 import java.util.List;
 
-public interface Date {
+public interface Date extends Identifiable {
     // Interface to Date
     default List<Object> getAllData(){
         return List.of(getId(),getYear(),getMonth(),getDay(),isAccurate());
     }
     // getters
-    int getId();
     int getYear();
     int getMonth();
     int getDay();
