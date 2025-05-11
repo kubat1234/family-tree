@@ -26,7 +26,8 @@ public class StupidCLIView {
         System.out.println(" -=-=- Family Tree -=-=-");
         System.out.println(" -=-=- Program do drzew genealogicznych -=-=-");
         Scanner scanner = new Scanner(System.in);
-        String helpMessage = "1: wypisz wszystkie nazwiska; 2: wypisz wszystkie dzieci; 3: odśwież dane; 4: zabij widok CLI";
+        String helpMessage = "1: wypisz wszystkie nazwiska; 2: wypisz wszystkie dzieci; 3: odśwież dane; 4: zabij widok CLI\n" +
+        "5\\n x: wypisz wszystkie dane o osobie o id=x; 6\\n x\\n y: ustaw imię osoby o id=x na y";
         System.out.println(helpMessage);
         outer:
         while(scanner.hasNext()) {
@@ -58,8 +59,31 @@ public class StupidCLIView {
                     System.out.println("Do widzenia");
                     break outer;
                 }
+                case "5": {
+                    String id = scanner.nextLine();
+                    try {
+                        Person p = viewModel.getGraphProperty().get().getAllPersons().stream().filter(q -> q.getId() == Integer.parseInt(id)).findFirst().get();
+                        System.out.println(p.getName() + " " + String.join(" ", p.getAllSurnames()));
+                    } catch (Exception e) {
+                        System.out.println("Niepoprawne id");
+                    }
+                    break;
+                }
+                case "6": {
+                    String id = scanner.nextLine();
+                    try {
+                        Person p = viewModel.getGraphProperty().get().getAllPersons().stream().filter(q -> q.getId() == Integer.parseInt(id)).findFirst().get();
+                        String newName = scanner.nextLine();
+                        p.setName(newName);
+                        System.out.println("Zmieniono na: " + p.getName() + " " + String.join(" ", p.getAllSurnames()));
+                    } catch (Exception e) {
+                        System.out.println("Wystąpił błąd");
+                        e.printStackTrace();
+                    }
+                    break;
+                }
                 default:
-                    System.out.println("nie jedynka");
+                    System.out.println(helpMessage);
             }
         }
     }
