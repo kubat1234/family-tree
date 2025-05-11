@@ -1,6 +1,8 @@
 package tcs.familytree.viewmodels;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import tcs.familytree.services.FamilyGraph;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -90,6 +93,43 @@ public class HardcodedTest {
             model.updateGraph();
             person = model.getGraphProperty().get().getAllPersons().iterator().next();
             assertEquals(newName, person.getName());
+        }
+
+        @Test
+        public void BasicListeners() throws InterruptedException {
+            final AtomicInteger counter = new AtomicInteger(0);
+            ChangeListener<FamilyGraph> listener = new ChangeListener<FamilyGraph>() {
+                @Override
+                public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph graph, FamilyGraph t1) {
+                    counter.incrementAndGet();
+                }
+            };
+            model.getGraphProperty().addListener(listener);
+            assertEquals(0, counter.get());
+            model.updateGraph();
+            Thread.sleep(100);
+            assertEquals(1, counter.get());
+        }
+
+        @Test
+        public void PersonChangedListeners() throws InterruptedException {
+            Person person = graph.getAllPersons().iterator().next();
+            final String newName = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                    "Morbi sed lectus lacinia, sagittis libero ut, lobortis dui. " +
+                    "Nam quis est sed lectus eleifend pellentesque et.";
+            final AtomicInteger counter = new AtomicInteger(0);
+            ChangeListener<FamilyGraph> listener = new ChangeListener<FamilyGraph>() {
+                @Override
+                public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph graph, FamilyGraph t1) {
+                    counter.incrementAndGet();
+                }
+            };
+            model.getGraphProperty().addListener(listener);
+            assertEquals(0, counter.get());
+            person.setName(newName);
+
+            Thread.sleep(100);
+            assertEquals(1, counter.get());
         }
     }
 }
