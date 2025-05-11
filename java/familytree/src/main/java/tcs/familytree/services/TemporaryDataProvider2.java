@@ -1,7 +1,6 @@
 package tcs.familytree.services;
 
 import javafx.beans.property.SimpleObjectProperty;
-import tcs.familytree.core.toanihilate.RandomPersonsProvider;
 import tcs.familytree.services.database.DatabaseFactory;
 import tcs.familytree.services.database.DatabaseFactorySimpleInput1;
 

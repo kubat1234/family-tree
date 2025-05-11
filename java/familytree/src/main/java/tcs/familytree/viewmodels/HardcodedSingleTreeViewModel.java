@@ -2,7 +2,6 @@ package tcs.familytree.viewmodels;
 
 import javafx.beans.property.SimpleObjectProperty;
 import tcs.familytree.services.FamilyGraph;
-import tcs.familytree.services.TemporaryDataProvider;
 import tcs.familytree.services.TemporaryDataProvider2;
 
 public class HardcodedSingleTreeViewModel implements SingleTreeViewModel{
