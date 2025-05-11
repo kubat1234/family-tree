@@ -16,7 +16,7 @@ public class SimpleGraphPainter {
     @FXML
     protected AnchorPane container;
 
-    public void paintReadyData(GraphOnPlane graphOnPlane) {
+    public void paintGraphOnPlane(GraphOnPlane graphOnPlane) {
         if(graphOnPlane == null || graphOnPlane.getPersons() == null) {
             throw new NullPointerException();
         }

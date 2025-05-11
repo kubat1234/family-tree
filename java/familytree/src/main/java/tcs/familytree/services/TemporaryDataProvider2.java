@@ -18,9 +18,7 @@ public class TemporaryDataProvider2 {
     }
 
     private void updateGraph2() {
-        RandomPersonsProvider provider = new RandomPersonsProvider();
         DatabaseFactory factory = new DatabaseFactorySimpleInput1();
-//        graphProperty.set(new SimpleGraph(provider.getStaticData()));
         graphProperty.set(new SimpleGraph(factory.getAllPersons()));
     }
 

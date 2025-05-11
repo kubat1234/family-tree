@@ -14,8 +14,8 @@ public class MainController {
 
     private enum OpenedTab {
         NONE,
-        PAINTER,
-        HELLO_WORLD
+        RANDOM_PAINTER,
+        RED_PAINTER,
     }
 
     private final SingleTreeViewModel viewModel = HardcodedSingleTreeViewModel.getModel();
@@ -28,45 +28,67 @@ public class MainController {
 
     private boolean colorClicked(String value, OpenedTab tab) {
         colorClicked(value);
-        if(tab == openedTab) {
+        OpenedTab oldTab = openedTab;
+        openedTab = tab;
+        if(tab == oldTab) {
             return false;
         }
-        if(openedTab == OpenedTab.PAINTER) {
+        if(graphView == null) {
+            return true;
+        }
+        graphView.dropListener();
+        /*
+        if(openedTab == OpenedTab.RANDOM_PAINTER) {
             if(graphView == null) {
                 throw new NullPointerException();
             }
             graphView.dropListener();
         }
-        openedTab = tab;
+         */
         return true;
     }
 
     @FXML
     protected void red() {
-        if(!colorClicked("Red", OpenedTab.PAINTER)) {
-            graphView.paintCenteredAtRandom();
+        if(!colorClicked("Red", OpenedTab.RED_PAINTER)) {
             return;
         }
-        SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
-        graphView = new GraphView(painter, viewModel);
+        if(graphView == null) {
+            SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
+            graphView = new GraphView(painter, viewModel);
+        }
+        graphView.paintCenteredAtRandom();
     }
 
     @FXML
     protected void green() {
-        if(!colorClicked("Green", OpenedTab.PAINTER)) {
+        if(!colorClicked("Green", OpenedTab.RANDOM_PAINTER)) {
             return;
         }
-        SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
-        graphView = new GraphView(painter, viewModel);
+        if(graphView == null) {
+            SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
+            graphView = new GraphView(painter, viewModel);
+        }
+        graphView.paintRandomly();
     }
 
     @FXML
     protected void blue() {
+
+        if(viewModel != null) {
+            viewModel.updateGraph();
+        }
+        else {
+            throw new IllegalStateException("There is no viewModel??");
+        }
+
+        /*
         if(!colorClicked("Blue", OpenedTab.HELLO_WORLD)) {
             return;
         }
         HelloController helloController = load("hello-view.fxml");
         helloController.setWelcomeText("Greetings from Blue!");
+         */
     }
 
     private <T> T load(String resource) {
