@@ -8,6 +8,7 @@ import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,6 +43,53 @@ public class HardcodedTest {
             assertNotEquals(0, persons.size());
             assertTrue(persons.stream().anyMatch(p -> p.getMother() != null || p.getFather() != null));
             assertTrue(persons.stream().anyMatch(p -> !graph.getChildren(p).isEmpty()));
+        }
+    }
+
+    @Nested
+    public class ModificationTests {
+        SingleTreeViewModel model;
+        ReadOnlyProperty<FamilyGraph> property;
+        FamilyGraph graph;
+
+        @BeforeEach
+        public void before() {
+            model = HardcodedSingleTreeViewModel.getModel();
+            model.updateGraph();
+            property = model.getGraphProperty();
+            graph = property.getValue();
+        }
+
+        @Test
+        public void StaticDataWorks() {
+            assertNotEquals(0, graph.getAllPersons().size());
+            assertNotNull(graph.getAllPersons().iterator().next());
+            assertNotNull(graph.getAllPersons().iterator().next().getName());
+        }
+
+        @Test
+        public void BasicModifications() {
+            Person person = graph.getAllPersons().iterator().next();
+            final String newName = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                    "Morbi sed lectus lacinia, sagittis libero ut, lobortis dui. " +
+                    "Nam quis est sed lectus eleifend pellentesque et.";
+            person.setName(newName);
+            assertEquals(newName, person.getName());
+            person = graph.getAllPersons().iterator().next();
+            assertEquals(newName, person.getName());
+        }
+
+        @Test
+        public void InDatabaseModification() {
+            Person person = graph.getAllPersons().iterator().next();
+            final String newName = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                    "Morbi sed lectus lacinia, sagittis libero ut, lobortis dui. " +
+                    "Nam quis est sed lectus eleifend pellentesque et.";
+            person.setName(newName);
+            assertEquals(newName, person.getName());
+            model.updateGraph();
+            person = model.getGraphProperty().get().getAllPersons().iterator().next();
+            assertEquals(newName, person.getName());
         }
     }
 }
