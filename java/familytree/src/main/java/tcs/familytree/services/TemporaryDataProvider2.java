@@ -21,6 +21,10 @@ public class TemporaryDataProvider2 {
         databaseConnection.load(new DatabaseFactorySimpleInput1(databaseConnection));
     }
 
+    public DatabaseConnection getDatabaseConnection() {
+        return databaseConnection;
+    }
+
     private void updateGraph2() {
 
         DatabaseFactory factory = new DatabaseFactorySimpleInput1();

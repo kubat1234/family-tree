@@ -3,6 +3,7 @@ package tcs.familytree.viewmodels;
 import javafx.beans.property.SimpleObjectProperty;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.services.TemporaryDataProvider2;
+import tcs.familytree.services.database.DatabaseConnection;
 
 public class HardcodedSingleTreeViewModel implements SingleTreeViewModel{
 
@@ -13,6 +14,11 @@ public class HardcodedSingleTreeViewModel implements SingleTreeViewModel{
     private HardcodedSingleTreeViewModel() {
         provider = new TemporaryDataProvider2();
         graphProperty = provider.provideTemporaryDataAsProperty();
+    }
+
+    @Override
+    public DatabaseConnection getDatabaseConnection() {
+        return provider.getDatabaseConnection();
     }
 
     public void updateGraph() {

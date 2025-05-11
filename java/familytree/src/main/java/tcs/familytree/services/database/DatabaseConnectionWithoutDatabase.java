@@ -2,6 +2,7 @@ package tcs.familytree.services.database;
 
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.person.SimpleConnectionPerson;
 import tcs.familytree.core.relation.Relation;
 import tcs.familytree.core.toanihilate.RelationMarriage;
 
@@ -103,7 +104,7 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConnection {
         if(checkIfPersonExist(id)){
             throw new DatabaseError("DATABASE " + this + " do not have person on id: " + id);
         }
-        return allPeople.get(id).copy();
+        return new SimpleConnectionPerson(allPeople.get(id), this);
     }
 
     @Override
