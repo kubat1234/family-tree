@@ -158,42 +158,70 @@ public class SimpleConnectionPerson extends AbstractConnectionData<Person> imple
     public void setPlaceOfDeath(Place placeOfDeath) {
         if(isUnloaded()) load();
         data.setPlaceOfDeath(placeOfDeath);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setPlaceOfBirth(Place placeOfBirth) {
         if(isUnloaded()) load();
         data.setPlaceOfBirth(placeOfBirth);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setDateOfDeath(Date dateOfDeath) {
         if(isUnloaded()) load();
         data.setDateOfDeath(dateOfDeath);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setName(String name) {
         if(isUnloaded()) load();
         data.setName(name);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setAlive(boolean alive) {
         if(isUnloaded()) load();
         data.setAlive(alive);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setAllNames(String... names) {
         if(isUnloaded()) load();
         data.setAllNames(names);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void addName(String name) {
         if(isUnloaded()) load();
         data.addName(name);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
@@ -206,48 +234,80 @@ public class SimpleConnectionPerson extends AbstractConnectionData<Person> imple
     public void addSurname(String surname) {
         if(isUnloaded()) load();
         data.addSurname(surname);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void addSurname(String surname, int numberSurname) {
         if(isUnloaded()) load();
         data.addSurname(surname, numberSurname);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setAllSurnames(String... surnames) {
         if(isUnloaded()) load();
         data.setAllSurnames(surnames);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setDateOfBirth(Date dateOfBirth) {
         if(isUnloaded()) load();
         data.setDateOfBirth(dateOfBirth);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setFamilyName(String familyName) {
         if(isUnloaded()) load();
         data.setFamilyName(familyName);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setFather(Person father) {
         if(isUnloaded()) load();
         data.setFather(father);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setGender(Gender gender) {
         if(isUnloaded()) load();
         data.setGender(gender);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setMother(Person mother) {
         if(isUnloaded()) load();
         data.setMother(mother);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override

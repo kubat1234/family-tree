@@ -64,24 +64,40 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
     public void setYear(int year) {
         if(isUnloaded()) load();
         data.setYear(year);
+        if(!connection.updateDate(data)){
+            unload();
+            throw new DatabaseError("Date with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setMonth(int month) {
         if(isUnloaded()) load();
         data.setMonth(month);
+        if(!connection.updateDate(data)){
+            unload();
+            throw new DatabaseError("Date with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setDay(int day) {
         if(isUnloaded()) load();
         data.setDay(day);
+        if(!connection.updateDate(data)){
+            unload();
+            throw new DatabaseError("Date with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setAccurate(boolean accurate) {
         if(isUnloaded()) load();
         data.setAccurate(accurate);
+        if(!connection.updateDate(data)){
+            unload();
+            throw new DatabaseError("Date with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
