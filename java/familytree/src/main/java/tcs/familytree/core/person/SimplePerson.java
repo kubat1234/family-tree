@@ -7,6 +7,7 @@ import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SimplePerson implements Person {
     int id;
