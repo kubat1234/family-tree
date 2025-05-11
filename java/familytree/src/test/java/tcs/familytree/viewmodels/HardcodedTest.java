@@ -131,5 +131,28 @@ public class HardcodedTest {
             Thread.sleep(100);
             assertEquals(1, counter.get());
         }
+
+        @Test
+        public void PersonChangedListenersWorkaround() throws InterruptedException {
+            Person person = graph.getAllPersons().iterator().next();
+            final String newName = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                    "Morbi sed lectus lacinia, sagittis libero ut, lobortis dui. " +
+                    "Nam quis est sed lectus eleifend pellentesque et.";
+            final AtomicInteger counter = new AtomicInteger(0);
+            ChangeListener<FamilyGraph> listener = new ChangeListener<FamilyGraph>() {
+                @Override
+                public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph graph, FamilyGraph t1) {
+                    counter.incrementAndGet();
+                }
+            };
+            model.getGraphProperty().addListener(listener);
+            assertEquals(0, counter.get());
+
+            person.setName(newName);
+            model.updateGraph();
+
+            Thread.sleep(100);
+            assertEquals(1, counter.get());
+        }
     }
 }
