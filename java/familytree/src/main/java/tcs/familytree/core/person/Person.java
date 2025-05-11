@@ -1,7 +1,8 @@
 package tcs.familytree.core.person;
 
-import tcs.familytree.core.date.Date;
+import jdk.jshell.spi.ExecutionControl;
 import tcs.familytree.core.NotImplemented;
+import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
@@ -21,56 +22,22 @@ public interface Person {
 
     int getId();
 
-    default String getName(){
-        throw new NotImplemented();
-    }
+    String getName();
 
-    default List<String> getAllName(){
-        throw new NotImplemented();
-    }
+    List<String> getAllNames();
 
-    default void setName(String name){
-        throw new NotImplemented();
-    }
+    String getSurname(int numberOfSurname);
 
-    default void addName(){
-        throw new NotImplemented();
-    }
+    String getFamilySurname();
 
-    default String getSurname(){
-        throw new NotImplemented();
-    }
-
-    default String getSurname(int numberOfSurname){
-        throw new NotImplemented();
-    }
-
-    default void addSurname(String surname, int numberSurname){
-        throw new NotImplemented();
-    }
-
-    default void addSurname(String surname){
-        throw new NotImplemented();
-    }
-
-    default String getFamilySurname(){
-        throw new NotImplemented();
-    }
-
-    default List<String> getSurnamesAsList(){
-        throw new NotImplemented();
-    }
+    List<String> getAllSurnames();
 
     // Family getters;
     // TODO family setters
 
-    default Person getMother(){
-        throw new NotImplemented();
-    }
+    Person getMother();
 
-    default Person getFather(){
-        throw new NotImplemented();
-    }
+    Person getFather();
 
     default List<Person> getParents(){
         List<Person> list = new ArrayList<>();
@@ -79,25 +46,23 @@ public interface Person {
         return list;
     }
 
-    default List<Person> getChildren(){
-        throw new NotImplemented();
-    }
+    List<Person> getChildren();
 
-    default List<Person> getPartners(){ throw new NotImplemented();}
+    List<Person> getPartners();
 
-    default List<Relation> getRelations(){ throw new NotImplemented();}
+    List<Relation> getRelations();
 
     // TODO relations getters
 
-    default Date getDateOfBirth(){throw new NotImplemented();}
+    Date getDateOfBirth();
 
-    default Date getDateOfDeath(){throw new NotImplemented();}
+    Date getDateOfDeath();
 
-    default boolean isAlive(){throw new NotImplemented();}
+    boolean isAlive();
 
-    default boolean isDead(){throw new NotImplemented();}
+    boolean isDead();
 
-    default Gender getGender(){throw new NotImplemented();}
+    Gender getGender();
 
     default boolean isMale(){
         return getGender()==Gender.MALE;
@@ -107,8 +72,41 @@ public interface Person {
         return getGender()==Gender.FEMALE;
     }
 
-    default Place getPlaceOfBirth(){throw new NotImplemented();}
+    Place getPlaceOfBirth();
 
-    default Place getPlaceOfDeath(){throw new NotImplemented();}
+    Place getPlaceOfDeath();
 
+    void setName(String name);
+
+    void addName(String name);
+
+    void setAllNames(String... names);
+
+    void addSurname(String surname, int numberSurname);
+
+    void addSurname(String surname);
+
+    void setAllSurnames(String... surnames);
+
+    void setFamilyName(String familyName);
+
+    void setMother(Person mother);
+
+    void setFather(Person father);
+
+    void setDateOfBirth(Date dateOfBirth);
+
+    void setDateOfDeath(Date dateOfDeath);
+
+    void setAlive(boolean alive);
+
+    void setGender(Gender gender);
+
+    void setPlaceOfBirth(Place placeOfBirth);
+
+    void setPlaceOfDeath(Place placeOfDeath);
+
+    boolean equals(Object o);
+
+    int hashCode();
 }

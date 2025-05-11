@@ -3,6 +3,7 @@ package tcs.familytree.core.person;
 import tcs.familytree.core.ConnectionData;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
+import tcs.familytree.core.relation.Relation;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ public abstract class AbstractConnectionPerson implements Person, ConnectionData
     int id;
     Person person;
 
-    AbstractConnectionPerson(int id){
+    public AbstractConnectionPerson(int id){
         this.id = id;
     }
 
-    AbstractConnectionPerson(Person person){
+    public AbstractConnectionPerson(Person person){
         this.person = person;
         this.id = person.getId();
     }
@@ -122,15 +123,15 @@ public abstract class AbstractConnectionPerson implements Person, ConnectionData
     }
 
     @Override
-    public List<String> getAllName() {
+    public List<String> getAllNames() {
         if(isUnloaded()) load();
-        return person.getAllName();
+        return person.getAllNames();
     }
 
     @Override
-    public List<String> getSurnamesAsList() {
+    public List<String> getAllSurnames() {
         if(isUnloaded()) load();
-        return person.getSurnamesAsList();
+        return person.getAllSurnames();
     }
 
     @Override
@@ -158,15 +159,105 @@ public abstract class AbstractConnectionPerson implements Person, ConnectionData
     }
 
     @Override
-    public String getSurname() {
-        if(isUnloaded()) load();
-        return person.getSurname();
-    }
-
-    @Override
     public String getSurname(int numberOfSurname) {
         if(isUnloaded()) load();
         return person.getSurname(numberOfSurname);
+    }
+
+    @Override
+    public void setPlaceOfDeath(Place placeOfDeath) {
+        if(isUnloaded()) load();
+        person.setPlaceOfDeath(placeOfDeath);
+    }
+
+    @Override
+    public void setPlaceOfBirth(Place placeOfBirth) {
+        if(isUnloaded()) load();
+        person.setPlaceOfBirth(placeOfBirth);
+    }
+
+    @Override
+    public void setDateOfDeath(Date dateOfDeath) {
+        if(isUnloaded()) load();
+        person.setDateOfDeath(dateOfDeath);
+    }
+
+    @Override
+    public void setName(String name) {
+        if(isUnloaded()) load();
+        person.setName(name);
+    }
+
+    @Override
+    public void setAlive(boolean alive) {
+        if(isUnloaded()) load();
+        person.setAlive(alive);
+    }
+
+    @Override
+    public void setAllNames(String... names) {
+        if(isUnloaded()) load();
+        person.setAllNames(names);
+    }
+
+    @Override
+    public void addName(String name) {
+        if(isUnloaded()) load();
+        person.addName(name);
+    }
+
+    @Override
+    public List<Relation> getRelations() {
+        if(isUnloaded()) load();
+        return person.getRelations();
+    }
+
+    @Override
+    public void addSurname(String surname) {
+        if(isUnloaded()) load();
+        person.addSurname(surname);
+    }
+
+    @Override
+    public void addSurname(String surname, int numberSurname) {
+        if(isUnloaded()) load();
+        person.addSurname(surname, numberSurname);
+    }
+
+    @Override
+    public void setAllSurnames(String... surnames) {
+        if(isUnloaded()) load();
+        person.setAllSurnames(surnames);
+    }
+
+    @Override
+    public void setDateOfBirth(Date dateOfBirth) {
+        if(isUnloaded()) load();
+        person.setDateOfBirth(dateOfBirth);
+    }
+
+    @Override
+    public void setFamilyName(String familyName) {
+        if(isUnloaded()) load();
+        person.setFamilyName(familyName);
+    }
+
+    @Override
+    public void setFather(Person father) {
+        if(isUnloaded()) load();
+        person.setFather(father);
+    }
+
+    @Override
+    public void setGender(Gender gender) {
+        if(isUnloaded()) load();
+        person.setGender(gender);
+    }
+
+    @Override
+    public void setMother(Person mother) {
+        if(isUnloaded()) load();
+        person.setMother(mother);
     }
 
     @Override

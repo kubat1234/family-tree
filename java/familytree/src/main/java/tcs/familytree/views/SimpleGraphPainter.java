@@ -32,7 +32,7 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
                 controllers[i].setAllDataFromStrings(pop.person().getName(),
-                        pop.person().getSurname(),
+                        pop.person().getFamilySurname(),
                         TmpUtil.randDate(20), TmpUtil.randDate(60));
                 panes[i].setLayoutX(pop.x());
                 panes[i].setLayoutY(pop.y());
@@ -55,7 +55,7 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
                 controllers[i].setAllDataFromStrings(personList.get(i).getName(),
-                         personList.get(i).getSurname(), TmpUtil.randDate(20), TmpUtil.randDate(60));
+                         personList.get(i).getFamilySurname(), TmpUtil.randDate(20), TmpUtil.randDate(60));
                 panes[i].setLayoutX(TmpUtil.rand(900) + 10);
                 panes[i].setLayoutY(TmpUtil.rand(500) + 10);
             }
