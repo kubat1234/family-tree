@@ -1,6 +1,8 @@
 package tcs.familytree.services;
 
 import javafx.beans.property.SimpleObjectProperty;
+import tcs.familytree.services.database.DatabaseConnection;
+import tcs.familytree.services.database.DatabaseConnectionWithoutDatabase;
 import tcs.familytree.services.database.DatabaseFactory;
 import tcs.familytree.services.database.DatabaseFactorySimpleInput1;
 
@@ -11,14 +13,18 @@ import tcs.familytree.services.database.DatabaseFactorySimpleInput1;
 public class TemporaryDataProvider2 {
 
     SimpleObjectProperty<FamilyGraph> graphProperty;
+    DatabaseConnection databaseConnection;
 
     public TemporaryDataProvider2() {
         graphProperty = new SimpleObjectProperty<>(TemporaryDataProvider2.this, "SimpleGraphProperty", new SimpleGraph());
+        databaseConnection = new DatabaseConnectionWithoutDatabase();
+        databaseConnection.load(new DatabaseFactorySimpleInput1(databaseConnection));
     }
 
     private void updateGraph2() {
+
         DatabaseFactory factory = new DatabaseFactorySimpleInput1();
-        graphProperty.set(new SimpleGraph(factory.getAllPersons()));
+        graphProperty.set(new SimpleGraph(databaseConnection.getAllPersons()));
     }
 
     public void updateGraph() {

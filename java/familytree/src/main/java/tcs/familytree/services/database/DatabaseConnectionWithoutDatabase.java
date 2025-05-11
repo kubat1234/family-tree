@@ -59,8 +59,8 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConnection {
         allDates.clear();
     }
 
-    DatabaseConnectionWithoutDatabase(){
-
+    public DatabaseConnectionWithoutDatabase(){
+        loaded = false;
     }
 
     DatabaseConnectionWithoutDatabase(DatabaseFactory databaseFactory){
