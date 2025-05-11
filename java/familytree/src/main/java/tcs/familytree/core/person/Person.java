@@ -1,6 +1,7 @@
 package tcs.familytree.core.person;
 
 import jdk.jshell.spi.ExecutionControl;
+import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
@@ -9,7 +10,7 @@ import tcs.familytree.core.relation.Relation;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Person {
+public interface Person extends Identifiable {
     // Interface to Person
 
     default public List<Object> getAllData(){
@@ -19,8 +20,6 @@ public interface Person {
     Person copy();
 
     // Names getters
-
-    int getId();
 
     String getName();
 
