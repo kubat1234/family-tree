@@ -1,6 +1,8 @@
 package tcs.familytree.core.relationtype;
 
-public abstract class AbstractConnectionRelationType implements RelationType{
+import tcs.familytree.core.ConnectionData;
+
+public abstract class AbstractConnectionRelationType implements RelationType, ConnectionData {
     int id;
     RelationType relationType;
     public AbstractConnectionRelationType(int id){
@@ -12,11 +14,14 @@ public abstract class AbstractConnectionRelationType implements RelationType{
     }
 
     public abstract void load();
-    void unload(){
+    public void unload(){
         relationType = null;
     }
     public boolean isUnloaded(){
         return relationType == null;
+    }
+    public boolean isLoaded(){
+        return relationType != null;
     }
     @Override
     public int getId(){

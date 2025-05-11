@@ -1,11 +1,12 @@
 package tcs.familytree.core.relation;
 
+import tcs.familytree.core.ConnectionData;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relationtype.RelationType;
 
-public abstract class AbstractConnectionRelation implements Relation{
+public abstract class AbstractConnectionRelation implements Relation, ConnectionData {
     int id;
     Relation relation;
 
@@ -17,12 +18,15 @@ public abstract class AbstractConnectionRelation implements Relation{
         this.id = relation.getId();
     }
 
-    abstract void load();
-    void unload(){
+    public abstract void load();
+    public void unload(){
         relation = null;
     }
     public boolean isUnloaded(){
         return relation == null;
+    }
+    public boolean isLoaded(){
+        return relation != null;
     }
     @Override
     public int getId(){

@@ -17,7 +17,7 @@ public class SimpleConnectionPerson extends AbstractConnectionPerson {
     }
 
     @Override
-    void load() {
+    public void load() {
         if(isUnloaded()){
             if(!connection.checkIfPersonExist(id)){
                 throw new DatabaseError("Person with id: " + id + "cannot load from database: " + connection + ".");

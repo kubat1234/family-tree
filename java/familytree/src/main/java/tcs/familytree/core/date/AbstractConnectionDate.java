@@ -1,8 +1,10 @@
 package tcs.familytree.core.date;
 
+import tcs.familytree.core.ConnectionData;
+
 import java.util.List;
 
-public abstract class AbstractConnectionDate implements Date {
+public abstract class AbstractConnectionDate implements Date, ConnectionData {
     int id;
     Date date;
 
@@ -14,13 +16,17 @@ public abstract class AbstractConnectionDate implements Date {
         this.id = date.getId();
     }
 
-    abstract void load();
-    void unload(){
+    public abstract void load();
+    public void unload(){
         date = null;
     }
 
-    boolean isUnloaded(){
+    public boolean isUnloaded(){
         return date == null;
+    }
+
+    public boolean isLoaded(){
+        return date != null;
     }
 
     @Override

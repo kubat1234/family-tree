@@ -16,7 +16,7 @@ public class SimpleConnectionRelation extends AbstractConnectionRelation{
     }
 
     @Override
-    void load(){
+    public void load(){
         //TODO
     }
 }

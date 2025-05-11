@@ -15,7 +15,7 @@ public class SimpleConnectionDate extends AbstractConnectionDate {
     }
 
     @Override
-    void load() {
+    public void load() {
         if(isUnloaded()){
             if(!connection.checkIfDateExist(id)){
                 throw new DatabaseError("Date with id: " + id + "cannot load from database: " + connection + ".");

@@ -1,11 +1,12 @@
 package tcs.familytree.core.person;
 
+import tcs.familytree.core.ConnectionData;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
 
 import java.util.List;
 
-public abstract class AbstractConnectionPerson implements Person {
+public abstract class AbstractConnectionPerson implements Person, ConnectionData {
     int id;
     Person person;
 
@@ -18,9 +19,9 @@ public abstract class AbstractConnectionPerson implements Person {
         this.id = person.getId();
     }
 
-    abstract void load();
+    public abstract void load();
 
-    void unload(){
+    public void unload(){
         person = null;
     }
 
@@ -28,8 +29,12 @@ public abstract class AbstractConnectionPerson implements Person {
         return id;
     }
 
-    boolean isUnloaded(){
+    public boolean isUnloaded(){
         return person == null;
+    }
+
+    public boolean isLoaded(){
+        return person != null;
     }
 
     @Override
