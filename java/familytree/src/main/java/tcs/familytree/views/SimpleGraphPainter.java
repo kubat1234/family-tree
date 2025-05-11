@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import tcs.familytree.TmpUtil;
+import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.views.plane.GraphOnPlane;
@@ -15,6 +18,17 @@ import java.util.List;
 public class SimpleGraphPainter {
     @FXML
     protected AnchorPane container;
+
+    private Paint getGenderColor(Gender gender){
+        if(gender == Gender.MALE){
+            return Color.DARKBLUE;
+        }
+        if(gender == Gender.FEMALE){
+            return Color.DARKVIOLET;
+        }
+        return Color.WHITE;
+    }
+
 
     public void paintGraphOnPlane(GraphOnPlane graphOnPlane) {
         if(graphOnPlane == null || graphOnPlane.getPersons() == null) {
@@ -31,9 +45,11 @@ public class SimpleGraphPainter {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("simple-graph-vertex.fxml"));
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
+
                 controllers[i].setAllDataFromStrings(pop.person().getName(),
                         pop.person().getFamilySurname(),
-                        TmpUtil.randDate(20), TmpUtil.randDate(60));
+                        TmpUtil.randDate(20), TmpUtil.randDate(60),
+                        getGenderColor(pop.person().getGender()));
                 panes[i].setLayoutX(pop.x());
                 panes[i].setLayoutY(pop.y());
             }
@@ -55,7 +71,9 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
                 controllers[i].setAllDataFromStrings(personList.get(i).getName(),
-                         personList.get(i).getFamilySurname(), TmpUtil.randDate(20), TmpUtil.randDate(60));
+                         personList.get(i).getFamilySurname(), TmpUtil.randDate(20), TmpUtil.randDate(60),
+                        getGenderColor(personList.get(i).getGender())
+                        );
                 panes[i].setLayoutX(TmpUtil.rand(900) + 10);
                 panes[i].setLayoutY(TmpUtil.rand(500) + 10);
             }

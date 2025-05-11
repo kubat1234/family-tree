@@ -32,6 +32,7 @@ public class SimplePerson implements Person {
         this.surnames = surnames;
         this.mother = mother;
         this.father = father;
+        this.gender = gender;
     }
 
     public SimplePerson(Person person){
