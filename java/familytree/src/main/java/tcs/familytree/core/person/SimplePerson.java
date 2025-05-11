@@ -113,4 +113,52 @@ public class SimplePerson implements Person {
         }
         return person.getId() == id;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("\n-=- Simple Person:  -=-").append("\nName:").append(firstName);
+//        if(names != null){
+//            for(String name: names){
+//                stringBuilder.append(" ").append(name);
+//            }
+//        }
+//        stringBuilder.append("\nSurname: ");
+//        if(familyName != null){
+//            stringBuilder.append(familyName);
+//        }
+//        if(surnames != null){
+//            for(String surname: surnames){
+//                stringBuilder.append(" ").append(surname);
+//            }
+//        }
+//
+//
+//        stringBuilder.append("\n-=-  -=-  -=-  -=-  -=-" );
+        stringBuilder.append(Objects.requireNonNullElse(firstName, "Unknown"));
+        stringBuilder.append(" ");
+        if(familyName == null){
+            if(surnames != null){
+                if(surnames.isEmpty()){
+                    stringBuilder.append("Unknown");
+                }
+                 boolean first = true;
+                for(String surname: surnames){
+                    if(!first){
+                        stringBuilder.append(" ");
+                    }
+                    stringBuilder.append(surname);
+                }
+            }else{
+                stringBuilder.append("Unknown");
+            }
+        }else{
+            if(surnames != null){
+                for(String surname: surnames){
+                    stringBuilder.append(" ").append(surname);
+                }
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

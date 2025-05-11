@@ -7,7 +7,6 @@ import tcs.familytree.core.person.SimplePersonBuilder;
 public class DatabaseFactorySimpleInput1 extends DatabaseFactorySimple{
 
     public DatabaseFactorySimpleInput1(){
-
         // TODO
         PersonBuilder pb = new SimplePersonBuilder(null);
         pb.setId(1).setName("Stefania").setAlive(false).setGender(Gender.FEMALE);

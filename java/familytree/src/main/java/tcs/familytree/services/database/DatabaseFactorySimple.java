@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DatabaseFactorySimple implements DatabaseFactory {
+
     List<Person> personList = new LinkedList<>();
     int personCounter = 0;
     List<Relation> relationList = new LinkedList<>();
