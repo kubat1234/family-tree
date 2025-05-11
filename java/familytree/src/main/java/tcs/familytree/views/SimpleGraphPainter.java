@@ -47,7 +47,7 @@ public class SimpleGraphPainter {
                 controllers[i] = loader.getController();
 
                 controllers[i].setAllDataFromStrings(pop.person().getName(),
-                        pop.person().getFamilySurname(),
+                        pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
                         TmpUtil.randDate(20), TmpUtil.randDate(60),
                         getGenderColor(pop.person().getGender()));
                 panes[i].setLayoutX(pop.x());
