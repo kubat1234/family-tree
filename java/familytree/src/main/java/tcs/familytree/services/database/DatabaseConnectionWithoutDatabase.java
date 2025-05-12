@@ -101,7 +101,7 @@ public class DatabaseConnectionWithoutDatabase implements DatabaseConnection {
 
     @Override
     public Person getPerson(int id) {
-        if(checkIfPersonExist(id)){
+        if(!checkIfPersonExist(id)){
             throw new DatabaseError("DATABASE " + this + " do not have person on id: " + id);
         }
         return new SimpleConnectionPerson(allPeople.get(id), this);

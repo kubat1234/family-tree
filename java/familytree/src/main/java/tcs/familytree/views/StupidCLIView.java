@@ -62,8 +62,8 @@ public class StupidCLIView {
                 case "5": {
                     String id = scanner.nextLine();
                     try {
-                        //Person p = viewModel.getDatabaseConnection().getPerson(Integer.parseInt(id));
-                        Person p = viewModel.getGraphProperty().get().getAllPersons().stream().filter(q -> q.getId() == Integer.parseInt(id)).findFirst().get();
+                        Person p = viewModel.getDatabaseConnection().getPerson(Integer.parseInt(id));
+//                        Person p = viewModel.getGraphProperty().get().getAllPersons().stream().filter(q -> q.getId() == Integer.parseInt(id)).findFirst().get();
                         System.out.println(p.getName() + " " + String.join(" ", p.getAllSurnames()));
                     } catch (Exception e) {
                         System.out.println("Niepoprawne id");
@@ -73,8 +73,8 @@ public class StupidCLIView {
                 case "6": {
                     String id = scanner.nextLine();
                     try {
-//                        Person p = viewModel.getDatabaseConnection().getPerson(Integer.parseInt(id));
-                        Person p = viewModel.getGraphProperty().get().getAllPersons().stream().filter(q -> q.getId() == Integer.parseInt(id)).findFirst().get();
+                        Person p = viewModel.getDatabaseConnection().getPerson(Integer.parseInt(id));
+//                        Person p = viewModel.getGraphProperty().get().getAllPersons().stream().filter(q -> q.getId() == Integer.parseInt(id)).findFirst().get();
                         String newName = scanner.nextLine();
                         p.setName(newName);
                         System.out.println("Zmieniono na: " + p.getName() + " " + String.join(" ", p.getAllSurnames()));
