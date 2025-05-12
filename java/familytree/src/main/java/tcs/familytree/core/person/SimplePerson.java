@@ -6,6 +6,8 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +32,9 @@ public class SimplePerson implements Person {
         this.names = names;
         this.familyName = familyName;
         this.surnames = surnames;
+        if(surnames == null){
+            this.surnames = new ArrayList<>();
+        }
         this.mother = mother;
         this.father = father;
         this.gender = gender;
@@ -42,6 +47,9 @@ public class SimplePerson implements Person {
         this.names = person.getAllNames();
         this.familyName = person.getFamilySurname();
         this.surnames = person.getAllSurnames();
+        if(surnames == null){
+            this.surnames = new ArrayList<>();
+        }
         this.mother = person.getMother();
         this.father = person.getFather();
     }
