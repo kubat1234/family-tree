@@ -27,6 +27,7 @@ public class SimpleGraphVertex extends Region {
         firstNameLabel.setText(firstName);
         firstNameLabel.setTextFill(color);
         surnameLabel.setText(surname);
+        surnameLabel.setTextFill(color);
         dateOfBirthLabel.setText(dateOfBirth);
         dateOfDeathLabel.setText(dateOfDeath);
     }
