@@ -3,6 +3,7 @@ module tcs.familytree {
     requires javafx.fxml;
     requires java.xml;
     requires jdk.jshell;
+    requires org.jooq;
 
 
     opens tcs.familytree to javafx.fxml;
@@ -23,4 +24,6 @@ module tcs.familytree {
     exports tcs.familytree.services.database;
     exports tcs.familytree.views.plane;
     opens tcs.familytree.views.plane to javafx.fxml;
+
+    exports tcs.familytree.jooq.generated.tables.records to org.jooq;
 }
