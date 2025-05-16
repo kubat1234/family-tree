@@ -11,8 +11,8 @@ import org.jooq.impl.*;
 
 public class Test {
     public static void main(String[] args) {
-        String userName = "USER";
-        String password = "PASSWORD";
+        String userName = "family_tree";
+        String password = "family_tree";
         String url = "jdbc:postgresql://localhost:5432/family_tree";
 
         // Connection is the only JDBC resource that we need
@@ -32,7 +32,7 @@ public class Test {
 
         // For the sake of this tutorial, let's keep exception handling simple
         catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }
