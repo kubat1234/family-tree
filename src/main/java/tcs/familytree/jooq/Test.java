@@ -2,8 +2,6 @@ package tcs.familytree.jooq;
 
 import static tcs.familytree.jooq.generated.Tables.*;
 
-import org.jooq.impl.DSL.*;
-
 import java.sql.*;
 
 import org.jooq.*;
