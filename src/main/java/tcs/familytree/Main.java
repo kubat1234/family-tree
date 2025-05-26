@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tcs.familytree.viewmodels.HardcodedSingleTreeViewModel;
 import tcs.familytree.views.StupidCLIView;
+import tcs.familytree.views.cli.CLIView;
 
 /**
  * Starts the Main Stage.
@@ -20,7 +21,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1000, 700);
         stage.setScene(scene);
         stage.show();
-        StupidCLIView cliView = new StupidCLIView(HardcodedSingleTreeViewModel.getModel());
+//        StupidCLIView cliView = new StupidCLIView(HardcodedSingleTreeViewModel.getModel());
+        CLIView cliView = new CLIView(HardcodedSingleTreeViewModel.getModel());
     }
 
     public static void main(String[] args) {

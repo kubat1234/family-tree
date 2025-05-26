@@ -25,6 +25,7 @@ public class StupidCLIView {
     private void run() {
         System.out.println(" -=-=- Family Tree -=-=-");
         System.out.println(" -=-=- Program do drzew genealogicznych -=-=-");
+        System.out.println(" -=-=- Legacy mode -=-=-");
         Scanner scanner = new Scanner(System.in);
         String helpMessage = "1: wypisz wszystkie nazwiska; 2: wypisz wszystkie dzieci; 3: odśwież dane; 4: zabij widok CLI\n" +
         "[5 \\n x]: wypisz wszystkie dane o osobie o id=x; [6 \\n x\\n y]: ustaw imię osoby o id=x na y";
