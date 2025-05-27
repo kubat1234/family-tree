@@ -7,9 +7,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="100.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="tcs.familytree.views.SimpleGraphVertex">
+            fx:controller="tcs.familytree.views.SimpleGraphVertex" onMouseClicked="#vertexClicked" >
    <children>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#a0a0a0" height="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#a0a0a0" height="100.0" stroke="BLACK" strokeType="INSIDE" width="150.0" fx:id="vertexLabel"/>
       <Label fx:id="firstNameLabel" alignment="BASELINE_RIGHT" layoutX="15.0" layoutY="14.0" prefHeight="22.0" prefWidth="120.0" text="Label1">
          <font>
             <Font size="16.0" />

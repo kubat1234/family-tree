@@ -3,11 +3,18 @@ package tcs.familytree.views;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
 public class SimpleGraphVertex extends Region {
+    @FXML
+    public Rectangle vertexLabel;
+
     @FXML
     protected Label firstNameLabel;
 
@@ -30,5 +37,10 @@ public class SimpleGraphVertex extends Region {
         surnameLabel.setTextFill(color);
         dateOfBirthLabel.setText(dateOfBirth);
         dateOfDeathLabel.setText(dateOfDeath);
+
+    }
+
+    public void vertexClicked(MouseEvent mouseEvent) {
+        vertexLabel.setFill(Color.YELLOW);
     }
 }
