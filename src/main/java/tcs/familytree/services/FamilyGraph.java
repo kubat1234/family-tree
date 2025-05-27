@@ -3,7 +3,6 @@ package tcs.familytree.services;
 import tcs.familytree.core.person.Person;
 
 import java.util.Collection;
-import java.util.Optional;
 
 public interface FamilyGraph {
     Collection<Person> getAllPersons();
@@ -15,6 +14,8 @@ public interface FamilyGraph {
 
     Collection<Person> getPartners(Person person);
     Collection<Person> getPartners(Integer personId);
+
+    boolean findPerson(Person person);
 
     default int getSize() {
         return getAllPersons().size();

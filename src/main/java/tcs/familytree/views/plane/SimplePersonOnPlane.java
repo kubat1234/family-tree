@@ -26,4 +26,10 @@ public class SimplePersonOnPlane implements PersonOnPlane {
     public Person person() {
         return person;
     }
+
+    @Override
+    public void update(double x, double y) {
+        this.x += (int) x;
+        this.y += (int) y;
+    }
 }

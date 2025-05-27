@@ -37,7 +37,6 @@ public class SimpleGraphVertex extends Region {
         surnameLabel.setTextFill(color);
         dateOfBirthLabel.setText(dateOfBirth);
         dateOfDeathLabel.setText(dateOfDeath);
-
     }
 
     public void vertexClicked(MouseEvent mouseEvent) {

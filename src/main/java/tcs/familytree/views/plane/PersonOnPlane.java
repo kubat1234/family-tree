@@ -6,4 +6,5 @@ public interface PersonOnPlane {
     double x();
     double y();
     Person person();
+    void update(double x, double y);
 }

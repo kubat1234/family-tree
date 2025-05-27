@@ -79,4 +79,9 @@ public class SimpleGraph implements FamilyGraph{
         }
         throw new IllegalArgumentException();
     }
+
+    @Override
+    public boolean findPerson(Person person) {
+        return persons.contains(person);
+    }
 }
