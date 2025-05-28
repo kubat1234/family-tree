@@ -12,7 +12,7 @@ public class GraphOrientedViewModel implements GraphViewModel {
     TemporaryDataProvider2 provider;
     SimpleObjectProperty<FamilyGraph> graphProperty;
 
-    GraphOrientedViewModel(Person centralPerson, TemporaryDataProvider2 provider){
+    public GraphOrientedViewModel(Person centralPerson, TemporaryDataProvider2 provider){
         this.provider = provider;
         this.centralPerson = centralPerson;
         x_mod = 0;

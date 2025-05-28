@@ -1,8 +1,14 @@
 package tcs.familytree;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
+import tcs.familytree.core.person.Person;
+import tcs.familytree.services.TemporaryDataProvider2;
+import tcs.familytree.viewmodels.GraphOrientedViewModel;
+import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.viewmodels.HardcodedSingleTreeViewModel;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
 import tcs.familytree.views.GraphView;
@@ -12,13 +18,17 @@ public class MainController {
     @FXML
     private Pane mainContainer;
 
+
+
     private enum OpenedTab {
         NONE,
         RANDOM_PAINTER,
         RED_PAINTER,
+        MOVABLE_PAINTER,
     }
 
     private final SingleTreeViewModel viewModel = HardcodedSingleTreeViewModel.getModel();
+    private GraphViewModel graphViewModel = null;
     private OpenedTab openedTab = OpenedTab.NONE;
     private GraphView graphView;
 
@@ -103,5 +113,24 @@ public class MainController {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void loaderGraphOrientedViewModel() {
+        TemporaryDataProvider2 tdp = new TemporaryDataProvider2();
+        graphViewModel = new GraphOrientedViewModel(tdp.provideTemporaryDataAsProperty().get().getPerson(1), tdp);
+        System.out.println("Load OK");
+    }
+
+    public void refresh(ActionEvent actionEvent) {
+        viewModel.updateGraph();
+        if(!colorClicked("movable", OpenedTab.MOVABLE_PAINTER)) {
+            return;
+        }
+        if(graphView == null) {
+            SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
+            graphView = new GraphView(painter, viewModel);
+        }
+        graphView.paintCenteredAtRandom();
     }
 }

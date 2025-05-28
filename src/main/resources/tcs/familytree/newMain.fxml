@@ -14,16 +14,20 @@
             </Menu>
             <MenuItem mnemonicParsing="false" text="Delete" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Load">
+            <MenuItem onAction="#loaderGraphOrientedViewModel" mnemonicParsing="false" text="Start"/>
+            <MenuItem onAction="#refresh" mnemonicParsing="false" text="Refresh"/>
+        </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About" />
         </Menu>
         <Menu mnemonicParsing="false" text="Old_colors">
-            <MenuItem onAction="#red" mnemonicParsing="false" text="Red"/>
-            <MenuItem onAction="#green" mnemonicParsing="false" text="Green"/>
-            <MenuItem onAction="#blue" mnemonicParsing="false" text="Blue"/>
+            <MenuItem mnemonicParsing="false" onAction="#red" text="Red" />
+            <MenuItem mnemonicParsing="false" onAction="#green" text="Green" />
+            <MenuItem mnemonicParsing="false" onAction="#blue" text="Blue" />
         </Menu>
     </MenuBar>
-    <ScrollPane layoutY="26.0" prefHeight="674.0" prefWidth="793.0" fitToWidth="true" fitToHeight="true">
+    <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="26.0" prefHeight="674.0" prefWidth="793.0">
         <StackPane fx:id="mainContainer" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="2000.0" />
     </ScrollPane>
 </VBox>
