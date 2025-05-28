@@ -15,7 +15,8 @@ public class Test {
 
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
-        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+        try (Connection conn = DriverManager.getConnection(ConnectionConsts.url,
+                ConnectionConsts.userName, ConnectionConsts.password)) {
             DSLContext create = DSL.using(conn, SQLDialect.POSTGRES);
             Result<org.jooq.Record> result = create.select().from(OSOBY).fetch();
 

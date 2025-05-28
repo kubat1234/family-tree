@@ -1,0 +1,27 @@
+package tcs.familytree.services;
+
+import javafx.beans.property.SimpleObjectProperty;
+import tcs.familytree.jooq.RealDatabaseConnection;
+
+public class RealGraphProvider implements GraphProvider{
+    SimpleObjectProperty<FamilyGraph> graphProperty;
+    RealDatabaseConnection connection;
+
+    public RealGraphProvider() {
+        connection = new RealDatabaseConnection();
+        graphProperty = new SimpleObjectProperty<>(this, "RealGraphProperty",
+                new SimpleGraph());
+    }
+
+    @Override
+    public void updateGraph() {
+        new Thread(() -> {
+             graphProperty.set(new SimpleGraph(connection.getAllPersons()));
+        }).start();
+    }
+
+    @Override
+    public SimpleObjectProperty<FamilyGraph> getGraphProperty() {
+        return graphProperty;
+    }
+}

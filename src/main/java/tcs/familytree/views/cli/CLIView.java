@@ -2,6 +2,7 @@ package tcs.familytree.views.cli;
 
 import tcs.familytree.core.person.Person;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
+import tcs.familytree.viewmodels.SingleTreeViewModel;
 
 import java.util.List;
 import java.util.NoSuchElementException;

@@ -10,20 +10,18 @@ import java.util.List;
 
 public interface DatabaseConnection {
 
-    void load(DatabaseFactory databaseFactory);
+//    void load(DatabaseFactory databaseFactory);
 
-    void unload();
+//    void unload();
 
-    default List<Person> getAllPersons(){
-        throw new NotImplemented();
-    }
+    List<Person> getAllPersons();
 
     default Person getPerson(int id){
-        throw new NotImplemented();
+        return getAllPersons().stream().filter(p -> p.getId() == id).findAny().orElse(null);
     }
 
     default boolean checkIfPersonExist(int id){
-        throw new NotImplemented();
+        return getAllPersons().stream().anyMatch(p -> p.getId() == id);
     }
 
     default boolean checkIfPersonExist(Person person){
