@@ -6,6 +6,8 @@ import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
+import tcs.familytree.core.NotImplemented;
+import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.SimplePersonBuilder;
@@ -17,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static tcs.familytree.jooq.generated.Tables.DATY;
 import static tcs.familytree.jooq.generated.Tables.OSOBY;
 
 public class RealDatabaseConnection implements DatabaseConnection {
@@ -38,6 +41,7 @@ public class RealDatabaseConnection implements DatabaseConnection {
         }
     }
 
+    // Person methods
     @Override
     public List<Person> getAllPersons() {
         return dsl.select().from(OSOBY).fetch().stream().map(databaseConverter::toPerson).toList();
@@ -67,5 +71,16 @@ public class RealDatabaseConnection implements DatabaseConnection {
             e.printStackTrace();
             return false;
         }
+    }
+
+    //Date methods
+    @Override
+    public Date getDate(int id) {
+        return databaseConverter.toDate(dsl.select().from(DATY).where(DATY.ID.eq(id)).fetchOne());
+    }
+
+    @Override
+    public boolean checkIfDateExist(int id) {
+        return dsl.select().from(DATY).where(DATY.ID.eq(id)).fetchOne() != null;
     }
 }

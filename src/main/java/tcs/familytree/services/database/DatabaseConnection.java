@@ -3,6 +3,7 @@ package tcs.familytree.services.database;
 import tcs.familytree.core.*;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 import tcs.familytree.core.toanihilate.RelationMarriage;
 
@@ -59,5 +60,11 @@ public interface DatabaseConnection {
     default boolean updateDate(Date date){throw new NotImplemented();}
 
     default boolean addDate(Date date){throw new NotImplemented();}
+
+    default boolean checkIfPlaceExist(int id){throw new NotImplemented();}
+
+    default boolean updatePlace(Place place){throw new NotImplemented();}
+
+    default boolean addPlace(Place place){throw new NotImplemented();}
     // More Connection
 }

@@ -18,7 +18,7 @@ public class CLIView {
         System.out.println(" -=-=- Family Tree -=-=-");
         System.out.println(" -=-=- Program do drzew genealogicznych -=-=-");
         Mode currentMode = new BasicMode(viewModel);
-        while (true) {
+        while (!(currentMode instanceof CloseMode)) {
             try {
                 currentMode = currentMode.parseLine();
             }
@@ -64,10 +64,21 @@ abstract class Mode {
             System.out.println(helpMessage);
             return this;
         }
+        if(line.getFirst().equalsIgnoreCase("exit")) {
+            return new CloseMode();
+        }
         return null;
     }
     protected void commandNotFound() {
         System.out.println("Nie znaleziono polecenia. Wpisz \"help\" aby uzyskać pomoc");
+    }
+}
+
+class CloseMode extends Mode {
+
+    @Override
+    protected Mode _parseLine(List<String> line) {
+        throw new IllegalStateException();
     }
 }
 
@@ -119,7 +130,8 @@ class BasicMode extends Mode {
                 case "printall":
                     System.out.println("Lista osób: ");
                     for(Person person : viewModel.getGraphProperty().get().getAllPersons()) {
-                        System.out.println(person.getId() + ". " + person);
+                        System.out.println(person.getId() + ". " + person + "   * " + person.getDateOfBirth()
+                        + "   + " +person.getDateOfDeath());
                     }
                     break;
                 case "update":
@@ -221,6 +233,7 @@ final class HelpMessageFactory {
     HelpMessageFactory() {
         body = new StringBuilder();
         addCommand("HELP", "wyświetla tę listę");
+        addCommand("EXIT", "zamyka terminal");
     }
     public String generate() {
         if(intro == null) {

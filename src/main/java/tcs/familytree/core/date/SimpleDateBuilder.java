@@ -1,14 +1,18 @@
 package tcs.familytree.core.date;
 
 public class SimpleDateBuilder implements DateBuilder{
-    int id;
-    int year;
-    int month;
-    int day;
+    Integer id;
+    Integer year;
+    Integer month;
+    Integer day;
     boolean accurate;
+
     public SimpleDateBuilder(Date date){
         setDate(date);
     }
+
+    public SimpleDateBuilder() {}
+
     @Override
     public Date build() {
         return new SimpleDate(id, year, month, day, accurate);
@@ -24,22 +28,22 @@ public class SimpleDateBuilder implements DateBuilder{
     }
 
     @Override
-    public DateBuilder setId(int id) {
+    public DateBuilder setId(Integer id) {
         this.id = id;
         return this;
     }
     @Override
-    public DateBuilder setYear(int year) {
+    public DateBuilder setYear(Integer year) {
         this.year = year;
         return this;
     }
     @Override
-    public DateBuilder setMonth(int month) {
+    public DateBuilder setMonth(Integer month) {
         this.month = month;
         return this;
     }
     @Override
-    public DateBuilder setDay(int day) {
+    public DateBuilder setDay(Integer day) {
         this.day = day;
         return this;
     }
@@ -49,14 +53,14 @@ public class SimpleDateBuilder implements DateBuilder{
         return this;
     }
     @Override
-    public DateBuilder setDate(int year, int month, int day) {
+    public DateBuilder setDate(Integer year, Integer month, Integer day) {
         this.year = year;
         this.month = month;
         this.day = day;
         return this;
     }
     @Override
-    public DateBuilder setDate(int year, int month, int day, boolean accurate) {
+    public DateBuilder setDate(Integer year, Integer month, Integer day, boolean accurate) {
         this.year = year;
         this.month = month;
         this.day = day;

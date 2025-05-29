@@ -33,21 +33,30 @@ public class SimpleConnectionPlace extends AbstractConnectionData<Place> impleme
     public void setName(String name) {
         if(isUnloaded()) load();
         data.setName(name);
-        /*
         if(!connection.updatePlace(data)){
             unload();
             throw new DatabaseError("Place with id: " + id + "cannot update in database: " + connection + ".");
         }
-        */
     }
 
     @Override
     public void setSuperPlace(Place superPlace) {
-
+        if(isUnloaded()) load();
+        data.setSuperPlace(superPlace);
+        if(!connection.updatePlace(data)){
+            unload();
+            throw new DatabaseError("Place with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 
     @Override
     public void setPlaceType(PlaceType placeType) {
 
+        if(isUnloaded()) load();
+        data.setPlaceType(placeType);
+        if(!connection.updatePlace(data)){
+            unload();
+            throw new DatabaseError("Place with id: " + id + "cannot update in database: " + connection + ".");
+        }
     }
 }

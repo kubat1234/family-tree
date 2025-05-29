@@ -7,7 +7,7 @@ import tcs.familytree.services.database.DatabaseError;
 import java.util.List;
 
 public class SimpleConnectionDate extends AbstractConnectionData<Date> implements Date {
-    public SimpleConnectionDate(int id, DatabaseConnection connection){
+    public SimpleConnectionDate(Integer id, DatabaseConnection connection){
         super(id,connection);
     }
     public SimpleConnectionDate(Date date, DatabaseConnection connection){
@@ -37,19 +37,19 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
     }
 
     @Override
-    public int getDay() {
+    public Integer getDay() {
         if(isUnloaded()) load();
         return data.getDay();
     }
 
     @Override
-    public int getMonth() {
+    public Integer getMonth() {
         if(isUnloaded()) load();
         return data.getMonth();
     }
 
     @Override
-    public int getYear() {
+    public Integer getYear() {
         if(isUnloaded()) load();
         return data.getYear();
     }
@@ -61,7 +61,7 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
     }
 
     @Override
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         if(isUnloaded()) load();
         data.setYear(year);
         if(!connection.updateDate(data)){
@@ -71,7 +71,7 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
     }
 
     @Override
-    public void setMonth(int month) {
+    public void setMonth(Integer month) {
         if(isUnloaded()) load();
         data.setMonth(month);
         if(!connection.updateDate(data)){
@@ -81,7 +81,7 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
     }
 
     @Override
-    public void setDay(int day) {
+    public void setDay(Integer day) {
         if(isUnloaded()) load();
         data.setDay(day);
         if(!connection.updateDate(data)){
@@ -102,6 +102,7 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
 
     @Override
     public String toString(){
+        if(isUnloaded()) load();
         return data.toString();
     }
 }

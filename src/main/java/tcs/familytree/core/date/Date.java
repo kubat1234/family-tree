@@ -10,21 +10,27 @@ public interface Date extends Identifiable {
         return List.of(getId(),getYear(),getMonth(),getDay(),isAccurate());
     }
     // getters
-    int getYear();
-    int getMonth();
-    int getDay();
+    Integer getYear();
+    Integer getMonth();
+    Integer getDay();
     boolean isAccurate();
     // TODO getDate() accepts nullables
     default String getDate(){
-        return getDay() + "." + getMonth() + "." + getYear();
+        if(getMonth() == null) {
+            return String.valueOf(getYear());
+        }
+        if(getDay() == null) {
+            return String.format("%02d", getMonth()) + "." + getYear();
+        }
+        return getDay() + "." + String.format("%02d", getMonth()) + "." + getYear();
     }
     default String getDateDescription(){
         return isAccurate() ? "" : "~" + getDate();
     }
 
-    //void setId(int id); // TODO id final ??
-    void setYear(int year);
-    void setMonth(int month);
-    void setDay(int day);
+    //void setId(Integer id); // TODO id final ??
+    void setYear(Integer year);
+    void setMonth(Integer month);
+    void setDay(Integer day);
     void setAccurate(boolean accurate);
 }

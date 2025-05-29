@@ -2,12 +2,12 @@ package tcs.familytree.core.date;
 
 public class SimpleDate implements Date {
     int id;
-    int year;
-    int month;
-    int day;
+    Integer year;
+    Integer month;
+    Integer day;
     boolean accurate;
 
-    public SimpleDate(int id, int year, int month, int day, boolean accurate){
+    public SimpleDate(int id, Integer year, Integer month, Integer day, boolean accurate){
         this.id = id;
         this.year = year;
         this.month = month;
@@ -21,17 +21,17 @@ public class SimpleDate implements Date {
     }
 
     @Override
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
     @Override
-    public int getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
     @Override
-    public int getDay() {
+    public Integer getDay() {
         return day;
     }
 
@@ -41,17 +41,17 @@ public class SimpleDate implements Date {
     }
 
     @Override
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
     @Override
-    public void setMonth(int month) {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 
     @Override
-    public void setDay(int day) {
+    public void setDay(Integer day) {
         this.day = day;
     }
 

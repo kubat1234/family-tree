@@ -1,8 +1,12 @@
 package tcs.familytree.jooq;
 
+import tcs.familytree.core.date.Date;
+import tcs.familytree.core.date.DateBuilder;
+import tcs.familytree.core.date.SimpleConnectionDateBuilder;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
+import tcs.familytree.jooq.generated.tables.records.DatyRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.core.person.Gender;
@@ -33,6 +37,18 @@ public class DatabaseConverter {
         builder.setDateOfBirth(record.getValue(OSOBY.DATA_UR));
         builder.setDateOfDeath(record.getValue(OSOBY.DATA_SM));
         builder.setGender(Gender.fromBoolean(record.getValue(OSOBY.PLEC)));
+
+        return builder.build();
+    }
+    public Date toDate(org.jooq.Record record) {
+        if(!(record instanceof DatyRecord) )throw new IllegalArgumentException("Record must be instance of DatyRecord");
+        DateBuilder builder = new SimpleConnectionDateBuilder(connection);
+
+        builder.setId(record.getValue(DATY.ID));
+        builder.setDay(record.getValue(DATY.DZIEN));
+        builder.setMonth(record.getValue(DATY.MIESIAC));
+        builder.setYear(record.getValue(DATY.ROK));
+        builder.setAccurate(record.getValue(DATY.CZY_DOKLADNA));
 
         return builder.build();
     }
