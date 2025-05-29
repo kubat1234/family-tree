@@ -32,7 +32,14 @@ public interface FamilyGraph {
         Collection<Integer> people = List.of(personId);
         int maxWidth = 1;
         while(!people.isEmpty()) {
-            people = people.stream().flatMap(p -> getChildren(personId).stream().map(Identifiable::getId)).toList();
+            people.stream()
+                    .forEachOrdered(p -> {
+                        System.out.print(p + " ");
+                        getChildren(p).stream()
+                                .map(Identifiable::getId).forEachOrdered(System.out::print);
+                        System.out.println();
+                    });
+            people = people.stream().flatMap(p -> getChildren(p).stream().map(Identifiable::getId)).toList();
             maxWidth = Math.max(maxWidth, people.size());
         }
 

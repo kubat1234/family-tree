@@ -1,17 +1,24 @@
 package tcs.familytree.services;
 
 import org.jooq.meta.derby.sys.Sys;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import tcs.familytree.core.person.Person;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphTest {
-    TemporaryDataProvider2 provider = new TemporaryDataProvider2();
-    {
-        provider.updateGraph();
+    static GraphProvider provider2 = new RealGraphProvider();
+    static FamilyGraph graph;
+
+    @BeforeAll
+    public static void before() throws InterruptedException {
+        provider2.updateGraph();
+        Thread.sleep(2000);
+        System.out.println("Working: ");
+        graph = provider2.getGraphProperty().get();
+        Thread.sleep(2000);
     }
-    FamilyGraph graph = provider.getGraphProperty().get();
 
     @Test
     public void connection() {
