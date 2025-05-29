@@ -20,7 +20,6 @@ module tcs.familytree {
     exports tcs.familytree.core.place;
     exports tcs.familytree.core.relation;
     exports tcs.familytree.core.relationtype;
-    exports tcs.familytree.core.toanihilate;
     exports tcs.familytree.services.database;
     exports tcs.familytree.views.plane;
     opens tcs.familytree.views.plane to javafx.fxml;
