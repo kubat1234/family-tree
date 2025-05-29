@@ -2,18 +2,24 @@ package tcs.familytree.views;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.views.plane.GraphOnPlane;
+import tcs.familytree.views.plane.ParentLineOnPlane;
 import tcs.familytree.views.plane.PersonOnPlane;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SimpleGraphPainter {
@@ -65,6 +71,26 @@ public class SimpleGraphPainter {
             throw new NullPointerException();
         }
         try {
+            List<Node> allNodes = new ArrayList<>();
+
+            System.out.println("Before lines:");
+            List<ParentLineOnPlane> lines = graphOnPlane.getParents();
+            if(lines != null){
+                System.out.println("In Lines");
+                List<Line> doneLines = new LinkedList<>();
+                for(ParentLineOnPlane parentLine: lines){
+                    Line line = parentLine.build(graphViewModel.x(), graphViewModel.y());
+                    System.out.println("Line: (" + line.getStartX() + ", " + line.getStartY() + ") -> (" +
+                            line.getEndX() + ", " + line.getEndY() + ")");
+                    line.setStroke(Color.BLACK);
+                    line.setStrokeWidth(1.5);
+                    doneLines.add(line);
+                }
+                allNodes.addAll(doneLines); // linie
+
+                container.getChildren().setAll(doneLines);
+            }
+
             List<PersonOnPlane> personsOnPlane = graphOnPlane.getPersons();
             final int count = personsOnPlane.size();
             Pane[] panes = new Pane[count];
@@ -83,7 +109,8 @@ public class SimpleGraphPainter {
                 panes[i].setLayoutX(pop.x() + graphViewModel.x());
                 panes[i].setLayoutY(pop.y() + graphViewModel.y());
             }
-            container.getChildren().setAll(panes);
+            allNodes.addAll(Arrays.asList(panes));
+            container.getChildren().setAll(allNodes);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -3,10 +3,7 @@ package tcs.familytree.views.painter;
 import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
-import tcs.familytree.views.plane.GraphOnPlane;
-import tcs.familytree.views.plane.PersonOnPlane;
-import tcs.familytree.views.plane.SimpleGraphOnPlane;
-import tcs.familytree.views.plane.SimplePersonOnPlane;
+import tcs.familytree.views.plane.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,37 +26,47 @@ public class SimplePainterBackEnd implements PainterBackEnd {
         }
     }
 
-    private int recursiveGraphDown(List<PersonOnPlane> list, Person person, int x, int y, int depth){
+    private int recursiveGraphDown(List<PersonOnPlane> list, List<ParentLineOnPlane> parentList, Person person, int x, int y, int depth){
         System.out.println(person.toString());
         if(depth > max_depth){
             return x;
         }
         int old_x = x;
-        int old_y = y;
-      //  int slots = familyGraph.getWidthDown(person.getId());
+        //  int slots = familyGraph.getWidthDown(person.getId());
 
         boolean alone = true;
+        List<Integer> downId = new ArrayList<>();
         for(Person p: familyGraph.getChildren(person)){
-            x = recursiveGraphDown(list, p, x, y, depth + 1);
+
+//            parentList.add(new SimpleParentLineOnPlane(person, p));
+            x = recursiveGraphDown(list, parentList, p, x, y, depth + 1);
+            downId.add(list.size() - 1);
             alone = false;
         }
         if(alone){
             x += slot_size;
         }
         list.add(new SimplePersonOnPlane((old_x+x-slot_size)/2, y + depth * depth_size, person));
+        int counter = 0;
+        for(Person p: familyGraph.getChildren(person)){
+            parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(counter))));
+            counter++;
+        }
+
         return x;
     }
 
     @Override
     public GraphOnPlane build() {
         List<PersonOnPlane> persons = new ArrayList<>();
+        List<ParentLineOnPlane> lines = new ArrayList<>();
 
         int x = 450, y = 250;
         //persons.add(new SimplePersonOnPlane(x, y, centralPerson));
 
 
         System.out.println("SimplePainterBackEnd - x");
-        recursiveGraphDown(persons, centralPerson, x, y, 0);
+        recursiveGraphDown(persons , lines, centralPerson, x, y, 0);
 
 //        for(Person p : familyGraph.getChildren(centralPerson)) {
 //            persons.add(new SimplePersonOnPlane(TmpUtil.rand(880) + 10,
@@ -72,6 +79,6 @@ public class SimplePainterBackEnd implements PainterBackEnd {
 //        }
 
 
-        return new SimpleGraphOnPlane(persons);
+        return new SimpleGraphWithLineOnPlane(persons, lines);
     }
 }
