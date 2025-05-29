@@ -16,8 +16,8 @@ public class SimplePainterBackEnd implements PainterBackEnd {
     FamilyGraph familyGraph;
     Person centralPerson;
     int max_depth = 20;
-    int slot_size = 200;
-    int depth_size = 150;
+    int slot_size = 150;
+    int depth_size = 100;
     public SimplePainterBackEnd(FamilyGraph familyGraph, Person person) {
         if(familyGraph == null || person == null) {
             throw new NullPointerException();
@@ -34,11 +34,10 @@ public class SimplePainterBackEnd implements PainterBackEnd {
         if(depth > max_depth){
             return x;
         }
-        int old_x;
-        int old_y;
+        int old_x = x;
+        int old_y = y;
       //  int slots = familyGraph.getWidthDown(person.getId());
 
-        list.add(new SimplePersonOnPlane(x, y + depth * depth_size, person));
         boolean alone = true;
         for(Person p: familyGraph.getChildren(person)){
             x = recursiveGraphDown(list, p, x, y, depth + 1);
@@ -47,6 +46,7 @@ public class SimplePainterBackEnd implements PainterBackEnd {
         if(alone){
             x += slot_size;
         }
+        list.add(new SimplePersonOnPlane((old_x+x-slot_size)/2, y + depth * depth_size, person));
         return x;
     }
 
