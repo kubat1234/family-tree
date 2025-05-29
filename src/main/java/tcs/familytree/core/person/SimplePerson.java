@@ -27,6 +27,7 @@ public class SimplePerson implements Person {
     Gender gender;
 
     public SimplePerson(int id, String firstName, List<String> names, String familyName, List<String> surnames, Person mother, Person father, Date birthDate, Date deathDate, Place birthPlace, Place deathPlace, boolean alive, Gender gender){
+        if(gender == null) throw new NullPointerException("Gender cannot be null");
         this.id = id;
         this.firstName = firstName;
         this.names = names;
@@ -37,11 +38,17 @@ public class SimplePerson implements Person {
         }
         this.mother = mother;
         this.father = father;
+        this.birthDate = birthDate;
+        this.deathDate = deathDate;
+        this.birthPlace = birthPlace;
+        this.deathPlace = deathPlace;
+        this.alive = alive;
         this.gender = gender;
     }
 
     public SimplePerson(Person person){
         if(person == null)throw new NullPointerException();
+        if(person.getGender() == null) throw new NullPointerException("Gender cannot be null");
         this.id = person.getId();
         this.firstName = person.getName();
         this.names = person.getAllNames();
@@ -52,6 +59,12 @@ public class SimplePerson implements Person {
         }
         this.mother = person.getMother();
         this.father = person.getFather();
+        this.birthDate = person.getDateOfBirth();
+        this.deathDate = person.getDateOfDeath();
+        this.birthPlace = person.getPlaceOfBirth();
+        this.deathPlace = person.getPlaceOfDeath();
+        this.alive = person.isAlive();
+        this.gender = person.getGender();
     }
     @Override
     public Person copy(){

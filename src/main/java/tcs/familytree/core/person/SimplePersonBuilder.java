@@ -28,6 +28,31 @@ public class SimplePersonBuilder implements PersonBuilder {
     public SimplePersonBuilder(DatabaseConnection connection){
         this.connection = connection;
     }
+
+    public SimplePersonBuilder(DatabaseConnection connection, Person person){
+        this(connection);
+        setPerson(person);
+    }
+
+    @Override
+    public PersonBuilder setPerson(Person person) {
+        if(person == null)throw new NullPointerException("Person cannot be null");
+        if(this.gender == null) throw new NullPointerException("Gender cannot be null");
+        this.id = person.getId();
+        this.firstName = person.getName();
+        this.names = person.getAllNames();
+        this.familyName = person.getFamilySurname();
+        this.surnames = person.getAllSurnames();
+        this.mother = person.getMother();
+        this.father = person.getFather();
+        this.birthDate = person.getDateOfBirth();
+        this.deathDate = person.getDateOfDeath();
+        this.birthPlace = person.getPlaceOfBirth();
+        this.deathPlace = person.getPlaceOfDeath();
+        this.alive = person.isAlive();
+        this.gender = person.getGender();
+        return this;
+    }
     
     @Override
     public PersonBuilder setId(int id) {
@@ -43,7 +68,7 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder setNames(String... names) {
-        this.names = Arrays.asList(names);
+        this.names = names == null ? new ArrayList<>() : Arrays.asList(names);
         return this;
     }
 
@@ -55,7 +80,7 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder setSurnames(String... surnames) {
-        this.surnames = Arrays.asList(surnames);
+        this.surnames = surnames == null ? new ArrayList<>() : Arrays.asList(surnames);
         return this;
     }
 
@@ -75,8 +100,8 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setMother(int motherId) {
-        return setMother(new SimpleConnectionPerson(motherId,connection));
+    public PersonBuilder setMother(Integer motherId) {
+        return setMother(motherId == null ? null : new SimpleConnectionPerson(motherId,connection));
     }
 
     @Override
@@ -86,8 +111,8 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setFather(int fatherId) {
-        return setFather(new SimpleConnectionPerson(fatherId,connection));
+    public PersonBuilder setFather(Integer fatherId) {
+        return setFather(fatherId == null ? null : new SimpleConnectionPerson(fatherId,connection));
     }
 
     @Override
@@ -103,7 +128,7 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setPlaceOfBirth(int placeOfBirthId) {
+    public PersonBuilder setPlaceOfBirth(Integer placeOfBirthId) {
         // TODO
         return this;
     }
@@ -115,7 +140,7 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setPlaceOfDeath(int placeOfDeathId) {
+    public PersonBuilder setPlaceOfDeath(Integer placeOfDeathId) {
         //TODO
         return this;
     }
@@ -127,8 +152,8 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setDateOfBirth(int dateOfBirthId) {
-        return setDateOfBirth(new SimpleConnectionDate(dateOfBirthId,connection));
+    public PersonBuilder setDateOfBirth(Integer dateOfBirthId) {
+        return setDateOfBirth(dateOfBirthId == null ? null : new SimpleConnectionDate(dateOfBirthId,connection));
     }
 
     @Override
@@ -138,8 +163,8 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setDateOfDeath(int dateOfDeathId) {
-        return setDateOfDeath(new SimpleConnectionDate(dateOfDeathId,connection));
+    public PersonBuilder setDateOfDeath(Integer dateOfDeathId) {
+        return setDateOfDeath(dateOfDeathId == null ? null : new SimpleConnectionDate(dateOfDeathId,connection));
     }
 
     @Override
