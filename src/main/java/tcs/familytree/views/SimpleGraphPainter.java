@@ -49,7 +49,7 @@ public class SimpleGraphPainter {
 
                 controllers[i].setAllDataFromStrings(pop.person().getName(),
                         pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
-                        TmpUtil.randDate(20), TmpUtil.randDate(60),
+                        pop.person().getDateOfBirth().toString(), pop.person().getDateOfDeath().toString(),
                         getGenderColor(pop.person().getGender()));
                 panes[i].setLayoutX(pop.x());
                 panes[i].setLayoutY(pop.y());
@@ -78,7 +78,7 @@ public class SimpleGraphPainter {
 
                 controllers[i].setAllDataFromStrings(pop.person().getName(),
                         pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
-                        TmpUtil.randDate(20), TmpUtil.randDate(60),
+                        pop.person().getDateOfBirth().toString(), pop.person().getDateOfDeath().toString(),
                         getGenderColor(pop.person().getGender()));
                 panes[i].setLayoutX(pop.x() + graphViewModel.x());
                 panes[i].setLayoutY(pop.y() + graphViewModel.y());

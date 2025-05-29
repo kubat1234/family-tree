@@ -55,7 +55,7 @@ public class SimplePainterBackEnd implements PainterBackEnd {
         List<PersonOnPlane> persons = new ArrayList<>();
 
         int x = 450, y = 250;
-        persons.add(new SimplePersonOnPlane(x, y, centralPerson));
+        //persons.add(new SimplePersonOnPlane(x, y, centralPerson));
 
 
         System.out.println("SimplePainterBackEnd - x");
