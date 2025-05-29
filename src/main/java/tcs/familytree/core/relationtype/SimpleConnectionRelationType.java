@@ -1,20 +1,29 @@
 package tcs.familytree.core.relationtype;
 
+import tcs.familytree.core.AbstractConnectionData;
 import tcs.familytree.services.database.DatabaseConnection;
 
-public class SimpleConnectionRelationType  extends AbstractConnectionRelationType{
+public class SimpleConnectionRelationType  extends AbstractConnectionData<RelationType> implements RelationType{
     DatabaseConnection connection;
     public SimpleConnectionRelationType(int id, DatabaseConnection connection){
-        super(id);
-        this.connection = connection;
+        super(id, connection);
     }
     public SimpleConnectionRelationType(RelationType relationType, DatabaseConnection connection){
-        super(relationType);
-        this.id = relationType.getId();
-        this.connection = connection;
+        super(relationType, connection);
     }
     @Override
     public void load() {
         //TODO
+    }
+
+    @Override
+    public String getName(){
+        if(isUnloaded()) load();
+        return data.getName();
+    }
+    @Override
+    public RelationType getSuper(){
+        if(isUnloaded()) load();
+        return data;
     }
 }

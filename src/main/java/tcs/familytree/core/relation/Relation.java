@@ -1,5 +1,6 @@
 package tcs.familytree.core.relation;
 
+import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.relationtype.RelationType;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
@@ -9,7 +10,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public interface Relation {
+public interface Relation extends Identifiable {
 
     int getId();
 

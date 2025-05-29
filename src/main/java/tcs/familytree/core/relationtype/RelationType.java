@@ -1,6 +1,8 @@
 package tcs.familytree.core.relationtype;
 
-public interface RelationType {
+import tcs.familytree.core.Identifiable;
+
+public interface RelationType extends Identifiable {
     int getId();
     String getName();
     RelationType getSuper();
