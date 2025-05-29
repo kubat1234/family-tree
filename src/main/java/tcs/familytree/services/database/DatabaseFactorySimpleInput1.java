@@ -19,9 +19,9 @@ public class DatabaseFactorySimpleInput1 extends DatabaseFactorySimple{
         personList.add(pb.build());
         pb.setId(5).setName("Dorota").setSurnames("Nowak").setFather(2).setMother(1).setAlive(false).setGender(Gender.FEMALE);
         personList.add(pb.build());
-        pb.setId(6).setName("Krzysztof").setSurnames("Kowal").setFather(7).setMother(1).setAlive(false).setGender(Gender.FEMALE);
+        pb.setId(6).setName("Krzysztof").setSurnames("Kowal").setFather(4).setMother(1).setAlive(false).setGender(Gender.FEMALE);
         personList.add(pb.build());
-        pb.setId(7).setName("Adam").setSurnames("Kowal").setFather(6).setMother(1).setAlive(false).setGender(Gender.FEMALE);
+        pb.setId(7).setName("Adam").setSurnames("Kowal").setFather(4).setMother(1).setAlive(false).setGender(Gender.FEMALE);
         personList.add(pb.build());
         pb.setId(8).setName("Antoni").setSurnames("Kowal").setFather(6).setMother(1).setAlive(false).setGender(Gender.FEMALE);
         personList.add(pb.build());
@@ -51,7 +51,7 @@ public class DatabaseFactorySimpleInput1 extends DatabaseFactorySimple{
         personList.add(pb.build());
         pb.setId(6).setName("Krzysztof").setSurnames("Kowal").setFather(7).setMother(1).setAlive(false).setGender(Gender.MALE);
         personList.add(pb.build());
-        pb.setId(7).setName("Adam").setSurnames("Kowal").setFather(6).setMother(1).setAlive(false).setGender(Gender.MALE);
+        pb.setId(7).setName("Adam").setSurnames("Kowal").setFather(4).setMother(1).setAlive(false).setGender(Gender.MALE);
         personList.add(pb.build());
         pb.setId(8).setName("Antoni").setSurnames("Kowal").setFather(6).setMother(1).setAlive(false).setGender(Gender.MALE);
         personList.add(pb.build());
