@@ -3,21 +3,22 @@ package tcs.familytree.viewmodels;
 import javafx.beans.property.SimpleObjectProperty;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
+import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.TemporaryDataProvider2;
 
 public class GraphOrientedViewModel implements GraphViewModel {
     Person centralPerson;
     Integer x_mod;
     Integer y_mod;
-    TemporaryDataProvider2 provider;
+    GraphProvider provider;
     SimpleObjectProperty<FamilyGraph> graphProperty;
 
-    public GraphOrientedViewModel(Person centralPerson, TemporaryDataProvider2 provider){
+    public GraphOrientedViewModel(Person centralPerson, GraphProvider provider){
         this.provider = provider;
         this.centralPerson = centralPerson;
         x_mod = 0;
         y_mod = 0;
-        graphProperty = provider.provideTemporaryDataAsProperty();
+        graphProperty = provider.getGraphProperty();
         updateGraph();
     }
 

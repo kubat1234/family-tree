@@ -8,6 +8,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import tcs.familytree.services.GraphProvider;
+import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.services.TemporaryDataProvider2;
 import tcs.familytree.viewmodels.GraphOrientedViewModel;
 import tcs.familytree.viewmodels.GraphViewModel;
@@ -145,8 +147,9 @@ public class MainController {
 
     @FXML
     public void loaderGraphOrientedViewModel() {
-        TemporaryDataProvider2 tdp = new TemporaryDataProvider2();
-        graphViewModel = new GraphOrientedViewModel(tdp.provideTemporaryDataAsProperty().get().getPerson(1), tdp);
+//        GraphProvider tdp = new RealGraphProvider();
+        GraphProvider tdp = new TemporaryDataProvider2();
+        graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp);
         graphView = null;
         colorClicked("NONE", OpenedTab.NONE);
         System.out.println("Load OK");
@@ -181,7 +184,6 @@ public class MainController {
     }
 
     void moveUp(){
-
         graphViewModel.changeMod(0, -10);
         refresh();
 
