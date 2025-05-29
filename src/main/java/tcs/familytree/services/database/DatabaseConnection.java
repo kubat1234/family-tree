@@ -21,11 +21,11 @@ public interface DatabaseConnection {
     }
 
     default boolean checkIfPersonExist(int id){
-        return getAllPersons().stream().anyMatch(p -> p.getId() == id);
+        return getPerson(id) != null;
     }
 
     default boolean checkIfPersonExist(Person person){
-        throw new NotImplemented();
+        return checkIfPersonExist(person.getId());
     }
 
     default boolean updatePerson(Person person){throw new NotImplemented();}

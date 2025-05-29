@@ -317,4 +317,10 @@ public class SimpleConnectionPerson extends AbstractConnectionData<Person> imple
         }
         return p.getId() == id;
     }
+
+    @Override
+    public String toString(){
+        if(isUnloaded()) load();
+        return data.toString();
+    }
 }
