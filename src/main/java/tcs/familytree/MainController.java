@@ -147,8 +147,13 @@ public class MainController {
 
     @FXML
     public void loaderGraphOrientedViewModel() {
-//        GraphProvider tdp = new RealGraphProvider();
-        GraphProvider tdp = new TemporaryDataProvider2();
+        GraphProvider tdp = new RealGraphProvider();
+        try{
+            Thread.sleep(500);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+//        GraphProvider tdp = new TemporaryDataProvider2();
         graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp);
         graphView = null;
         colorClicked("NONE", OpenedTab.NONE);
@@ -174,23 +179,23 @@ public class MainController {
 
     void moveLeft(){
         System.out.println("Move Left");
-        graphViewModel.changeMod(-10, 0);
-        refresh();
-    }
-
-    void moveRight(){
         graphViewModel.changeMod(10, 0);
         refresh();
     }
 
+    void moveRight(){
+        graphViewModel.changeMod(-10, 0);
+        refresh();
+    }
+
     void moveUp(){
-        graphViewModel.changeMod(0, -10);
+        graphViewModel.changeMod(0, 10);
         refresh();
 
     }
 
     void moveDown(){
-        graphViewModel.changeMod(0, 10);
+        graphViewModel.changeMod(0, -10);
         refresh();
     }
 
