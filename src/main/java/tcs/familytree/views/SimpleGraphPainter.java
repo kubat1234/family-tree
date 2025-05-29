@@ -10,6 +10,7 @@ import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
+import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.views.plane.GraphOnPlane;
 import tcs.familytree.views.plane.PersonOnPlane;
 
@@ -58,6 +59,36 @@ public class SimpleGraphPainter {
             e.printStackTrace();
         }
     }
+
+    public void paintMovableGraphOnPlane(GraphOnPlane graphOnPlane, GraphViewModel graphViewModel) {
+        if(graphOnPlane == null || graphOnPlane.getPersons() == null || graphViewModel == null) {
+            throw new NullPointerException();
+        }
+        try {
+            List<PersonOnPlane> personsOnPlane = graphOnPlane.getPersons();
+            final int count = personsOnPlane.size();
+            Pane[] panes = new Pane[count];
+            SimpleGraphVertex[] controllers = new SimpleGraphVertex[count];
+            for(int i=0; i<count; i++)
+            {
+                PersonOnPlane pop = personsOnPlane.get(i);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("simple-graph-vertex.fxml"));
+                panes[i] = loader.load();
+                controllers[i] = loader.getController();
+
+                controllers[i].setAllDataFromStrings(pop.person().getName(),
+                        pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
+                        TmpUtil.randDate(20), TmpUtil.randDate(60),
+                        getGenderColor(pop.person().getGender()));
+                panes[i].setLayoutX(pop.x() + graphViewModel.x());
+                panes[i].setLayoutY(pop.y() + graphViewModel.y());
+            }
+            container.getChildren().setAll(panes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void paintRandomly(FamilyGraph graph) {
         try {

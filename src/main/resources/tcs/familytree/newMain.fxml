@@ -28,6 +28,6 @@
         </Menu>
     </MenuBar>
     <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="26.0" prefHeight="674.0" prefWidth="793.0">
-        <StackPane fx:id="mainContainer" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="2000.0" />
+        <StackPane fx:id="mainSpace" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="2000.0" />
     </ScrollPane>
 </VBox>

@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
+import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
 import tcs.familytree.views.plane.GraphOnPlane;
 
@@ -61,6 +62,38 @@ public class GraphView {
 
         GraphOnPlane graphOnPlane = new ThreeGenerationsPainterBackEnd(graphProperty.get(), randomPerson).build();
         runLater(() -> painter.paintGraphOnPlane(graphOnPlane));
+    }
+
+    public void paintMovableCenteredAtRandom(){
+        List<Person> list = graphProperty.get().getAllPersons().stream().toList();
+        // If there is no person at all, we cannot select a random person.
+        // We have to wait until someone arrives.
+        if(list.isEmpty()) {
+            dropListener();
+            this.listener = new ChangeListener<FamilyGraph>() {
+                @Override
+                public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph familyGraph, FamilyGraph t1) {
+                    paintCenteredAtRandom();
+                }
+            };
+            graphProperty.addListener(listener);
+            return;
+        }
+        final Person randomPerson = list.get(TmpUtil.rand(list.size()));
+
+        dropListener();
+        this.listener = new ChangeListener<FamilyGraph>() {
+            @Override
+            public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph familyGraph, FamilyGraph t1) {
+//                runLater(() -> painter.paintRandomly(graphProperty.get()));
+                GraphOnPlane graphOnPlane = new ThreeGenerationsPainterBackEnd(graphProperty.get(), randomPerson).build();
+                runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, (GraphViewModel) viewModel));
+            }; //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
+        };
+        graphProperty.addListener(listener);
+
+        GraphOnPlane graphOnPlane = new ThreeGenerationsPainterBackEnd(graphProperty.get(), randomPerson).build();
+        runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, (GraphViewModel) viewModel));
     }
 
     public void paintRandomly() {

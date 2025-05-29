@@ -1,11 +1,13 @@
 package tcs.familytree;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import tcs.familytree.core.person.Person;
+import javafx.scene.layout.StackPane;
 import tcs.familytree.services.TemporaryDataProvider2;
 import tcs.familytree.viewmodels.GraphOrientedViewModel;
 import tcs.familytree.viewmodels.GraphViewModel;
@@ -16,8 +18,34 @@ import tcs.familytree.views.SimpleGraphPainter;
 
 public class MainController {
     @FXML
-    private Pane mainContainer;
+    public StackPane mainSpace;
 
+//    @FXML
+//    public void initialize(){
+//        Platform.runLater(() ->{
+//            Scene scene = mainSpace.getScene();
+//            mainSpace.setFocusTraversable(true);
+//            mainSpace.requestFocus();
+//            scene.setOnKeyPressed(
+//                    (KeyEvent event) -> {
+//                        if(event.getCode() == KeyCode.A){
+//                            System.out.println("Pressed A");
+//                            if(graphViewModel != null){
+//                                graphViewModel.changeMod(0, -10);
+//                            }
+//                        }
+//                        if(event.getCode() == KeyCode.SPACE){
+//                            System.out.println("Pressed SPACE");
+//                        }
+//                    }
+//            );
+//        });
+//        mainSpace.setFocusTraversable(true);
+
+        //Platform.runLater(() -> scene.requestFocus());
+
+//        mainSpace.requestFocus();
+//    }
 
 
     private enum OpenedTab {
@@ -106,7 +134,7 @@ public class MainController {
         try {
             Pane view = loader.load();
             T controller = loader.getController();
-            mainContainer.getChildren().setAll(view);
+            mainSpace.getChildren().setAll(view);
             return controller;
         }
         catch (Exception e) {
@@ -119,18 +147,49 @@ public class MainController {
     public void loaderGraphOrientedViewModel() {
         TemporaryDataProvider2 tdp = new TemporaryDataProvider2();
         graphViewModel = new GraphOrientedViewModel(tdp.provideTemporaryDataAsProperty().get().getPerson(1), tdp);
+        graphView = null;
+        colorClicked("NONE", OpenedTab.NONE);
         System.out.println("Load OK");
+        refresh();
     }
 
-    public void refresh(ActionEvent actionEvent) {
-        viewModel.updateGraph();
+    public void refresh() {
+        graphViewModel.updateGraph();
         if(!colorClicked("movable", OpenedTab.MOVABLE_PAINTER)) {
             return;
         }
+        if(graphViewModel == null){
+            loaderGraphOrientedViewModel();
+        }
         if(graphView == null) {
             SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
-            graphView = new GraphView(painter, viewModel);
+            graphView = new GraphView(painter, graphViewModel);
         }
-        graphView.paintCenteredAtRandom();
+//        graphView.paintCenteredAtRandom();
+        graphView.paintMovableCenteredAtRandom();
     }
+
+    void moveLeft(){
+        System.out.println("Move Left");
+        graphViewModel.changeMod(-10, 0);
+        refresh();
+    }
+
+    void moveRight(){
+        graphViewModel.changeMod(10, 0);
+        refresh();
+    }
+
+    void moveUp(){
+
+        graphViewModel.changeMod(0, -10);
+        refresh();
+
+    }
+
+    void moveDown(){
+        graphViewModel.changeMod(0, 10);
+        refresh();
+    }
+
 }
