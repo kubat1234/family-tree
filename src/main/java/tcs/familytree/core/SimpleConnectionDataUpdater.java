@@ -10,7 +10,7 @@ public class SimpleConnectionDataUpdater implements ConnectionDataUpdater{
 
     @Override
     public void update(Identifiable data) {
-        if(!connectionDataElements.containsKey(data.getClass())){
+        if(connectionDataElements.containsKey(data.getClass())){
             if(connectionDataElements.get(data.getClass()).containsKey(data.getId())){
                 connectionDataElements.get(data.getClass()).get(data.getId()).forEach(ConnectionData::load);
             }

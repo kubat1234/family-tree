@@ -4,15 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import tcs.familytree.viewmodels.HardcodedSingleTreeViewModel;
-import tcs.familytree.views.StupidCLIView;
-import java.io.IOException;
-
-
 
 
 public class NewMain extends Application {

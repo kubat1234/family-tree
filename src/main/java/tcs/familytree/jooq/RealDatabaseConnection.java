@@ -54,7 +54,7 @@ public class RealDatabaseConnection implements DatabaseConnection {
 
     @Override
     public List<Person> getAllPersons() {
-        return dsl.select().from(OSOBY).fetch().stream().map(databaseConverter::toPerson).toList();
+        return dsl.select().from(OSOBY).fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
     }
 
     public boolean checkIfPersonExist(int id){
@@ -79,7 +79,10 @@ public class RealDatabaseConnection implements DatabaseConnection {
     @Override
     public boolean updatePerson(Person person) {
         try {
-            dsl.update(OSOBY).set(OSOBY.IMIE, person.getName()).where(OSOBY.ID.eq(person.getId())).execute();
+//            dsl.update(OSOBY).set(OSOBY.IMIE, person.getName()).where(OSOBY.ID.eq(person.getId())).execute();
+            OsobyRecord record = databaseConverter.toOsobyRecord(person);
+            record.attach(dsl.configuration());
+            record.update();
             updater.update(person);
             return true;
         } catch (Exception e) {

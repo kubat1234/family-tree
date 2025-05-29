@@ -1,13 +1,6 @@
 package tcs.familytree;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import tcs.familytree.viewmodels.HardcodedSingleTreeViewModel;
 import tcs.familytree.viewmodels.SingleDatabaseViewModel;
-import tcs.familytree.views.StupidCLIView;
 import tcs.familytree.views.cli.CLIView;
 
 /**

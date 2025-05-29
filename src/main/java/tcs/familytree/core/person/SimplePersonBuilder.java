@@ -37,7 +37,6 @@ public class SimplePersonBuilder implements PersonBuilder {
     @Override
     public PersonBuilder setPerson(Person person) {
         if(person == null)throw new NullPointerException("Person cannot be null");
-        if(this.gender == null) throw new NullPointerException("Gender cannot be null");
         this.id = person.getId();
         this.firstName = person.getName();
         this.names = person.getAllNames();

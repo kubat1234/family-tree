@@ -7,4 +7,9 @@ public enum Gender {
         else if(gender) return MALE;
         else return FEMALE;
     }
+    public Boolean toBoolean(){
+        if(this == MALE) return true;
+        else if(this == FEMALE) return false;
+        else return null;
+    }
 }

@@ -11,10 +11,7 @@ import javafx.scene.layout.StackPane;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.services.TemporaryDataProvider2;
-import tcs.familytree.viewmodels.GraphOrientedViewModel;
-import tcs.familytree.viewmodels.GraphViewModel;
-import tcs.familytree.viewmodels.HardcodedSingleTreeViewModel;
-import tcs.familytree.viewmodels.SingleTreeViewModel;
+import tcs.familytree.viewmodels.*;
 import tcs.familytree.views.GraphView;
 import tcs.familytree.views.SimpleGraphPainter;
 
@@ -57,7 +54,7 @@ public class MainController {
         MOVABLE_PAINTER,
     }
 
-    private final SingleTreeViewModel viewModel = HardcodedSingleTreeViewModel.getModel();
+    private final SingleTreeViewModel viewModel = new SingleDatabaseViewModel();//HardcodedSingleTreeViewModel.getModel();
     private GraphViewModel graphViewModel = null;
     private OpenedTab openedTab = OpenedTab.NONE;
     private GraphView graphView;

@@ -20,7 +20,7 @@ public class DatabaseConverter {
         if(connection == null)throw new NullPointerException("Connection can't be null");
         this.connection = connection;
     }
-    public Person toPerson(org.jooq.Record record){
+    public Person toPerson(OsobyRecord record){
         if(record == null)return null;
         PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
         builder.setId(record.getValue(OSOBY.ID));
@@ -39,6 +39,21 @@ public class DatabaseConverter {
         builder.setGender(Gender.fromBoolean(record.getValue(OSOBY.PLEC)));
 
         return builder.build();
+    }
+    public OsobyRecord toOsobyRecord(Person person){
+        if(person == null)throw new NullPointerException("Person can't be null");
+        OsobyRecord record = new OsobyRecord();
+        record.setId(person.getId());
+        record.setImie(person.getName());
+        record.setNazwiskoRodowe(person.getFamilySurname());
+        record.setPozostaleImiona(person.getAllSurnames() == null ? null : String.join(" ",person.getAllSurnames()));
+        record.setMiejsceUr(person.getPlaceOfBirth() == null ? null : person.getPlaceOfBirth().getId());
+        record.setDataUr(person.getDateOfBirth() == null ? null : person.getDateOfBirth().getId());
+        record.setMiejsceSm(person.getPlaceOfDeath() == null ? null : person.getPlaceOfDeath().getId());
+        record.setDataSm(person.getDateOfDeath() == null ? null : person.getDateOfDeath().getId());
+        record.setPlec(person.getGender().toBoolean());
+        record.setWciazZyje(person.isAlive());
+        return record;
     }
     public Date toDate(org.jooq.Record record) {
         if(!(record instanceof DatyRecord) )throw new IllegalArgumentException("Record must be instance of DatyRecord");
