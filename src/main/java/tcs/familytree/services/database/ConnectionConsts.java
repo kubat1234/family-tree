@@ -1,4 +1,4 @@
-package tcs.familytree.jooq;
+package tcs.familytree.services.database;
 
 public class ConnectionConsts {
     final static String userName = "family_tree";

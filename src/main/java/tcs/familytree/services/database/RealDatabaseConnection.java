@@ -1,4 +1,4 @@
-package tcs.familytree.jooq;
+package tcs.familytree.services.database;
 
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -8,7 +8,6 @@ import tcs.familytree.core.Updater;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
-import tcs.familytree.services.database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,10 +47,6 @@ public class RealDatabaseConnection implements DatabaseConnection {
     @Override
     public List<Person> getAllPersons() {
         return dsl.select().from(OSOBY).fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
-    }
-
-    public boolean checkIfPersonExist(int id){
-        return dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOne() != null;
     }
 
     @Override

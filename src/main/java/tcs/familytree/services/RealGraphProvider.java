@@ -1,7 +1,7 @@
 package tcs.familytree.services;
 
 import javafx.beans.property.SimpleObjectProperty;
-import tcs.familytree.jooq.RealDatabaseConnection;
+import tcs.familytree.services.database.RealDatabaseConnection;
 
 public class RealGraphProvider implements GraphProvider{
     SimpleObjectProperty<FamilyGraph> graphProperty;

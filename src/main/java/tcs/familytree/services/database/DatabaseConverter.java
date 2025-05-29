@@ -1,4 +1,4 @@
-package tcs.familytree.jooq;
+package tcs.familytree.services.database;
 
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.date.DateBuilder;
@@ -8,7 +8,6 @@ import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
 import tcs.familytree.jooq.generated.tables.records.DatyRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
-import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.core.person.Gender;
 
 import static tcs.familytree.jooq.generated.Tables.*;

@@ -1,16 +1,11 @@
 package tcs.familytree;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
-import tcs.familytree.services.TemporaryDataProvider2;
 import tcs.familytree.viewmodels.*;
 import tcs.familytree.views.GraphView;
 import tcs.familytree.views.SimpleGraphPainter;

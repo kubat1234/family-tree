@@ -1,12 +1,8 @@
-package tcs.familytree.services;
-
-import org.jooq.meta.derby.sys.Sys;
 import org.junit.jupiter.api.Test;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.core.person.SimplePerson;
 import tcs.familytree.core.person.SimplePersonBuilder;
-import tcs.familytree.jooq.RealDatabaseConnection;
+import tcs.familytree.services.database.RealDatabaseConnection;
 import tcs.familytree.services.database.DatabaseConnection;
 
 public class DatabaseTest{

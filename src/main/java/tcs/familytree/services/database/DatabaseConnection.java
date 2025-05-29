@@ -5,19 +5,12 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
-import tcs.familytree.core.toanihilate.RelationMarriage;
 
 import java.util.List;
 
 public interface DatabaseConnection {
 
-//    void load(DatabaseFactory databaseFactory);
-
-//    void unload();
-
-    default Updater getUpdater(){
-        throw new NotImplemented();
-    }
+    Updater getUpdater();
 
     List<Person> getAllPersons();
 
@@ -33,19 +26,11 @@ public interface DatabaseConnection {
         return checkIfPersonExist(person.getId());
     }
 
-    default boolean updatePerson(Person person){throw new NotImplemented();}
+    boolean updatePerson(Person person);
 
     default boolean addPerson(Person person){throw new NotImplemented();}
 
     default List<Relation> getAllRelation(){
-        throw new NotImplemented();
-    }
-
-    default List<RelationMarriage> getMarriage(Person person){
-        throw new NotImplemented();
-    }
-
-    default List<RelationMarriage> getMarriage(int id){
         throw new NotImplemented();
     }
 
