@@ -11,6 +11,10 @@ public class RealGraphProvider implements GraphProvider{
         connection = new RealDatabaseConnection();
         graphProperty = new SimpleObjectProperty<>(this, "RealGraphProperty",
                 new SimpleGraph());
+        updateGraph();
+        graphProperty.set(new SimpleGraph(connection.getAllPersons()));
+
+//        updateGraph();
     }
 
     @Override

@@ -9,8 +9,10 @@ import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
 import tcs.familytree.views.painter.RandomPainterBackEnd;
+import tcs.familytree.views.painter.SimplePainterBackEnd;
 import tcs.familytree.views.painter.ThreeGenerationsPainterBackEnd;
 import tcs.familytree.views.plane.GraphOnPlane;
+import tcs.familytree.views.plane.SimpleGraphOnPlane;
 
 import java.util.List;
 
@@ -88,13 +90,13 @@ public class GraphView {
             @Override
             public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph familyGraph, FamilyGraph t1) {
 //                runLater(() -> painter.paintRandomly(graphProperty.get()));
-                GraphOnPlane graphOnPlane = new ThreeGenerationsPainterBackEnd(graphProperty.get(), randomPerson).build();
+                GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), randomPerson).build();
                 runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, (GraphViewModel) viewModel));
             }; //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
         };
         graphProperty.addListener(listener);
 
-        GraphOnPlane graphOnPlane = new ThreeGenerationsPainterBackEnd(graphProperty.get(), randomPerson).build();
+        GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), randomPerson).build();
         runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, (GraphViewModel) viewModel));
     }
 
