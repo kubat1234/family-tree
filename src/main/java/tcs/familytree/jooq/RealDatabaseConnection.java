@@ -13,6 +13,7 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.SimplePersonBuilder;
+import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 import tcs.familytree.services.database.DatabaseConnection;
 
 import java.sql.Connection;
@@ -50,19 +51,24 @@ public class RealDatabaseConnection implements DatabaseConnection {
     }
 
     // Person methods
+
     @Override
     public List<Person> getAllPersons() {
         return dsl.select().from(OSOBY).fetch().stream().map(databaseConverter::toPerson).toList();
     }
 
+    public boolean checkIfPersonExist(int id){
+        return dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOne() != null;
+    }
+
     @Override
     public Person getPerson(int id){
-        return databaseConverter.toPerson(dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOne());
+        return databaseConverter.toPerson(dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOneInto(OsobyRecord.class));
     }
 
     @Override
     public List<Person> getChildren(int id){
-        return dsl.select().from(OSOBY).where(OSOBY.MATKA.eq(id).or(OSOBY.OJCIEC.eq(id))).fetch().stream().map(databaseConverter::toPerson).toList();
+        return dsl.select().from(OSOBY).where(OSOBY.MATKA.eq(id).or(OSOBY.OJCIEC.eq(id))).fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
     }
 
     @Override
@@ -74,9 +80,10 @@ public class RealDatabaseConnection implements DatabaseConnection {
     public boolean updatePerson(Person person) {
         try {
             dsl.update(OSOBY).set(OSOBY.IMIE, person.getName()).where(OSOBY.ID.eq(person.getId())).execute();
+            updater.update(person);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Błąd podczas aktualizacji osoby o id: " + person.getId() + " " + e.getMessage());
             return false;
         }
     }

@@ -1,6 +1,7 @@
 package tcs.familytree.core.person;
 
 import tcs.familytree.core.AbstractConnectionData;
+import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
@@ -322,5 +323,10 @@ public class SimpleConnectionPerson extends AbstractConnectionData<Person> imple
     public String toString(){
         if(isUnloaded()) load();
         return data.toString();
+    }
+
+    @Override
+    public Class<? extends Identifiable> getDataClass(){
+        return Person.class;
     }
 }

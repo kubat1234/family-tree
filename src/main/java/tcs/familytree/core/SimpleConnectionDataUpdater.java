@@ -19,7 +19,7 @@ public class SimpleConnectionDataUpdater implements ConnectionDataUpdater{
 
     @Override
     public void register(ConnectionData<? extends Identifiable> data){
-        if(!connectionDataElements.containsKey(data.getClass())){
+        if(!connectionDataElements.containsKey(data.getDataClass())){
             connectionDataElements.put(data.getDataClass(), new HashMap<>());
         }
         if(!connectionDataElements.get(data.getDataClass()).containsKey(data.getId())){

@@ -21,7 +21,7 @@ public class DatabaseConverter {
         this.connection = connection;
     }
     public Person toPerson(org.jooq.Record record){
-        if(!(record instanceof OsobyRecord))throw new IllegalArgumentException("Record must be instance of OsobyRecord");
+        if(record == null)return null;
         PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
         builder.setId(record.getValue(OSOBY.ID));
         builder.setName(record.getValue(OSOBY.IMIE));

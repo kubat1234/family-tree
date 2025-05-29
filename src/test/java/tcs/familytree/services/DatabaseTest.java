@@ -11,6 +11,7 @@ public class DatabaseTest{
     @Test
     public void test1() {
         DatabaseConnection connection = new RealDatabaseConnection();
+        System.out.println(connection.getAllPersons());
         for(Person p : connection.getAllPersons()) {
             System.out.println(p + " | " + p.getMother() + " | " + p.getFather());
             System.out.println(connection.getChildren(p));

@@ -45,9 +45,4 @@ public abstract class AbstractConnectionData<T extends Identifiable> implements 
     public int getId(){
         return id;
     }
-
-    @Override
-    public Class<? extends Identifiable> getDataClass(){
-        return data.getClass();
-    }
 }

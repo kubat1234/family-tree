@@ -1,6 +1,7 @@
 package tcs.familytree.core.relation;
 
 import tcs.familytree.core.AbstractConnectionData;
+import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
@@ -51,5 +52,10 @@ public class SimpleConnectionRelation extends AbstractConnectionData<Relation> i
     public boolean isSymetric() {
         if(isUnloaded()) load();
         return data.isSymetric();
+    }
+
+    @Override
+    public Class<? extends Identifiable> getDataClass(){
+        return Relation.class;
     }
 }

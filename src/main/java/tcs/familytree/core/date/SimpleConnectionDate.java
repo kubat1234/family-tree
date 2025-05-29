@@ -1,6 +1,7 @@
 package tcs.familytree.core.date;
 
 import tcs.familytree.core.AbstractConnectionData;
+import tcs.familytree.core.Identifiable;
 import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.DatabaseError;
 
@@ -104,5 +105,10 @@ public class SimpleConnectionDate extends AbstractConnectionData<Date> implement
     public String toString(){
         if(isUnloaded()) load();
         return data.toString();
+    }
+
+    @Override
+    public Class<? extends Identifiable> getDataClass(){
+        return Date.class;
     }
 }

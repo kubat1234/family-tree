@@ -1,6 +1,8 @@
 package tcs.familytree.core.relationtype;
 
 import tcs.familytree.core.AbstractConnectionData;
+import tcs.familytree.core.Identifiable;
+import tcs.familytree.core.date.Date;
 import tcs.familytree.services.database.DatabaseConnection;
 
 public class SimpleConnectionRelationType  extends AbstractConnectionData<RelationType> implements RelationType{
@@ -25,5 +27,10 @@ public class SimpleConnectionRelationType  extends AbstractConnectionData<Relati
     public RelationType getSuper(){
         if(isUnloaded()) load();
         return data;
+    }
+
+    @Override
+    public Class<? extends Identifiable> getDataClass(){
+        return RelationType.class;
     }
 }
