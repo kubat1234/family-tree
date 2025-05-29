@@ -6,7 +6,9 @@ import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
+import tcs.familytree.core.ConnectionDataUpdater;
 import tcs.familytree.core.NotImplemented;
+import tcs.familytree.core.SimpleConnectionDataUpdater;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
@@ -25,6 +27,7 @@ import static tcs.familytree.jooq.generated.Tables.OSOBY;
 public class RealDatabaseConnection implements DatabaseConnection {
     DatabaseConverter databaseConverter;
     DSLContext dsl;
+    ConnectionDataUpdater updater = new SimpleConnectionDataUpdater();
 
     public RealDatabaseConnection(){
         databaseConverter = new DatabaseConverter(this);
@@ -39,6 +42,11 @@ public class RealDatabaseConnection implements DatabaseConnection {
         } catch (SQLException e) {
             throw new RuntimeException("Nie można połączyć się z bazą danych", e);
         }
+    }
+
+    @Override
+    public ConnectionDataUpdater getUpdater() {
+        return updater;
     }
 
     // Person methods

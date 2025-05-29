@@ -15,6 +15,10 @@ public interface DatabaseConnection {
 
 //    void unload();
 
+    default ConnectionDataUpdater getUpdater(){
+        throw new NotImplemented();
+    }
+
     List<Person> getAllPersons();
 
     default Person getPerson(int id){
