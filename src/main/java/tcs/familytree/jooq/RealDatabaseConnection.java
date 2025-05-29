@@ -57,4 +57,15 @@ public class RealDatabaseConnection implements DatabaseConnection {
     public List<Person> getChildren(Person person){
         return getChildren(person.getId());
     }
+
+    @Override
+    public boolean updatePerson(Person person) {
+        try {
+            dsl.update(OSOBY).set(OSOBY.IMIE, person.getName()).where(OSOBY.ID.eq(person.getId())).execute();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
