@@ -14,8 +14,9 @@ public class DatabaseTest{
     public void test1() {
         DatabaseConnection connection = new RealDatabaseConnection();
         Person person = connection.getPerson(1);
-        System.out.println(person + " to " + "Stefania11");
-        Person newPerson = new SimplePersonBuilder(connection, person).setName("Stefania11").build();
+        Person person2 = connection.getPerson(1);
+        System.out.println(person + " to " + "Stefania33");
+        Person newPerson = new SimplePersonBuilder(connection, person).setName("Stefania33").build();
         connection.updatePerson(newPerson);
         System.out.println(person.getName());
         for(Person p : connection.getAllPersons()) {

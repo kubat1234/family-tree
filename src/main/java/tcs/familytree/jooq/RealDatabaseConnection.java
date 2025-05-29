@@ -1,25 +1,18 @@
 package tcs.familytree.jooq;
 
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
-import tcs.familytree.core.ConnectionDataUpdater;
-import tcs.familytree.core.NotImplemented;
-import tcs.familytree.core.SimpleConnectionDataUpdater;
+import tcs.familytree.core.Updater;
 import tcs.familytree.core.date.Date;
-import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.core.person.SimplePersonBuilder;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 import tcs.familytree.services.database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static tcs.familytree.jooq.generated.Tables.DATY;
@@ -28,7 +21,7 @@ import static tcs.familytree.jooq.generated.Tables.OSOBY;
 public class RealDatabaseConnection implements DatabaseConnection {
     DatabaseConverter databaseConverter;
     DSLContext dsl;
-    ConnectionDataUpdater updater = new SimpleConnectionDataUpdater();
+    Updater updater = new Updater();
 
     public RealDatabaseConnection(){
         databaseConverter = new DatabaseConverter(this);
@@ -46,7 +39,7 @@ public class RealDatabaseConnection implements DatabaseConnection {
     }
 
     @Override
-    public ConnectionDataUpdater getUpdater() {
+    public Updater getUpdater() {
         return updater;
     }
 

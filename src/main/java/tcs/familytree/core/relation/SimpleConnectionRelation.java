@@ -12,9 +12,11 @@ import tcs.familytree.core.NotImplemented;
 public class SimpleConnectionRelation extends AbstractConnectionData<Relation> implements Relation{
     public SimpleConnectionRelation(int id, DatabaseConnection connection){
         super(id, connection);
+        connection.getUpdater().registerRelation(this);
     }
     public SimpleConnectionRelation(Relation relation, DatabaseConnection connection){
         super(relation, connection);
+        connection.getUpdater().registerRelation(this);
     }
 
     @Override

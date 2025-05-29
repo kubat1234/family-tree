@@ -15,7 +15,7 @@ public interface DatabaseConnection {
 
 //    void unload();
 
-    default ConnectionDataUpdater getUpdater(){
+    default Updater getUpdater(){
         throw new NotImplemented();
     }
 

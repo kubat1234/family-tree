@@ -10,9 +10,11 @@ import java.util.List;
 public class SimpleConnectionDate extends AbstractConnectionData<Date> implements Date {
     public SimpleConnectionDate(Integer id, DatabaseConnection connection){
         super(id,connection);
+        connection.getUpdater().registerDate(this);
     }
     public SimpleConnectionDate(Date date, DatabaseConnection connection){
         super(date,connection);
+        connection.getUpdater().registerDate(this);
     }
 
     @Override

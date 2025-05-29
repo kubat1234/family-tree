@@ -9,6 +9,7 @@ import tcs.familytree.services.database.DatabaseError;
 public class SimpleConnectionPlace extends AbstractConnectionData<Place> implements Place {
     public SimpleConnectionPlace(int id, DatabaseConnection connection) {
         super(id, connection);
+        connection.getUpdater().registerPlace(this);
     }
 
     @Override

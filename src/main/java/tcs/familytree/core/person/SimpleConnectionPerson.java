@@ -13,10 +13,12 @@ import java.util.List;
 public class SimpleConnectionPerson extends AbstractConnectionData<Person> implements Person{
     public SimpleConnectionPerson(int id, DatabaseConnection connection){
         super(id,connection);
+        connection.getUpdater().registerPerson(this);
     }
 
     public SimpleConnectionPerson(Person person, DatabaseConnection connection){
         super(person,connection);
+        connection.getUpdater().registerPerson(this);
     }
 
     @Override

@@ -10,7 +10,6 @@ public abstract class AbstractConnectionData<T extends Identifiable> implements 
     public AbstractConnectionData(int id, DatabaseConnection connection){
         this.id = id;
         this.connection = connection;
-        connection.getUpdater().register(this);
     }
 
     public AbstractConnectionData(T data, DatabaseConnection connection){

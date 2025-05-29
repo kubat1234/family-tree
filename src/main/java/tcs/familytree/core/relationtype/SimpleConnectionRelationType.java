@@ -9,9 +9,11 @@ public class SimpleConnectionRelationType  extends AbstractConnectionData<Relati
     DatabaseConnection connection;
     public SimpleConnectionRelationType(int id, DatabaseConnection connection){
         super(id, connection);
+        connection.getUpdater().registerRelationType(this);
     }
     public SimpleConnectionRelationType(RelationType relationType, DatabaseConnection connection){
         super(relationType, connection);
+        connection.getUpdater().registerRelationType(this);
     }
     @Override
     public void load() {
