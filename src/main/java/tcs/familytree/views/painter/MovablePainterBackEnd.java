@@ -1,4 +1,4 @@
-package tcs.familytree.views;
+package tcs.familytree.views.painter;
 
 import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Person;
@@ -19,7 +19,7 @@ public class MovablePainterBackEnd implements PainterBackEnd {
     List<PersonOnPlane> persons = new ArrayList<>();
     Integer oldX = 0, oldY = 0;
 
-    MovablePainterBackEnd(GraphViewModel graphViewModel) {
+    public MovablePainterBackEnd(GraphViewModel graphViewModel) {
         this.graphViewModel = graphViewModel;
     }
 

@@ -8,6 +8,8 @@ import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
+import tcs.familytree.views.painter.RandomPainterBackEnd;
+import tcs.familytree.views.painter.ThreeGenerationsPainterBackEnd;
 import tcs.familytree.views.plane.GraphOnPlane;
 
 import java.util.List;
