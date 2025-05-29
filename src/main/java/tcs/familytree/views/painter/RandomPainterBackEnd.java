@@ -1,4 +1,4 @@
-package tcs.familytree.views;
+package tcs.familytree.views.painter;
 
 import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Person;
@@ -14,7 +14,7 @@ import java.util.List;
 public class RandomPainterBackEnd implements PainterBackEnd {
 
     FamilyGraph familyGraph;
-    RandomPainterBackEnd(FamilyGraph familyGraph) {
+    public RandomPainterBackEnd(FamilyGraph familyGraph) {
         this.familyGraph = familyGraph;
     }
 

@@ -1,4 +1,4 @@
-package tcs.familytree.views;
+package tcs.familytree.views.painter;
 
 import tcs.familytree.views.plane.GraphOnPlane;
 

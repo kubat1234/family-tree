@@ -1,4 +1,4 @@
-package tcs.familytree.views;
+package tcs.familytree.views.painter;
 
 import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Person;
@@ -15,7 +15,7 @@ public class ThreeGenerationsPainterBackEnd implements PainterBackEnd {
 
     FamilyGraph familyGraph;
     Person centralPerson;
-    ThreeGenerationsPainterBackEnd(FamilyGraph familyGraph, Person person) {
+    public ThreeGenerationsPainterBackEnd(FamilyGraph familyGraph, Person person) {
         if(familyGraph == null || person == null) {
             throw new NullPointerException();
         }

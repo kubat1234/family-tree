@@ -26,4 +26,6 @@ module tcs.familytree {
     opens tcs.familytree.views.plane to javafx.fxml;
 
     exports tcs.familytree.jooq.generated.tables.records to org.jooq;
+    exports tcs.familytree.views.painter;
+    opens tcs.familytree.views.painter to javafx.fxml;
 }
