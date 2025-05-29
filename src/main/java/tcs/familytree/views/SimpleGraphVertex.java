@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import tcs.familytree.core.date.Date;
 
 public class SimpleGraphVertex extends Region {
     @FXML
@@ -38,6 +39,16 @@ public class SimpleGraphVertex extends Region {
         dateOfBirthLabel.setText(dateOfBirth);
         dateOfDeathLabel.setText(dateOfDeath);
     }
+
+    public void setAllData(String firstName, String surname, Date dateOfBirth, Date dateOfDeath, Paint color) {
+        firstNameLabel.setText(firstName);
+        firstNameLabel.setTextFill(color);
+        surnameLabel.setText(surname);
+        surnameLabel.setTextFill(color);
+        dateOfBirthLabel.setText(dateOfBirth==null?"":dateOfBirth.toString());
+        dateOfDeathLabel.setText(dateOfDeath==null?"":dateOfDeath.toString());
+    }
+
 
     public void vertexClicked(MouseEvent mouseEvent) {
         vertexLabel.setFill(Color.YELLOW);

@@ -47,9 +47,9 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
 
-                controllers[i].setAllDataFromStrings(pop.person().getName(),
+                controllers[i].setAllData(pop.person().getName(),
                         pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
-                        pop.person().getDateOfBirth().toString(), pop.person().getDateOfDeath().toString(),
+                        pop.person().getDateOfBirth(), pop.person().getDateOfDeath(),
                         getGenderColor(pop.person().getGender()));
                 panes[i].setLayoutX(pop.x());
                 panes[i].setLayoutY(pop.y());
@@ -76,9 +76,9 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
 
-                controllers[i].setAllDataFromStrings(pop.person().getName(),
+                controllers[i].setAllData(pop.person().getName(),
                         pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
-                        pop.person().getDateOfBirth().toString(), pop.person().getDateOfDeath().toString(),
+                        pop.person().getDateOfBirth(), pop.person().getDateOfDeath(),
                         getGenderColor(pop.person().getGender()));
                 panes[i].setLayoutX(pop.x() + graphViewModel.x());
                 panes[i].setLayoutY(pop.y() + graphViewModel.y());
@@ -89,7 +89,7 @@ public class SimpleGraphPainter {
         }
     }
 
-
+    /*
     public void paintRandomly(FamilyGraph graph) {
         try {
             final int count = graph.getSize();
@@ -112,10 +112,6 @@ public class SimpleGraphPainter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-/*
-        for(Person p : graph.getAllPersons()) {
-            System.out.println(p.toString() + ": " + graph.getChildren(p).stream().map(Object::toString).collect(Collectors.joining(", ")));
-        }
- */
     }
+    */
 }
