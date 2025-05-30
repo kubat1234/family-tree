@@ -1,7 +1,10 @@
 package tcs.familytree;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import tcs.familytree.services.GraphProvider;
@@ -9,10 +12,16 @@ import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
 import tcs.familytree.views.GraphView;
 import tcs.familytree.views.SimpleGraphPainter;
+import tcs.familytree.views.SimplePersonDescription;
+
+import java.io.IOException;
 
 public class MainController {
     @FXML
     public StackPane mainSpace;
+    public ScrollPane leftPanel;
+    public StackPane leftPanel2;
+
 
 //    @FXML
 //    public void initialize(){
@@ -191,4 +200,16 @@ public class MainController {
         refresh();
     }
 
+    public void OpenLeftPanel(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/simple-person-description.fxml"));
+        try{
+            Pane view = loader.load();
+            SimplePersonDescription simplePersonDescription = loader.getController();
+            //simplePersonDescription.init();
+            leftPanel2.getChildren().setAll(view);
+        }catch (Exception e){
+            System.out.println("error");
+        }
+
+    }
 }

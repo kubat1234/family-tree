@@ -15,8 +15,9 @@
             <MenuItem mnemonicParsing="false" text="Delete" />
         </Menu>
         <Menu mnemonicParsing="false" text="Load">
-            <MenuItem onAction="#loaderGraphOrientedViewModel" mnemonicParsing="false" text="Start"/>
-            <MenuItem onAction="#refresh" mnemonicParsing="false" text="Refresh"/>
+            <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
+            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+         <MenuItem mnemonicParsing="false" onAction="#OpenLeftPanel" text="Open Left Panel" />
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About" />
@@ -27,7 +28,16 @@
             <MenuItem mnemonicParsing="false" onAction="#blue" text="Blue" />
         </Menu>
     </MenuBar>
-    <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="26.0" prefHeight="674.0" prefWidth="793.0">
-        <StackPane fx:id="mainSpace" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="2000.0" />
-    </ScrollPane>
+   <SplitPane dividerPositions="0.29797979797979796" prefHeight="688.0" prefWidth="1000.0">
+     <items>
+         <ScrollPane fx:id="LeftPanel" prefHeight="673.0" prefWidth="200.0">
+           <content>
+             <StackPane fx:id="leftPanel2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="176.0" />
+           </content>
+         </ScrollPane>
+          <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="673.0" prefWidth="747.0">
+              <StackPane fx:id="mainSpace" minHeight="0.0" minWidth="0.0" prefHeight="673.0" prefWidth="496.0" />
+          </ScrollPane>
+     </items>
+   </SplitPane>
 </VBox>

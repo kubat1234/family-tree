@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="base" prefHeight="481.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.views.SimplePersonDescription">
+   <children>
+      <TreeView fx:id="treeView" layoutY="69.0" onContextMenuRequested="#selectItem" onMouseClicked="#selectItem" prefHeight="1115.0" prefWidth="673.0" />
+   </children>
+</AnchorPane>
