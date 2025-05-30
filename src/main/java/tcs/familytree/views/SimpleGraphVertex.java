@@ -11,8 +11,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import tcs.familytree.core.date.Date;
+import tcs.familytree.core.person.Person;
+import tcs.familytree.viewmodels.GraphViewModel;
+import tcs.familytree.views.plane.PersonOnPlane;
 
 public class SimpleGraphVertex extends Region {
+
+    GraphViewModel graphViewModel;
+    PersonOnPlane person;
+
     @FXML
     public Rectangle vertexLabel;
 
@@ -31,26 +38,20 @@ public class SimpleGraphVertex extends Region {
     /**
      * Temporary method, sets values of every label in Simple Vertex. Null safe.
      */
-    public void setAllDataFromStrings(String firstName, String surname, String dateOfBirth, String dateOfDeath, Paint color) {
-        firstNameLabel.setText(firstName);
-        firstNameLabel.setTextFill(color);
-        surnameLabel.setText(surname);
-        surnameLabel.setTextFill(color);
-        dateOfBirthLabel.setText(dateOfBirth);
-        dateOfDeathLabel.setText(dateOfDeath);
-    }
 
-    public void setAllData(String firstName, String surname, Date dateOfBirth, Date dateOfDeath, Paint color) {
+    public void setAllData(PersonOnPlane person, String firstName, String surname, Date dateOfBirth, Date dateOfDeath, Paint color, GraphViewModel graphViewModel) {
         firstNameLabel.setText(firstName);
         firstNameLabel.setTextFill(color);
-        surnameLabel.setText(surname);
+        surnameLabel.setText(surname==null?"?": surname);
         surnameLabel.setTextFill(color);
         dateOfBirthLabel.setText(dateOfBirth==null?"":dateOfBirth.toString());
         dateOfDeathLabel.setText(dateOfDeath==null?"":dateOfDeath.toString());
+        this.graphViewModel = graphViewModel;
+        this.person = person;
     }
 
-
     public void vertexClicked(MouseEvent mouseEvent) {
+        graphViewModel.updateCentral(person.person());
         vertexLabel.setFill(Color.YELLOW);
     }
 }

@@ -72,7 +72,16 @@ public class GraphView {
         List<Person> list = graphProperty.get().getAllPersons().stream().toList();
         // If there is no person at all, we cannot select a random person.
         // We have to wait until someone arrives.
-        if(list.isEmpty()) {
+
+        GraphViewModel graphViewModel;
+        boolean graphViewModelNotAvailable = false;
+        if(viewModel instanceof GraphViewModel){
+            graphViewModel = (GraphViewModel) viewModel;
+        }else{
+            graphViewModel = null;
+            graphViewModelNotAvailable = true;
+        }
+        if(list.isEmpty() || graphViewModelNotAvailable) {
             dropListener();
             this.listener = new ChangeListener<FamilyGraph>() {
                 @Override
@@ -85,19 +94,23 @@ public class GraphView {
         }
         final Person randomPerson = list.get(TmpUtil.rand(list.size()));
 
+
+
+
         dropListener();
         this.listener = new ChangeListener<FamilyGraph>() {
             @Override
             public void changed(ObservableValue<? extends FamilyGraph> observableValue, FamilyGraph familyGraph, FamilyGraph t1) {
 //                runLater(() -> painter.paintRandomly(graphProperty.get()));
-                GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), randomPerson).build();
-                runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, (GraphViewModel) viewModel));
+                GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), graphViewModel.central()).build();
+                runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, graphViewModel));
             }; //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
         };
         graphProperty.addListener(listener);
 
-        GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), randomPerson).build();
-        runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, (GraphViewModel) viewModel));
+
+        GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), graphViewModel.central()).build();
+        runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, graphViewModel));
     }
 
     public void paintRandomly() {

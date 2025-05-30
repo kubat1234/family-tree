@@ -53,10 +53,10 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
 
-                controllers[i].setAllData(pop.person().getName(),
+                controllers[i].setAllData(pop, pop.person().getName(),
                         pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
                         pop.person().getDateOfBirth(), pop.person().getDateOfDeath(),
-                        getGenderColor(pop.person().getGender()));
+                        getGenderColor(pop.person().getGender()), null);
                 panes[i].setLayoutX(pop.x());
                 panes[i].setLayoutY(pop.y());
             }
@@ -102,10 +102,10 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
 
-                controllers[i].setAllData(pop.person().getName(),
+                controllers[i].setAllData(pop, pop.person().getName(),
                         pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
                         pop.person().getDateOfBirth(), pop.person().getDateOfDeath(),
-                        getGenderColor(pop.person().getGender()));
+                        getGenderColor(pop.person().getGender()), graphViewModel);
                 panes[i].setLayoutX(pop.x() + graphViewModel.x());
                 panes[i].setLayoutY(pop.y() + graphViewModel.y());
             }

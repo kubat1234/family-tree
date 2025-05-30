@@ -48,7 +48,7 @@ public class GraphOrientedViewModel implements GraphViewModel {
 
     @Override
     public void updateCentral(Person person) {
-        if(!graphProperty.get().findPerson(person)){
+        if(graphProperty.get().findPerson(person)){
             centralPerson = person;
         }
     }

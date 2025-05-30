@@ -12,16 +12,16 @@ public class RealGraphProvider implements GraphProvider{
         graphProperty = new SimpleObjectProperty<>(this, "RealGraphProperty",
                 new SimpleGraph());
         updateGraph();
-        graphProperty.set(new SimpleGraph(connection.getAllPersons()));
+//        graphProperty.set(new SimpleGraph(connection.getAllPersons()));
 
 //        updateGraph();
     }
 
     @Override
     public void updateGraph() {
-        new Thread(() -> {
+//        new Thread(() -> {
              graphProperty.set(new SimpleGraph(connection.getAllPersons()));
-        }).start();
+//        }).start();
     }
 
     @Override
