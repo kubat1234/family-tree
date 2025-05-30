@@ -52,7 +52,42 @@ public class SimplePainterBackEnd implements PainterBackEnd {
             parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(counter))));
             counter++;
         }
+        return x;
+    }
 
+    private int recursiveGraphUp(List<PersonOnPlane> list, List<ParentLineOnPlane> parentList, Person person, int x, int y, int depth){
+        System.out.println(person.toString());
+        PersonOnPlane first = list.getLast();
+        if(depth > max_depth){
+            return x;
+        }
+        int old_x = x;
+//          int slots = familyGraph.getWidthDown(person.getId());
+
+        boolean alone = true;
+        List<Integer> downId = new ArrayList<>();
+        for(Person p: familyGraph.getParents(person)){
+
+//            parentList.add(new SimpleParentLineOnPlane(person, p));
+            x = recursiveGraphUp(list, parentList, p, x, y, depth + 1);
+            downId.add(list.size() - 1);
+            alone = false;
+        }
+        if(alone){
+            x += slot_size;
+        }
+        if(depth != 0){
+            list.add(new SimplePersonOnPlane((old_x+x-slot_size)/2, y - depth * depth_size, person));
+        }
+        int counter = 0;
+        for(Person p: familyGraph.getParents(person)){
+            if(depth != 0){
+                parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(counter))));
+            }else{
+                parentList.add(new SimpleParentLineOnPlane(first, list.get(downId.get(counter))));
+            }
+            counter++;
+        }
         return x;
     }
 
@@ -67,7 +102,7 @@ public class SimplePainterBackEnd implements PainterBackEnd {
 
         System.out.println("SimplePainterBackEnd - x");
         recursiveGraphDown(persons , lines, centralPerson, x, y, 0);
-
+        recursiveGraphUp(persons , lines, centralPerson, x, y, 0);
 //        for(Person p : familyGraph.getChildren(centralPerson)) {
 //            persons.add(new SimplePersonOnPlane(TmpUtil.rand(880) + 10,
 //                    TmpUtil.rand(10) + 395, p));
