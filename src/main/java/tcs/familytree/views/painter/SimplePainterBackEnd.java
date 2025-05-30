@@ -32,13 +32,11 @@ public class SimplePainterBackEnd implements PainterBackEnd {
             return x;
         }
         int old_x = x;
-        //  int slots = familyGraph.getWidthDown(person.getId());
 
         boolean alone = true;
         List<Integer> downId = new ArrayList<>();
         for(Person p: familyGraph.getChildren(person)){
 
-//            parentList.add(new SimpleParentLineOnPlane(person, p));
             x = recursiveGraphDown(list, parentList, p, x, y, depth + 1);
             downId.add(list.size() - 1);
             alone = false;
@@ -62,13 +60,11 @@ public class SimplePainterBackEnd implements PainterBackEnd {
             return x;
         }
         int old_x = x;
-//          int slots = familyGraph.getWidthDown(person.getId());
 
         boolean alone = true;
         List<Integer> downId = new ArrayList<>();
         for(Person p: familyGraph.getParents(person)){
 
-//            parentList.add(new SimpleParentLineOnPlane(person, p));
             x = recursiveGraphUp(list, parentList, p, x, y, depth + 1);
             downId.add(list.size() - 1);
             alone = false;
@@ -103,16 +99,6 @@ public class SimplePainterBackEnd implements PainterBackEnd {
         System.out.println("SimplePainterBackEnd - x");
         recursiveGraphDown(persons , lines, centralPerson, x, y, 0);
         recursiveGraphUp(persons , lines, centralPerson, x, y, 0);
-//        for(Person p : familyGraph.getChildren(centralPerson)) {
-//            persons.add(new SimplePersonOnPlane(TmpUtil.rand(880) + 10,
-//                    TmpUtil.rand(10) + 395, p));
-//        }
-//        for(Person p : familyGraph.getParents(centralPerson)) {
-//            Person p2 = familyGraph.getAllPersons().stream().filter(q -> q.getId() == p.getId()).findFirst().get();
-//            persons.add(new SimplePersonOnPlane(TmpUtil.rand(880) + 10,
-//                    TmpUtil.rand(10) + 95, p2));
-//        }
-
 
         return new SimpleGraphWithLineOnPlane(persons, lines);
     }
