@@ -8,4 +8,5 @@ public interface GraphViewModel extends SingleTreeViewModel {
     Person central();
     void updateCentral(Person person);
     void changeMod(Integer x, Integer y);
+    void refresh();
 }

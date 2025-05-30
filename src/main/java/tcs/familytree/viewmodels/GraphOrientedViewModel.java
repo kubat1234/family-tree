@@ -1,6 +1,7 @@
 package tcs.familytree.viewmodels;
 
 import javafx.beans.property.SimpleObjectProperty;
+import tcs.familytree.MainController;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.services.GraphProvider;
@@ -11,14 +12,17 @@ public class GraphOrientedViewModel implements GraphViewModel {
     Integer y_mod;
     GraphProvider provider;
     SimpleObjectProperty<FamilyGraph> graphProperty;
+    MainController mainController;
 
-    public GraphOrientedViewModel(Person centralPerson, GraphProvider provider){
+    public GraphOrientedViewModel(Person centralPerson, GraphProvider provider, MainController mainController){
         this.provider = provider;
         this.centralPerson = centralPerson;
         x_mod = 0;
         y_mod = 0;
         graphProperty = provider.getGraphProperty();
+        this.mainController = mainController;
         updateGraph();
+
     }
 
     @Override
@@ -50,6 +54,7 @@ public class GraphOrientedViewModel implements GraphViewModel {
     public void updateCentral(Person person) {
         if(graphProperty.get().findPerson(person)){
             centralPerson = person;
+            refresh();
         }
     }
 
@@ -57,6 +62,11 @@ public class GraphOrientedViewModel implements GraphViewModel {
     public void changeMod(Integer x, Integer y) {
         x_mod += x;
         y_mod += y;
+    }
+
+    @Override
+    public void refresh() {
+        mainController.refresh();
     }
 
 

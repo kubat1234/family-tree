@@ -146,7 +146,7 @@ public class MainController {
             throw new RuntimeException(e);
         }
 //        GraphProvider tdp = new TemporaryDataProvider2();
-        graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp);
+        graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp, this);
         graphView = null;
         colorClicked("NONE", OpenedTab.NONE);
         System.out.println("Load OK");
