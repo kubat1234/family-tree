@@ -16,6 +16,14 @@ public class SingleUpdater<T extends Identifiable> {
         }
     }
 
+    public void update(int id){
+        if(elements.containsKey(id)){
+            for(ConnectionData<T> element : elements.get(id)){
+                element.unload();
+            }
+        }
+    }
+
     public void register(ConnectionData<T> data){
         if(!elements.containsKey(data.getId()))
             elements.put(data.getId(),new ArrayList<>());

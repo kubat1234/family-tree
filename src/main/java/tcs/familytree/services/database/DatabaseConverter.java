@@ -1,12 +1,17 @@
 package tcs.familytree.services.database;
 
+import jdk.jshell.spi.ExecutionControl;
+import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.date.DateBuilder;
 import tcs.familytree.core.date.SimpleConnectionDateBuilder;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
+import tcs.familytree.core.place.Place;
+import tcs.familytree.core.relation.Relation;
 import tcs.familytree.jooq.generated.tables.records.DatyRecord;
+import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 import tcs.familytree.core.person.Gender;
 
@@ -65,5 +70,33 @@ public class DatabaseConverter {
         builder.setAccurate(record.getValue(DATY.CZY_DOKLADNA));
 
         return builder.build();
+    }
+
+    public DatyRecord toDatyRecord(Date date){
+        if(date == null)throw new NullPointerException("Date can't be null");
+        DatyRecord record = new DatyRecord();
+        record.setId(date.getId());
+        record.setDzien(date.getDay());
+        record.setMiesiac(date.getMonth());
+        record.setRok(date.getYear());
+        record.setCzyDokladna(date.isAccurate());
+
+        return record;
+    }
+
+    public Place toPlace(MiejscaRecord record){
+        throw new NotImplemented();
+    }
+
+    public MiejscaRecord toMiejscaRecord(Place place){
+        throw new NotImplemented();
+    }
+
+    public Relation toRelation(org.jooq.Record record){
+        throw new NotImplemented();
+    }
+
+    public org.jooq.Record toRelationRecord(Relation relation){
+        throw new NotImplemented();
     }
 }

@@ -4,9 +4,14 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
+import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.Updater;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
+import tcs.familytree.core.relation.Relation;
+import tcs.familytree.jooq.generated.tables.records.DatyRecord;
+import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 
 import java.sql.Connection;
@@ -14,8 +19,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-import static tcs.familytree.jooq.generated.Tables.DATY;
-import static tcs.familytree.jooq.generated.Tables.OSOBY;
+import static tcs.familytree.jooq.generated.Tables.*;
 
 public class RealDatabaseConnection implements DatabaseConnection {
     DatabaseConverter databaseConverter;
@@ -55,6 +59,45 @@ public class RealDatabaseConnection implements DatabaseConnection {
     }
 
     @Override
+    public boolean updatePerson(Person person) {
+        try {
+            OsobyRecord record = databaseConverter.toOsobyRecord(person);
+            record.attach(dsl.configuration());
+            record.update();
+            updater.updatePerson(person);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas aktualizacji osoby o id: " + person.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addPerson(Person person) {
+        try {
+            OsobyRecord record = databaseConverter.toOsobyRecord(person);
+            record.attach(dsl.configuration());
+            record.store();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania osoby o id: " + person.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deletePerson(int id) {
+        try {
+            dsl.delete(OSOBY).where(OSOBY.ID.eq(id)).execute();
+            updater.updatePerson(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania osoby o id: " + id + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
     public List<Person> getChildren(int id){
         return dsl.select().from(OSOBY).where(OSOBY.MATKA.eq(id).or(OSOBY.OJCIEC.eq(id))).fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
     }
@@ -64,29 +107,132 @@ public class RealDatabaseConnection implements DatabaseConnection {
         return getChildren(person.getId());
     }
 
+    //Date methods
+
     @Override
-    public boolean updatePerson(Person person) {
-        try {
-//            dsl.update(OSOBY).set(OSOBY.IMIE, person.getName()).where(OSOBY.ID.eq(person.getId())).execute();
-            OsobyRecord record = databaseConverter.toOsobyRecord(person);
-            record.attach(dsl.configuration());
-            record.update();
-            updater.update(person);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Błąd podczas aktualizacji osoby o id: " + person.getId() + " " + e.getMessage());
-            return false;
-        }
+    public List<Date> getAllDates() {
+        return dsl.select().from(DATY).fetchInto(DatyRecord.class).stream().map(databaseConverter::toDate).toList();
     }
 
-    //Date methods
     @Override
     public Date getDate(int id) {
         return databaseConverter.toDate(dsl.select().from(DATY).where(DATY.ID.eq(id)).fetchOne());
     }
 
     @Override
-    public boolean checkIfDateExist(int id) {
-        return dsl.select().from(DATY).where(DATY.ID.eq(id)).fetchOne() != null;
+    public boolean updateDate(Date date) {
+        try {
+            DatyRecord record = databaseConverter.toDatyRecord(date);
+            record.attach(dsl.configuration());
+            record.update();
+            updater.updateDate(date);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas aktualizacji daty o id: " + date.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addDate(Date date) {
+        try {
+            DatyRecord record = databaseConverter.toDatyRecord(date);
+            record.attach(dsl.configuration());
+            record.store();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania daty o id: " + date.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteDate(int id) {
+        try {
+            dsl.delete(DATY).where(DATY.ID.eq(id)).execute();
+            updater.updateDate(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania daty o id: " + id + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    //Place methods
+
+    @Override
+    public List<Place> getAllPlaces() {
+        return dsl.select().from(MIEJSCA).fetchInto(MiejscaRecord.class).stream().map(databaseConverter::toPlace).toList();
+    }
+
+    @Override
+    public Place getPlace(int id) {
+        return databaseConverter.toPlace(dsl.select().from(MIEJSCA).where(MIEJSCA.ID.eq(id)).fetchOneInto(MiejscaRecord.class));
+    }
+
+    @Override
+    public boolean updatePlace(Place place) {
+        try {
+            MiejscaRecord record = databaseConverter.toMiejscaRecord(place);
+            record.attach(dsl.configuration());
+            record.update();
+            updater.updatePlace(place);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas aktualizacji miejsca o id: " + place.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addPlace(Place place) {
+        try {
+            MiejscaRecord record = databaseConverter.toMiejscaRecord(place);
+            record.attach(dsl.configuration());
+            record.store();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania miejsca o id: " + place.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deletePlace(int id) {
+        try {
+            dsl.delete(MIEJSCA).where(MIEJSCA.ID.eq(id)).execute();
+            updater.updatePlace(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania miejsca o id: " + id + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    //Place methods
+
+    @Override
+    public List<Relation> getAllRelations() {
+        return dsl.select().from(RELACJE_SYMETRYCZNE).fetch().stream().map(databaseConverter::toRelation).toList();
+    }
+
+    @Override
+    public Relation getRelation(int id) {
+        return databaseConverter.toRelation(dsl.select().from(MIEJSCA).where(MIEJSCA.ID.eq(id)).fetchOne());
+    }
+
+    @Override
+    public boolean updateRelation(Relation relation) {
+        throw new NotImplemented();
+    }
+
+    @Override
+    public boolean addRelation(Relation relation) {
+        throw new NotImplemented();
+    }
+
+    @Override
+    public boolean deleteRelation(int id) {
+        throw new NotImplemented();
     }
 }

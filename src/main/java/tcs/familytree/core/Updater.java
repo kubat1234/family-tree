@@ -13,20 +13,36 @@ public class Updater {
     SingleUpdater<Relation> relationUpdater = new SingleUpdater<>();
     SingleUpdater<RelationType> relationTypeUpdater = new SingleUpdater<>();
 
-    public void update(Person person){
+    public void updatePerson(Person person){
         personUpdater.update(person);
     }
-    public void update(Date date){
+    public void updateDate(Date date){
         dateUpdater.update(date);
     }
-    public void update(Place place){
+    public void updatePlace(Place place){
         placeUpdater.update(place);
     }
-    public void update(Relation relation){
+    public void updateRelation(Relation relation){
         relationUpdater.update(relation);
     }
-    public void update(RelationType relationType){
+    public void updateRelationType(RelationType relationType){
         relationTypeUpdater.update(relationType);
+    }
+
+    public void updatePerson(int id){
+        personUpdater.update(id);
+    }
+    public void updateDate(int id){
+        dateUpdater.update(id);
+    }
+    public void updatePlace(int id){
+        placeUpdater.update(id);
+    }
+    public void updateRelation(int id){
+        relationUpdater.update(id);
+    }
+    public void updateRelationType(int id){
+        relationTypeUpdater.update(id);
     }
 
     public void registerPerson(ConnectionData<Person> data){
