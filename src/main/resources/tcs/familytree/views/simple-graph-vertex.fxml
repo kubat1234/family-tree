@@ -8,12 +8,12 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#vertexClicked" prefHeight="75.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.views.SimpleGraphVertex">
    <children>
       <Rectangle fx:id="vertexLabel" arcHeight="30.0" arcWidth="30.0" fill="#a0a0a0" height="75.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-      <Label fx:id="firstNameLabel" alignment="BASELINE_RIGHT" layoutY="2.0" prefHeight="25.0" prefWidth="113.0" text="Label1">
+      <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="RIGHT" layoutY="2.0" prefHeight="25.0" prefWidth="120.0" text="Label1">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="surnameLabel" alignment="BASELINE_RIGHT" layoutY="26.0" prefHeight="25.0" prefWidth="113.0" text="Label2">
+      <Label fx:id="surnameLabel" alignment="CENTER" layoutY="26.0" prefHeight="25.0" prefWidth="120.0" text="Label2">
          <font>
             <Font size="16.0" />
          </font>
