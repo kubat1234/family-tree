@@ -57,7 +57,7 @@ public class GraphOrientedViewModel implements GraphViewModel {
     public void updateCentral(Person person) {
         if(graphProperty.get().findPerson(person)){
             centralPerson = person;
-            refresh().refreshOld();
+            refresh().centeredPersonChange();
         }
     }
 
@@ -69,7 +69,6 @@ public class GraphOrientedViewModel implements GraphViewModel {
 
     @Override
     public Refresher refresh() {
-        mainController.refresh();
         return refresher;
     }
 

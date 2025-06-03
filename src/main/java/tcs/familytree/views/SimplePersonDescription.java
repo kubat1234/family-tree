@@ -17,6 +17,7 @@ import java.util.*;
 public class SimplePersonDescription implements Initializable {
 
     Map<TreeItem<String>, Person> treeItemPersonMap = new HashMap<>();
+    TreeItem<String> globalPersonList = null;
 
     GraphViewModel viewModel = null;
 
@@ -90,14 +91,11 @@ public class SimplePersonDescription implements Initializable {
         return rootItem;
     }
 
+    TreeItem<String> printFullList(){
+        if(globalPersonList != null){
+            return globalPersonList;
+        }
 
-    public void init(GraphViewModel viewModel){
-        System.out.println("init");
-        this.viewModel = viewModel;
-        treeItemPersonMap.clear();
-        Person displayPerson = viewModel.central();
-        TreeItem<String> rootPersonItem = printFullPerson(displayPerson);
-        TreeItem<String> rootItem = new TreeItem<>("root");
         TreeItem<String> personListItem = new TreeItem<>("List of all person");
         List<TreeItem<String>> personList = new LinkedList<>();
 
@@ -105,9 +103,33 @@ public class SimplePersonDescription implements Initializable {
             personList.add(printFullPerson(person));
         }
         personListItem.getChildren().setAll(personList);
+        return personListItem;
+    }
+
+    public void lightRefresh(){
+        init(viewModel);
+    }
+
+    public void hardRefresh(){
+        globalPersonList = null;
+        init(viewModel);
+    }
+
+    public void init(GraphViewModel viewModel){
+        System.out.println("init");
+        this.viewModel = viewModel;
+        if(viewModel == null){
+            throw new NullPointerException("INIT - view model don't exist");
+        }
+        treeItemPersonMap.clear();
+        Person displayPerson = viewModel.central();
+        TreeItem<String> rootPersonItem = printFullPerson(displayPerson);
+        TreeItem<String> rootItem = new TreeItem<>("root");
+
+
+        TreeItem<String> personListItem = printFullList();
 
         rootItem.getChildren().setAll(rootPersonItem, personListItem);
-
         treeView.setRoot(rootItem);
         treeView.setShowRoot(false);
 

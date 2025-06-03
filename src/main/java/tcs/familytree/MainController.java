@@ -136,6 +136,10 @@ public class MainController {
     }
 
     public void refresh() {
+        graphViewModel.refresh().hardRefresh();
+    }
+
+    public void refreshGraph(){
         graphViewModel.updateGraph();
         if(!colorClicked("movable", OpenedTab.MOVABLE_PAINTER)) {
             return;
@@ -179,6 +183,7 @@ public class MainController {
             AnchorPane view = loader.load();
             SimplePersonDescription simplePersonDescription = loader.getController();
             simplePersonDescription.init(graphViewModel);
+            graphViewModel.setSimplePersonDescription(simplePersonDescription);
             leftPanel2.getChildren().setAll(view);
         }catch (Exception e){
             System.out.println("error");

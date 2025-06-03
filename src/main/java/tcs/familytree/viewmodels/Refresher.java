@@ -6,9 +6,30 @@ public class Refresher {
         this.graphViewModel =  graphViewModel;
     }
 
-    public void refreshOld(){
-        graphViewModel.getMainController().refresh();
+    public void refreshGraph(){
+        graphViewModel.getMainController().refreshGraph();
     }
 
+    private void fullRefreshOfSimplePersonDescription(){
+        graphViewModel.getSimplePersonDescription().hardRefresh();
+    }
+
+    private void partialRefreshOfSimplePersonDescription(){
+        graphViewModel.getSimplePersonDescription().lightRefresh();
+    }
+
+    public void hardRefresh(){
+        refreshGraph();
+        fullRefreshOfSimplePersonDescription();
+    }
+
+    public void centeredPersonChange(){
+        refreshGraph();
+        partialRefreshOfSimplePersonDescription();
+    }
+
+    public void personListChange(){
+        refreshGraph();
+    }
 
 }
