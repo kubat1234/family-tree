@@ -11,6 +11,8 @@ import tcs.familytree.viewmodels.GraphOrientedViewModel;
 import tcs.familytree.viewmodels.GraphViewModel;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SimplePersonDescription implements Initializable {
@@ -44,15 +46,21 @@ public class SimplePersonDescription implements Initializable {
         this.viewModel = viewModel;
 
         Person displayPerson = viewModel.central();
-        TreeItem<String> rootItem = printFullPerson(displayPerson);
+        TreeItem<String> rootPersonItem = printFullPerson(displayPerson);
+        TreeItem<String> rootItem = new TreeItem<>("root");
+        TreeItem<String> personListItem = new TreeItem<>("List of all person");
+        List<TreeItem<String>> personList = new LinkedList<>();
 
+        for(Person person: viewModel.getGraphProperty().get().getAllPersons()){
+            personList.add(printFullPerson(person));
+        }
+        personListItem.getChildren().setAll(personList);
 
-
-
-        TreeItem<String> branchItem4 = new TreeItem<>("test3");
-
+        rootItem.getChildren().setAll(rootPersonItem, personListItem);
 
         treeView.setRoot(rootItem);
+        treeView.setShowRoot(false);
+
     }
 
     @FXML
