@@ -3,6 +3,7 @@ package tcs.familytree.core.person;
 import jdk.jshell.spi.ExecutionControl;
 import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.date.Date;
+import tcs.familytree.core.date.SimpleDateBuilder;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
@@ -38,8 +39,15 @@ public class SimplePerson implements Person {
         }
         this.mother = mother;
         this.father = father;
+//        if(birthDate == null){
+//            birthDate = new SimpleDateBuilder().build();
+//        }
+//        if(deathDate == null){
+//            deathDate = new SimpleDateBuilder().build();
+//        }
         this.birthDate = birthDate;
         this.deathDate = deathDate;
+
         this.birthPlace = birthPlace;
         this.deathPlace = deathPlace;
         this.alive = alive;

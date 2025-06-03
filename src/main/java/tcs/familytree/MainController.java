@@ -210,6 +210,7 @@ public class MainController {
             leftPanel2.getChildren().setAll(view);
         }catch (Exception e){
             System.out.println("error");
+            System.out.println(e.toString());
         }
     }
 }
