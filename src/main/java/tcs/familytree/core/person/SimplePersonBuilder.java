@@ -24,6 +24,7 @@ public class SimplePersonBuilder implements PersonBuilder {
     Place deathPlace;
     boolean alive;
     Gender gender;
+    List<Person> partners = new ArrayList<>();
 
     public SimplePersonBuilder(DatabaseConnection connection){
         this.connection = connection;
@@ -173,10 +174,21 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
+    public PersonBuilder addPartner(Person partner) {
+        partners.add(partner);
+        return this;
+    }
+
+    @Override
+    public PersonBuilder addPartner(Integer partnerId) {
+        return addPartner(partnerId == null ? null : new SimpleConnectionPerson(partnerId, connection));
+    }
+
+    @Override
     public Person build() {
         if(gender == null)throw new IllegalStateException("Gender must be set");
         return new SimplePerson(id, firstName, names, familyName, surnames, 
                               mother, father, birthDate, deathDate, 
-                              birthPlace, deathPlace, alive, gender);
+                              birthPlace, deathPlace, alive, gender, partners);
     }
 }

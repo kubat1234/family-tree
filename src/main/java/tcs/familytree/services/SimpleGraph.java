@@ -68,7 +68,7 @@ public class SimpleGraph implements FamilyGraph{
 
     @Override
     public List<Person> getPartners(Person person) {
-        throw new UnsupportedOperationException();
+        return person.getPartners();
     }
 
     @Override

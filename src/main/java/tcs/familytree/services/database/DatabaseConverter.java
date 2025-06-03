@@ -21,11 +21,12 @@ public class DatabaseConverter {
     DatabaseConnection connection;
 
     public DatabaseConverter(DatabaseConnection connection){
-        if(connection == null)throw new NullPointerException("Connection can't be null");
+        if(connection == null) throw new NullPointerException("Connection can't be null");
         this.connection = connection;
     }
-    public Person toPerson(OsobyRecord record){
-        if(record == null)return null;
+
+    public PersonBuilder toPersonBuilder(OsobyRecord record){
+        if(record == null) return null;
         PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
         builder.setId(record.getValue(OSOBY.ID));
         builder.setName(record.getValue(OSOBY.IMIE));
@@ -42,10 +43,15 @@ public class DatabaseConverter {
         builder.setDateOfDeath(record.getValue(OSOBY.DATA_SM));
         builder.setGender(Gender.fromBoolean(record.getValue(OSOBY.PLEC)));
 
-        return builder.build();
+        return builder;
     }
+
+    public Person toPerson(OsobyRecord record) {
+        return toPersonBuilder(record).build();
+    }
+
     public OsobyRecord toOsobyRecord(Person person){
-        if(person == null)throw new NullPointerException("Person can't be null");
+        if(person == null) throw new NullPointerException("Person can't be null");
         OsobyRecord record = new OsobyRecord();
         record.setId(person.getId());
         record.setImie(person.getName());
@@ -59,8 +65,9 @@ public class DatabaseConverter {
         record.setWciazZyje(person.isAlive());
         return record;
     }
+
     public Date toDate(org.jooq.Record record) {
-        if(!(record instanceof DatyRecord) )throw new IllegalArgumentException("Record must be instance of DatyRecord");
+        if(!(record instanceof DatyRecord)) throw new IllegalArgumentException("Record must be instance of DatyRecord");
         DateBuilder builder = new SimpleConnectionDateBuilder(connection);
 
         builder.setId(record.getValue(DATY.ID));
@@ -73,7 +80,7 @@ public class DatabaseConverter {
     }
 
     public DatyRecord toDatyRecord(Date date){
-        if(date == null)throw new NullPointerException("Date can't be null");
+        if(date == null) throw new NullPointerException("Date can't be null");
         DatyRecord record = new DatyRecord();
         record.setId(date.getId());
         record.setDzien(date.getDay());
@@ -96,11 +103,11 @@ public class DatabaseConverter {
         if(record instanceof RelacjeSymetryczneRecord r) {
             return toSymmetricRelation(r);
         }
-        if(!(record instanceof RelacjeNiesymetryczneRecord) )throw new IllegalArgumentException("Relation must be instance of RelacjeNieSymetryczneRecord");
+        if(!(record instanceof RelacjeNiesymetryczneRecord)) throw new IllegalArgumentException("Relation must be instance of RelacjeNieSymetryczneRecord");
         throw new NotImplemented();
     }
 
-    private Relation toSymmetricRelation(RelacjeSymetryczneRecord record) {
+    public Relation toSymmetricRelation(RelacjeSymetryczneRecord record) {
         RelationBuilder builder = new SimpleRelationBuilder(connection);
         builder.setId(record.getValue(RELACJE_SYMETRYCZNE.ID));
         builder.setPerson1(record.getValue(RELACJE_SYMETRYCZNE.OSOBA1));

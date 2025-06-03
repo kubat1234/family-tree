@@ -157,4 +157,16 @@ public class SimpleConnectionPersonBuilder implements PersonBuilder{
         builder.setGender(gender);
         return this;
     }
+
+    @Override
+    public PersonBuilder addPartner(Person partner) {
+        builder.addPartner(partner);
+        return this;
+    }
+
+    @Override
+    public PersonBuilder addPartner(Integer partnerId) {
+        builder.addPartner(partnerId);
+        return this;
+    }
 }
