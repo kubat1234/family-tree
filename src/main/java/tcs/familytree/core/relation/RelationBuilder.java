@@ -15,10 +15,10 @@ public interface RelationBuilder {
     RelationBuilder setPerson2(Person person2);
     RelationBuilder setPerson2(int person2Id);
     RelationBuilder setDate(Date date);
-    RelationBuilder setDate(int dateId);
+    RelationBuilder setDate(Integer dateId);
     RelationBuilder setPlace(Place place);
-    RelationBuilder setPlace(int placeId);
-    RelationBuilder setSymetric(boolean symetric);
+    RelationBuilder setPlace(Integer placeId);
+    RelationBuilder setSymmetric(boolean symmetric);
     default RelationBuilder setPersons(Person person1, Person person2){
         return setPerson1(person1).setPerson2(person2);
     }

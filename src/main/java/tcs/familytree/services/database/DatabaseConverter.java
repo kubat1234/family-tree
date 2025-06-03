@@ -10,9 +10,9 @@ import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
-import tcs.familytree.jooq.generated.tables.records.DatyRecord;
-import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
-import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
+import tcs.familytree.core.relation.RelationBuilder;
+import tcs.familytree.core.relation.SimpleRelationBuilder;
+import tcs.familytree.jooq.generated.tables.records.*;
 import tcs.familytree.core.person.Gender;
 
 import static tcs.familytree.jooq.generated.Tables.*;
@@ -93,7 +93,23 @@ public class DatabaseConverter {
     }
 
     public Relation toRelation(org.jooq.Record record){
+        if(record instanceof RelacjeSymetryczneRecord r) {
+            return toSymmetricRelation(r);
+        }
+        if(!(record instanceof RelacjeNiesymetryczneRecord) )throw new IllegalArgumentException("Relation must be instance of RelacjeNieSymetryczneRecord");
         throw new NotImplemented();
+    }
+
+    private Relation toSymmetricRelation(RelacjeSymetryczneRecord record) {
+        RelationBuilder builder = new SimpleRelationBuilder(connection);
+        builder.setId(record.getValue(RELACJE_SYMETRYCZNE.ID));
+        builder.setPerson1(record.getValue(RELACJE_SYMETRYCZNE.OSOBA1));
+        builder.setPerson2(record.getValue(RELACJE_SYMETRYCZNE.OSOBA2));
+        builder.setDate(record.getValue(RELACJE_SYMETRYCZNE.DATA));
+        builder.setPlace(record.getValue(RELACJE_SYMETRYCZNE.MIEJSCE));
+        builder.setType(null); //TODO
+        builder.setSymmetric(true);
+        return builder.build();
     }
 
     public org.jooq.Record toRelationRecord(Relation relation){

@@ -12,16 +12,16 @@ public class SimpleRelation implements Relation{
     Person person2;
     Date date;
     Place place;
-    boolean isSymetric;
+    boolean isSymmetric;
 
-    SimpleRelation(int id, RelationType relationType, Person person1, Person person2, Date date, Place place, boolean isSymetric){
+    SimpleRelation(int id, RelationType relationType, Person person1, Person person2, Date date, Place place, boolean isSymmetric){
         this.id = id;
         this.relationType = relationType;
         this.person1 = person1;
         this.person2 = person2;
         this.date = date;
         this.place = place;
-        this.isSymetric = isSymetric;
+        this.isSymmetric = isSymmetric;
     }
     SimpleRelation(Relation relation){
         this.id = relation.getId();
@@ -30,7 +30,7 @@ public class SimpleRelation implements Relation{
         this.person2 = relation.getSecondPerson();
         this.date = relation.getDate();
         this.place = relation.getPlace();
-        this.isSymetric = relation.isSymetric();
+        this.isSymmetric = relation.isSymmetric();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SimpleRelation implements Relation{
         return place;
     }
     @Override
-    public boolean isSymetric() {
-        return isSymetric;
+    public boolean isSymmetric() {
+        return isSymmetric;
     }
 }

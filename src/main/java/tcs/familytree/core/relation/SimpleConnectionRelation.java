@@ -51,9 +51,9 @@ public class SimpleConnectionRelation extends AbstractConnectionData<Relation> i
     }
 
     @Override
-    public boolean isSymetric() {
+    public boolean isSymmetric() {
         if(isUnloaded()) load();
-        return data.isSymetric();
+        return data.isSymmetric();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package tcs.familytree.services;
 
 import javafx.beans.property.SimpleObjectProperty;
+import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.RealDatabaseConnection;
 
 public class RealGraphProvider implements GraphProvider{
@@ -27,5 +28,15 @@ public class RealGraphProvider implements GraphProvider{
     @Override
     public SimpleObjectProperty<FamilyGraph> getGraphProperty() {
         return graphProperty;
+    }
+
+    /**
+     * Don't use it plz
+     */
+    public DatabaseConnection getDatabase(String password) {
+        if(!password.equals("admin")) {
+            throw new IllegalStateException();
+        }
+        return connection;
     }
 }
