@@ -24,34 +24,6 @@ public class MainController {
     public StackPane leftPanel2;
 
 
-//    @FXML
-//    public void initialize(){
-//        Platform.runLater(() ->{
-//            Scene scene = mainSpace.getScene();
-//            mainSpace.setFocusTraversable(true);
-//            mainSpace.requestFocus();
-//            scene.setOnKeyPressed(
-//                    (KeyEvent event) -> {
-//                        if(event.getCode() == KeyCode.A){
-//                            System.out.println("Pressed A");
-//                            if(graphViewModel != null){
-//                                graphViewModel.changeMod(0, -10);
-//                            }
-//                        }
-//                        if(event.getCode() == KeyCode.SPACE){
-//                            System.out.println("Pressed SPACE");
-//                        }
-//                    }
-//            );
-//        });
-//        mainSpace.setFocusTraversable(true);
-
-        //Platform.runLater(() -> scene.requestFocus());
-
-//        mainSpace.requestFocus();
-//    }
-
-
     private enum OpenedTab {
         NONE,
         RANDOM_PAINTER,

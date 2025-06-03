@@ -5,6 +5,7 @@ import tcs.familytree.MainController;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.services.GraphProvider;
+import tcs.familytree.views.SimplePersonDescription;
 
 public class GraphOrientedViewModel implements GraphViewModel {
     Person centralPerson;
@@ -13,6 +14,8 @@ public class GraphOrientedViewModel implements GraphViewModel {
     GraphProvider provider;
     SimpleObjectProperty<FamilyGraph> graphProperty;
     MainController mainController;
+    SimplePersonDescription simplePersonDescription;
+    Refresher refresher = new Refresher(this);
 
     public GraphOrientedViewModel(Person centralPerson, GraphProvider provider, MainController mainController){
         this.provider = provider;
@@ -54,7 +57,7 @@ public class GraphOrientedViewModel implements GraphViewModel {
     public void updateCentral(Person person) {
         if(graphProperty.get().findPerson(person)){
             centralPerson = person;
-            refresh();
+            refresh().refreshOld();
         }
     }
 
@@ -65,8 +68,24 @@ public class GraphOrientedViewModel implements GraphViewModel {
     }
 
     @Override
-    public void refresh() {
+    public Refresher refresh() {
         mainController.refresh();
+        return refresher;
+    }
+
+    @Override
+    public void setSimplePersonDescription(SimplePersonDescription simplePersonDescription) {
+        this.simplePersonDescription = simplePersonDescription;
+    }
+
+    @Override
+    public SimplePersonDescription getSimplePersonDescription() {
+        return simplePersonDescription;
+    }
+
+    @Override
+    public MainController getMainController() {
+        return mainController;
     }
 
 
