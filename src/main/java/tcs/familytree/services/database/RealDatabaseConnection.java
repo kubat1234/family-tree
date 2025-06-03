@@ -8,11 +8,13 @@ import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.Updater;
 import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 import tcs.familytree.jooq.generated.tables.records.DatyRecord;
 import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
+import tcs.familytree.jooq.generated.tables.records.RelacjeSymetryczneRecord;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,12 +52,28 @@ public class RealDatabaseConnection implements DatabaseConnection {
 
     @Override
     public List<Person> getAllPersons() {
-        return dsl.select().from(OSOBY).fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
+        return dsl.select().from(OSOBY).fetchInto(OsobyRecord.class).stream().map(
+                x -> addPartners(databaseConverter.toPersonBuilder(x), x.getValue(OSOBY.ID)).build()
+        ).toList();
     }
 
     @Override
-    public Person getPerson(int id){
-        return databaseConverter.toPerson(dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOneInto(OsobyRecord.class));
+    public Person getPerson(int id) {
+        return addPartners(databaseConverter.toPersonBuilder(
+                dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOneInto(OsobyRecord.class)),
+                id
+        ).build();
+    }
+
+    private PersonBuilder addPartners(PersonBuilder builder, int id) {
+        dsl.select().from(RELACJE_SYMETRYCZNE).
+                where(RELACJE_SYMETRYCZNE.OSOBA1.eq(id)).or(RELACJE_SYMETRYCZNE.OSOBA2.eq(id)).
+                fetchInto(RelacjeSymetryczneRecord.class).forEach(r -> builder.addPartner(
+                        r.getValue(RELACJE_SYMETRYCZNE.OSOBA1).equals(id)?
+                        r.getValue(RELACJE_SYMETRYCZNE.OSOBA2):
+                        r.getValue(RELACJE_SYMETRYCZNE.OSOBA1)
+                ));
+        return builder;
     }
 
     @Override
@@ -99,7 +117,8 @@ public class RealDatabaseConnection implements DatabaseConnection {
 
     @Override
     public List<Person> getChildren(int id){
-        return dsl.select().from(OSOBY).where(OSOBY.MATKA.eq(id).or(OSOBY.OJCIEC.eq(id))).fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
+        return dsl.select().from(OSOBY).where(OSOBY.MATKA.eq(id).or(OSOBY.OJCIEC.eq(id))).
+                fetchInto(OsobyRecord.class).stream().map(databaseConverter::toPerson).toList();
     }
 
     @Override
@@ -218,7 +237,8 @@ public class RealDatabaseConnection implements DatabaseConnection {
 
     @Override
     public Relation getRelation(int id) {
-        return databaseConverter.toRelation(dsl.select().from(MIEJSCA).where(MIEJSCA.ID.eq(id)).fetchOne());
+        throw new NotImplemented();
+//        return databaseConverter.toRelation(dsl.select().from(MIEJSCA).where(MIEJSCA.ID.eq(id)).fetchOne());
     }
 
     @Override

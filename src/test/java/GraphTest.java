@@ -35,10 +35,32 @@ public class GraphTest {
     }
 
     @Test
-    public void Relations() {
+    public void BasicRelations() {
         DatabaseConnection connection = ((RealGraphProvider)provider2).getDatabase("admin");
         for(Relation relation : connection.getAllRelations()) {
             System.out.println(relation.getId() + ". " + relation.getFirstPerson().getName() + " + " + relation.getSecondPerson().getName());
+        }
+    }
+
+    @Test
+    public void IntermediateRelations() {
+        DatabaseConnection connection = ((RealGraphProvider)provider2).getDatabase("admin");
+        Person person = connection.getPerson(2);
+        System.out.println(person);
+        for(Person p : person.getPartners()) {
+            System.out.println("Hello");
+            System.out.println(p);
+        }
+    }
+
+    @Test
+    public void HighLevelRelations() {
+        for(Person p : graph.getAllPersons()) {
+            System.out.print(p + " + ");
+            for(Person q : p.getPartners()) {
+                System.out.print(q + "; ");
+            }
+            System.out.println();
         }
     }
 }
