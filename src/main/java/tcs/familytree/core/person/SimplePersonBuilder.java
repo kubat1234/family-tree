@@ -1,7 +1,6 @@
 package tcs.familytree.core.person;
 
 import tcs.familytree.core.date.Date;
-import tcs.familytree.core.date.SimpleConnectionDate;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.services.database.DatabaseConnection;
 
@@ -153,7 +152,8 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder setDateOfBirth(Integer dateOfBirthId) {
-        return setDateOfBirth(dateOfBirthId == null ? null : new SimpleConnectionDate(dateOfBirthId,connection));
+        return this;
+//        return setDateOfBirth(dateOfBirthId == null ? null : new SimpleConnectionDate(dateOfBirthId,connection));
     }
 
     @Override
@@ -164,7 +164,8 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder setDateOfDeath(Integer dateOfDeathId) {
-        return setDateOfDeath(dateOfDeathId == null ? null : new SimpleConnectionDate(dateOfDeathId,connection));
+        return this;
+//        return setDateOfDeath(dateOfDeathId == null ? null : new SimpleConnectionDate(dateOfDeathId,connection));
     }
 
     @Override

@@ -1,5 +1,22 @@
 BEGIN;
 
+CREATE TYPE custom_date AS (
+	rok integer,
+	miesiac integer,
+	dzien integer,
+	czy_dokladna boolean
+);
+
+CREATE FUNCTION date_check(d custom_date)
+RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+RETURN (d IS NULL) OR ((d.rok IS NOT NULL) AND (d.czy_dokladna IS NOT NULL) AND
+(d.miesiac IS NOT NULL OR d.dzien IS NULL));
+END;
+$$; --TODO better checks
+
 CREATE OR REPLACE FUNCTION dni_w_miesiacu(p_rok INT, p_miesiac INT)
 RETURNS INT AS $$
 BEGIN
@@ -13,15 +30,6 @@ BEGIN
     RETURN (p_rok % 4 = 0 AND p_rok % 100 != 0) OR (p_rok % 400 = 0);
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TABLE daty (
-  id serial PRIMARY KEY,
-  rok int NOT NULL CHECK(rok > 0),
-  miesiac int CHECK(miesiac BETWEEN 1 AND 12),
-  dzien int CHECK(dzien BETWEEN 1 AND 31), --TODO lepszy check na dzien
-  czy_dokladna boolean NOT NULL,
-  CHECK (miesiac is not null or dzien is null)
-);
 
 CREATE TABLE typy_miejsc (
   id serial PRIMARY KEY,
@@ -43,11 +51,11 @@ CREATE TABLE osoby (
   nazwisko_rodowe varchar,
   matka int REFERENCES osoby(id),
   ojciec int REFERENCES osoby(id),
-  data_ur int REFERENCES daty(id),
+  data_ur custom_date,
   miejsce_ur int REFERENCES miejsca(id),
   wciaz_zyje boolean NOT NULL,
   miejsce_sm int REFERENCES miejsca(id),
-  data_sm int REFERENCES daty(id),
+  data_sm custom_date,
   plec boolean
   --TODO  check data_ur < data_sm , własna funkcja porównująca daty
   -- check na wciaz_zyje = false, jeżeli data_sm < now()
@@ -71,7 +79,7 @@ CREATE TABLE relacje_symetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rs int NOT NULL REFERENCES typy_rs(id),
   miejsce int REFERENCES miejsca(id),
-  data int REFERENCES daty(id), --TODO check czy osoby wtedy żyły
+  data custom_date, --TODO check czy osoby wtedy żyły
   CHECK(osoba1 is not null or osoba2 is not null)
 );
 
@@ -81,7 +89,7 @@ CREATE TABLE relacje_niesymetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rns int NOT NULL REFERENCES typy_rns(id),
   miejsce int REFERENCES miejsca(id),
-  data int REFERENCES daty(id), --TODO check czy osoby wtedy żyły
+  data custom_date, --TODO check czy osoby wtedy żyły
   CHECK(osoba1 is not null or osoba2 is not null)
 );
 
@@ -113,8 +121,8 @@ CREATE TABLE zawody_osoby (
   id_zawodu int NOT NULL REFERENCES zawody(id),
   stanowisko varchar,
   miejsce int REFERENCES miejsca(id),
-  data_od int REFERENCES daty(id),
-  data_do int REFERENCES daty(id)
+  data_od custom_date,
+  data_do custom_date
   --check data_od < data_do
   --check czy osoba wtedy żyła
 );
@@ -156,35 +164,10 @@ CREATE SEQUENCE nazwiska_kolejnosc_seq
 CREATE TABLE nazwiska (
   id_osoby int REFERENCES osoby(id),
   nazwisko varchar NOT NULL,
-  data_od int REFERENCES daty(id), --TODO check czy osoba wtedy żyła
+  data_od custom_date, --TODO check czy osoba wtedy żyła
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
   PRIMARY KEY (id_osoby, nazwisko)
 );
-
-COPY daty(id, rok, miesiac, dzien, czy_dokladna) FROM stdin WITH DELIMITER ' ';
-1 1899 \N \N 0
-2 1921 \N \N 0
-3 1949 \N \N 0
-4 1956 4 \N 0
-5 1925 1 \N 0
-6 1935 9 19 0
-7 1933 12 12 0
-8 1966 7 18 1
-9 1975 3 3 1
-10 1983 5 5 1
-11 1985 \N \N 0
-12 1988 3 \N 0
-13 1956 4 \N 0
-14 1949 \N \N 0
-15 2003 6 9 1
-16 2005 1 1 1
-17 2008 11 17 1
-18 1010 3 3 1
-19 2009 4 22 1
-20 1925 1 \N 0
-21 2013 11 13 1
-22 2015 12 18 1
-\.
 
 COPY typy_miejsc (nazwa, nadtyp) FROM stdin WITH DELIMITER ' ';
 kraj \N
@@ -202,17 +185,17 @@ Basztowa 2 3
 
 COPY osoby (id,imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur, miejsce_ur, wciaz_zyje, miejsce_sm, data_sm, plec) FROM stdin WITH DELIMITER ' ';
 1 Stefania \N \N \N \N \N \N 0 \N \N 1
-2 Jan \N Nowak 1 \N \N \N 0 \N 14 0
-3 Genowefa \N Wilkoryj \N \N 1 \N 0 \N 13 1
-4 Stanisław \N Nowak 3 2 20 \N 0 \N 19 0
-5 Dorota \N Nowak 3 2 6 \N 0 \N 16 1
-6 Krzysztof \N Kowal \N \N 7 \N 0 \N 21 0
-7 Adam \N Kowal 5 6 9 \N 0 \N 15 0
-8 Antoni \N Kowal 5 6 9 \N 0 \N 15 0
-9 Konrad \N \N \N \N 11 \N 1 \N \N 0
-10 Martyna Weronika Wielka \N \N 10 2 1 \N \N 1
-11 Jakub Piotr Kowal 10 9 17 3 1 \N \N 0
-12 Maria Martyna Kowal 10 9 22 4 1 \N \N 1
+2 Jan \N Nowak 1 \N \N \N 0 \N (1949,,,f) 0
+3 Genowefa \N Wilkoryj \N \N (1899,,,f) \N 0 \N (1956,4,,f) 1
+4 Stanisław \N Nowak 3 2 (1925,1,,f) \N 0 \N (2009,4,22,t) 0
+5 Dorota \N Nowak 3 2 (1935,9,19,f) \N 0 \N (2005,1,1,t) 1
+6 Krzysztof \N Kowal \N \N (1933,12,12,f) \N 0 \N (2013,11,13,t) 0
+7 Adam \N Kowal 5 6 (1975,3,3,t) \N 0 \N (2003,6,9,t) 0
+8 Antoni \N Kowal 5 6 (1975,3,3,t) \N 0 \N (2003,6,9,t) 0
+9 Konrad \N \N \N \N (1985,,,f) \N 1 \N \N 0
+10 Martyna Weronika Wielka \N \N (1983,5,5,t) 2 1 \N \N 1
+11 Jakub Piotr Kowal 10 9 (2008,11,17,t) 3 1 \N \N 0
+12 Maria Martyna Kowal 10 9 (2015,12,18,t) 4 1 \N \N 1
 \.
 
 COPY typy_rs (nazwa) FROM stdin WITH DELIMITER ' ';
@@ -225,14 +208,14 @@ adopcja
 \.
 
 COPY relacje_symetryczne(osoba1, osoba2, typ_rs, miejsce, data) FROM stdin WITH DELIMITER ' ';
-2 3 1 \N 2
-5 6 1 2 8
-9 10 2 2 18
+2 3 1 \N (1921,,,f)
+5 6 1 2 (1966,7,18,t)
+9 10 2 2 (1010,3,3,t)
 \.
 
 COPY relacje_niesymetryczne(osoba1, osoba2, typ_rns, miejsce, data) FROM stdin WITH DELIMITER ' ';
-5 9 1 \N 12
-6 9 1 \N 12
+5 9 1 \N (1988,3,,f)
+6 9 1 \N (1988,3,,f)
 \.
 
 COPY typy_uwag (nazwa) FROM stdin WITH DELIMITER ' ';
@@ -286,11 +269,11 @@ COPY tytuly_osoby(id_osoby, id_tytulu) FROM stdin WITH DELIMITER ' ';
 
 COPY nazwiska(id_osoby, nazwisko, data_od) FROM stdin WITH DELIMITER ' ';
 1 Nowak \N
-3 Nowak 21
+3 Nowak (2013,11,13,t)
 5 Kowal \N
-5 Nowak-Kowal 8
-9 Kowal 12
-10 Kowal 18
+5 Nowak-Kowal (1966,7,18,t)
+9 Kowal (1988,3,,f)
+10 Kowal (1010,3,3,t)
 \.
 
 COMMIT;

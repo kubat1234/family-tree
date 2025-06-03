@@ -4,10 +4,10 @@ import tcs.familytree.core.Identifiable;
 
 import java.util.List;
 
-public interface Date extends Identifiable {
+public interface Date /* extends Identifiable */ {
     // Interface to Date
     default List<Object> getAllData(){
-        return List.of(getId(),getYear(),getMonth(),getDay(),isAccurate());
+        return List.of(getYear(),getMonth(),getDay(),isAccurate());
     }
     // getters
     Integer getYear();
@@ -28,7 +28,6 @@ public interface Date extends Identifiable {
         return isAccurate() ? "" : "~" + getDate();
     }
 
-    //void setId(Integer id); // TODO id final ??
     void setYear(Integer year);
     void setMonth(Integer month);
     void setDay(Integer day);

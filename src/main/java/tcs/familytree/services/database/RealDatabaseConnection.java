@@ -11,7 +11,6 @@ import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
-import tcs.familytree.jooq.generated.tables.records.DatyRecord;
 import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 import tcs.familytree.jooq.generated.tables.records.RelacjeSymetryczneRecord;
@@ -124,57 +123,6 @@ public class RealDatabaseConnection implements DatabaseConnection {
     @Override
     public List<Person> getChildren(Person person){
         return getChildren(person.getId());
-    }
-
-    //Date methods
-
-    @Override
-    public List<Date> getAllDates() {
-        return dsl.select().from(DATY).fetchInto(DatyRecord.class).stream().map(databaseConverter::toDate).toList();
-    }
-
-    @Override
-    public Date getDate(int id) {
-        return databaseConverter.toDate(dsl.select().from(DATY).where(DATY.ID.eq(id)).fetchOne());
-    }
-
-    @Override
-    public boolean updateDate(Date date) {
-        try {
-            DatyRecord record = databaseConverter.toDatyRecord(date);
-            record.attach(dsl.configuration());
-            record.update();
-            updater.updateDate(date);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Błąd podczas aktualizacji daty o id: " + date.getId() + " " + e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addDate(Date date) {
-        try {
-            DatyRecord record = databaseConverter.toDatyRecord(date);
-            record.attach(dsl.configuration());
-            record.store();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Błąd podczas dodania daty o id: " + date.getId() + " " + e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteDate(int id) {
-        try {
-            dsl.delete(DATY).where(DATY.ID.eq(id)).execute();
-            updater.updateDate(id);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Błąd podczas dodania daty o id: " + id + " " + e.getMessage());
-            return false;
-        }
     }
 
     //Place methods

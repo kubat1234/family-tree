@@ -1,10 +1,8 @@
 package tcs.familytree.services.database;
 
-import jdk.jshell.spi.ExecutionControl;
 import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.date.Date;
-import tcs.familytree.core.date.DateBuilder;
-import tcs.familytree.core.date.SimpleConnectionDateBuilder;
+import tcs.familytree.core.date.SimpleDateBuilder;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
@@ -14,6 +12,7 @@ import tcs.familytree.core.relation.RelationBuilder;
 import tcs.familytree.core.relation.SimpleRelationBuilder;
 import tcs.familytree.jooq.generated.tables.records.*;
 import tcs.familytree.core.person.Gender;
+import tcs.familytree.jooq.generated.udt.records.CustomDateRecord;
 
 import static tcs.familytree.jooq.generated.Tables.*;
 
@@ -39,11 +38,19 @@ public class DatabaseConverter {
         builder.setAlive(record.getValue(OSOBY.WCIAZ_ZYJE));
         builder.setPlaceOfBirth(record.getValue(OSOBY.MIEJSCE_UR));
         builder.setPlaceOfDeath(record.getValue(OSOBY.MIEJSCE_SM));
-        builder.setDateOfBirth(record.getValue(OSOBY.DATA_UR));
-        builder.setDateOfDeath(record.getValue(OSOBY.DATA_SM));
+        builder.setDateOfBirth(toDate(record.getValue(OSOBY.DATA_UR)));
+        builder.setDateOfDeath(toDate(record.getValue(OSOBY.DATA_SM)));
         builder.setGender(Gender.fromBoolean(record.getValue(OSOBY.PLEC)));
 
         return builder;
+    }
+
+    private Date toDate(CustomDateRecord date) {
+        if(date == null) {
+            return null;
+        }
+        return new SimpleDateBuilder().setYear(date.getRok()).
+        setMonth(date.getMiesiac()).setDay(date.getDzien()).setAccurate(date.getCzyDokladna()).build();
     }
 
     public Person toPerson(OsobyRecord record) {
@@ -58,36 +65,11 @@ public class DatabaseConverter {
         record.setNazwiskoRodowe(person.getFamilySurname());
         record.setPozostaleImiona(person.getAllSurnames() == null ? null : String.join(" ",person.getAllSurnames()));
         record.setMiejsceUr(person.getPlaceOfBirth() == null ? null : person.getPlaceOfBirth().getId());
-        record.setDataUr(person.getDateOfBirth() == null ? null : person.getDateOfBirth().getId());
+//        record.setDataUr(person.getDateOfBirth() == null ? null : person.getDateOfBirth().getId()); //TODO
         record.setMiejsceSm(person.getPlaceOfDeath() == null ? null : person.getPlaceOfDeath().getId());
-        record.setDataSm(person.getDateOfDeath() == null ? null : person.getDateOfDeath().getId());
+//        record.setDataSm(person.getDateOfDeath() == null ? null : person.getDateOfDeath().getId());
         record.setPlec(person.getGender().toBoolean());
         record.setWciazZyje(person.isAlive());
-        return record;
-    }
-
-    public Date toDate(org.jooq.Record record) {
-        if(!(record instanceof DatyRecord)) throw new IllegalArgumentException("Record must be instance of DatyRecord");
-        DateBuilder builder = new SimpleConnectionDateBuilder(connection);
-
-        builder.setId(record.getValue(DATY.ID));
-        builder.setDay(record.getValue(DATY.DZIEN));
-        builder.setMonth(record.getValue(DATY.MIESIAC));
-        builder.setYear(record.getValue(DATY.ROK));
-        builder.setAccurate(record.getValue(DATY.CZY_DOKLADNA));
-
-        return builder.build();
-    }
-
-    public DatyRecord toDatyRecord(Date date){
-        if(date == null) throw new NullPointerException("Date can't be null");
-        DatyRecord record = new DatyRecord();
-        record.setId(date.getId());
-        record.setDzien(date.getDay());
-        record.setMiesiac(date.getMonth());
-        record.setRok(date.getYear());
-        record.setCzyDokladna(date.isAccurate());
-
         return record;
     }
 
@@ -112,7 +94,7 @@ public class DatabaseConverter {
         builder.setId(record.getValue(RELACJE_SYMETRYCZNE.ID));
         builder.setPerson1(record.getValue(RELACJE_SYMETRYCZNE.OSOBA1));
         builder.setPerson2(record.getValue(RELACJE_SYMETRYCZNE.OSOBA2));
-        builder.setDate(record.getValue(RELACJE_SYMETRYCZNE.DATA));
+        builder.setDate(toDate(record.getValue(RELACJE_SYMETRYCZNE.DATA)));
         builder.setPlace(record.getValue(RELACJE_SYMETRYCZNE.MIEJSCE));
         builder.setType(null); //TODO
         builder.setSymmetric(true);

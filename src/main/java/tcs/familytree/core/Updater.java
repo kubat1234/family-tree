@@ -8,16 +8,12 @@ import tcs.familytree.core.relationtype.RelationType;
 
 public class Updater {
     SingleUpdater<Person> personUpdater = new SingleUpdater<>();
-    SingleUpdater<Date> dateUpdater = new SingleUpdater<>();
     SingleUpdater<Place> placeUpdater = new SingleUpdater<>();
     SingleUpdater<Relation> relationUpdater = new SingleUpdater<>();
     SingleUpdater<RelationType> relationTypeUpdater = new SingleUpdater<>();
 
     public void updatePerson(Person person){
         personUpdater.update(person);
-    }
-    public void updateDate(Date date){
-        dateUpdater.update(date);
     }
     public void updatePlace(Place place){
         placeUpdater.update(place);
@@ -32,9 +28,6 @@ public class Updater {
     public void updatePerson(int id){
         personUpdater.update(id);
     }
-    public void updateDate(int id){
-        dateUpdater.update(id);
-    }
     public void updatePlace(int id){
         placeUpdater.update(id);
     }
@@ -48,9 +41,6 @@ public class Updater {
     public void registerPerson(ConnectionData<Person> data){
         personUpdater.register(data);
     }
-    public void registerDate(ConnectionData<Date> data){
-        dateUpdater.register(data);
-    }
     public void registerPlace(ConnectionData<Place> data){
         placeUpdater.register(data);
     }
@@ -63,9 +53,6 @@ public class Updater {
 
     public void unregisterPerson(ConnectionData<Person> data){
         personUpdater.unregister(data);
-    }
-    public void unregisterDate(ConnectionData<Date> data){
-        dateUpdater.unregister(data);
     }
     public void unregisterPlace(ConnectionData<Place> data){
         placeUpdater.unregister(data);

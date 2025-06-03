@@ -30,6 +30,7 @@ public interface DatabaseConnection {
     List<Person> getChildren(Person person);
     List<Person> getChildren(int id);
 
+    /*
     List<Date> getAllDates();
     Date getDate(int id);
     default boolean checkIfDateExist(int id){
@@ -44,6 +45,7 @@ public interface DatabaseConnection {
     default boolean deleteDate(Date date){
         return deleteDate(date.getId());
     }
+    */
 
     List<Place> getAllPlaces();
     Place getPlace(int id);
