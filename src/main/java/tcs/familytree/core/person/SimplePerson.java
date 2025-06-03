@@ -88,16 +88,22 @@ public class SimplePerson implements Person {
 
     @Override
     public String getFamilySurname(){
+        if(familyName == null){
+            return "";
+        }
         return familyName;
     }
 
     @Override
     public String getSurname(int numberOfSurname){
-        return numberOfSurname == 0 ? familyName : surnames.get(numberOfSurname - 1);
+        return numberOfSurname == 0 ? getFamilySurname() : surnames.get(numberOfSurname - 1);
     }
 
     @Override
-    public List<String> getAllSurnames(){
+    public List<String> getAllSurnames() {
+        if(surnames == null){
+            return new LinkedList<>();
+        }
         return surnames;
     }
 
@@ -279,6 +285,9 @@ public class SimplePerson implements Person {
                 }
                  boolean first = true;
                 for(String surname: surnames){
+                    if(surname == null){
+                        continue;
+                    }
                     if(!first){
                         stringBuilder.append(" ");
                     }

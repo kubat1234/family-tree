@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -203,13 +204,12 @@ public class MainController {
     public void OpenLeftPanel(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/simple-person-description.fxml"));
         try{
-            Pane view = loader.load();
+            AnchorPane view = loader.load();
             SimplePersonDescription simplePersonDescription = loader.getController();
-            //simplePersonDescription.init();
+            simplePersonDescription.init(graphViewModel);
             leftPanel2.getChildren().setAll(view);
         }catch (Exception e){
             System.out.println("error");
         }
-
     }
 }
