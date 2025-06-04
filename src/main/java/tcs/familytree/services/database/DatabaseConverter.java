@@ -63,6 +63,8 @@ public class DatabaseConverter {
         record.setId(person.getId());
         record.setImie(person.getName());
         record.setNazwiskoRodowe(person.getFamilySurname());
+        record.setMatka(person.getMother().getId());
+        record.setOjciec(person.getFather().getId());
         record.setPozostaleImiona(person.getAllSurnames() == null ? null : String.join(" ",person.getAllSurnames()));
         record.setMiejsceUr(person.getPlaceOfBirth() == null ? null : person.getPlaceOfBirth().getId());
 //        record.setDataUr(person.getDateOfBirth() == null ? null : person.getDateOfBirth().getId()); //TODO

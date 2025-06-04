@@ -3,15 +3,20 @@ package tcs.familytree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
 import tcs.familytree.views.GraphView;
+import tcs.familytree.views.PersonEditionController;
 import tcs.familytree.views.SimpleGraphPainter;
 import tcs.familytree.views.SimplePersonDescription;
 
@@ -23,6 +28,7 @@ public class MainController {
     public ScrollPane leftPanel;
     public StackPane leftPanel2;
 
+    Stage stage;
 
     private enum OpenedTab {
         NONE,
@@ -103,6 +109,10 @@ public class MainController {
         HelloController helloController = load("hello-view.fxml");
         helloController.setWelcomeText("Greetings from Blue!");
          */
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private <T> T load(String resource) {
@@ -188,6 +198,31 @@ public class MainController {
         }catch (Exception e){
             System.out.println("error");
             System.out.println(e.toString());
+        }
+    }
+
+    public void openEditionPanel(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/edit-person.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edytuj osobę");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(stage);  // mainStage musisz mieć przekazany wcześniej
+            dialogStage.setScene(new Scene(page));
+
+            PersonEditionController controller = loader.getController();
+            controller.setViewModel(graphViewModel);
+            controller.init();
+            controller.setPerson(graphViewModel.central());
+
+            dialogStage.showAndWait();
+
+            refreshGraph();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

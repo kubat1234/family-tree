@@ -9,10 +9,7 @@
             <MenuItem mnemonicParsing="false" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <Menu mnemonicParsing="false" text="Unspecified Menu">
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-            </Menu>
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem mnemonicParsing="false" text="Edit Person" onAction="#openEditionPanel"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Load">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />

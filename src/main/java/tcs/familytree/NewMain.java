@@ -20,7 +20,7 @@ public class NewMain extends Application {
         Parent root = loader.load();
 //        ModuleLayer.Controller controller = loader.getController();
         MainController controller = loader.getController();
-
+        controller.setStage(stage);
 
         Scene scene = new Scene(root, 1000, 700);
         scene.setOnKeyPressed(
