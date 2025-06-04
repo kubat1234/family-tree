@@ -1,23 +1,16 @@
 package tcs.familytree.core.date;
 
 public class SimpleDate implements Date {
-    int id;
     Integer year;
     Integer month;
     Integer day;
     boolean accurate;
 
-    public SimpleDate(int id, Integer year, Integer month, Integer day, boolean accurate){
-        this.id = id;
+    public SimpleDate(Integer year, Integer month, Integer day, boolean accurate){
         this.year = year;
         this.month = month;
         this.day = day;
         this.accurate = accurate;
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 
     @Override

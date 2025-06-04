@@ -18,12 +18,24 @@ DROP TABLE IF EXISTS tytuly_osoby CASCADE;
 DROP TABLE IF EXISTS grupy CASCADE;
 DROP TABLE IF EXISTS grupy_osoby CASCADE;
 DROP TABLE IF EXISTS uwagi_grupy CASCADE;
-DROP TABLE IF EXISTS daty CASCADE;
+DROP TABLE IF EXISTS daty CASCADE; --TO BE DELETED
 DROP TABLE IF EXISTS nazwiska CASCADE;
 
 DROP SEQUENCE IF EXISTS nazwiska_kolejnosc_seq;
 
+DROP FUNCTION IF EXISTS date_check(d custom_date);
+
+DROP FUNCTION IF EXISTS check_if_ancestor(child OSOBY, ancestor OSOBY);
+DROP FUNCTION IF EXISTS check_if_ancestor_update();
+DROP TRIGGER IF EXISTS dobry_poset ON osoby;
+DROP FUNCTION IF EXISTS check_if_nadtytul(child tytuly, ancestor tytuly);
+DROP FUNCTION IF EXISTS check_if_nadtytul_update();
+DROP TRIGGER IF EXISTS dobry_poset_tytuly ON tytuly;
+DROP VIEW IF EXISTS praca;
+
 DROP FUNCTION IF EXISTS dni_w_miesiacu;
 DROP FUNCTION IF EXISTS czy_rok_przestepny;
+
+DROP TYPE IF EXISTS custom_date;
 
 COMMIT;

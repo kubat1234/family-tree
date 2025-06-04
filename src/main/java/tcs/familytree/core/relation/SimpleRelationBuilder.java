@@ -1,7 +1,6 @@
 package tcs.familytree.core.relation;
 
 import tcs.familytree.core.date.Date;
-import tcs.familytree.core.date.SimpleConnectionDate;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.SimpleConnectionPerson;
 import tcs.familytree.core.place.Place;
@@ -65,7 +64,8 @@ public class SimpleRelationBuilder implements RelationBuilder{
 
     @Override
     public RelationBuilder setDate(Integer dateId) {
-        return setDate(new SimpleConnectionDate(dateId,connection));
+        return this;
+//        return setDate(new SimpleConnectionDate(dateId,connection));
     }
     @Override
     public RelationBuilder setPlace(Place place) {

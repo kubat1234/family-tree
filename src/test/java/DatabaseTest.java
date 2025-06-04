@@ -24,7 +24,7 @@ public class DatabaseTest{
     @Test
     public void DateTest() {
         DatabaseConnection connection = new RealDatabaseConnection();
-        Date d = connection.getDate(8);
-        System.out.println(d.toString());
+//        Date d = connection.getDate(8);
+//        System.out.println(d.toString());
     }
 }
