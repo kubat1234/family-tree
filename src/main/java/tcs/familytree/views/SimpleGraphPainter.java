@@ -3,6 +3,7 @@ package tcs.familytree.views;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -14,14 +15,20 @@ import tcs.familytree.views.plane.GraphOnPlane;
 import tcs.familytree.views.plane.ParentLineOnPlane;
 import tcs.familytree.views.plane.PersonOnPlane;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SimpleGraphPainter {
     @FXML
     protected AnchorPane container;
+    boolean listenersPresent = false;
+
+    private static class MouseMove {
+        static double mouseX;
+        static double mouseY;
+        static void setPosition(MouseEvent event) {
+            mouseX = event.getSceneX(); mouseY = event.getSceneY();
+        }
+    }
 
     private Paint getGenderColor(Gender gender){
         if(gender == Gender.MALE){
@@ -34,6 +41,11 @@ public class SimpleGraphPainter {
     }
 
     public void paintMovableGraphOnPlane(GraphOnPlane graphOnPlane, GraphViewModel graphViewModel) {
+        if(!listenersPresent) {
+            listenersPresent = true;
+            container.setOnMousePressed(this::canvasPressed);
+            container.setOnMouseDragged(this::canvasDragged);
+        }
         if(graphOnPlane == null || graphOnPlane.getPersons() == null || graphViewModel == null) {
             throw new NullPointerException();
         }
@@ -81,5 +93,14 @@ public class SimpleGraphPainter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void canvasPressed(MouseEvent mouseEvent) {
+        MouseMove.setPosition(mouseEvent);
+    }
+
+    private void canvasDragged(MouseEvent mouseEvent) {
+        System.out.println(mouseEvent.getSceneX() - MouseMove.mouseX + ", " + (mouseEvent.getSceneY() - MouseMove.mouseY));
+        MouseMove.setPosition(mouseEvent);
     }
 }
