@@ -9,7 +9,7 @@
             <MenuItem mnemonicParsing="false" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Edit Person" onAction="#openEditionPanel"/>
+            <MenuItem mnemonicParsing="false" onAction="#openEditionPanel" text="Edit Person" />
         </Menu>
         <Menu mnemonicParsing="false" text="Load">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
@@ -21,12 +21,11 @@
         </Menu>
     </MenuBar>
     <SplitPane dividerPositions="0.29797979797979796" prefHeight="688.0" prefWidth="1000.0">
-        <ScrollPane prefHeight="673.0" prefWidth="200.0"
-                    fitToWidth="true" fitToHeight="true">
-            <StackPane fx:id="leftPanel2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="176.0"/>
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="673.0" prefWidth="200.0">
+            <StackPane fx:id="leftPanel2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="176.0" />
         </ScrollPane>
         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="673.0" prefWidth="747.0">
-            <StackPane fx:id="mainSpace" minHeight="0.0" minWidth="0.0" prefHeight="673.0" prefWidth="496.0"/>
+            <StackPane fx:id="mainSpace" alignment="TOP_LEFT" minHeight="0.0" minWidth="0.0" prefHeight="673.0" prefWidth="496.0" />
         </ScrollPane>
     </SplitPane>
 </VBox>

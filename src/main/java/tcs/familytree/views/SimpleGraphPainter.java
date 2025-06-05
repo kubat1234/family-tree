@@ -20,14 +20,18 @@ import java.util.*;
 public class SimpleGraphPainter {
     @FXML
     protected AnchorPane container;
-    boolean listenersPresent = false;
+    MouseMove mouseMove = new MouseMove();
 
     private static class MouseMove {
-        static double mouseX;
-        static double mouseY;
-        static void setPosition(MouseEvent event) {
-            mouseX = event.getSceneX(); mouseY = event.getSceneY();
+        int mouseX;
+        int mouseY;
+        void setPosition(MouseEvent event) {
+            localX += (int)event.getSceneX() - mouseX;
+            localY += (int)event.getSceneX() - mouseX;
+            mouseX = (int)event.getSceneX(); mouseY = (int)event.getSceneY();
         }
+        int localX = 0;
+        int localY = 0;
     }
 
     private Paint getGenderColor(Gender gender){
@@ -41,11 +45,6 @@ public class SimpleGraphPainter {
     }
 
     public void paintMovableGraphOnPlane(GraphOnPlane graphOnPlane, GraphViewModel graphViewModel) {
-        if(!listenersPresent) {
-            listenersPresent = true;
-            container.setOnMousePressed(this::canvasPressed);
-            container.setOnMouseDragged(this::canvasDragged);
-        }
         if(graphOnPlane == null || graphOnPlane.getPersons() == null || graphViewModel == null) {
             throw new NullPointerException();
         }
@@ -67,13 +66,15 @@ public class SimpleGraphPainter {
                 }
                 allNodes.addAll(doneLines); // linie
 
-                container.getChildren().setAll(doneLines);
+//                container.getChildren().setAll(doneLines);
             }
 
             List<PersonOnPlane> personsOnPlane = graphOnPlane.getPersons();
             final int count = personsOnPlane.size();
             Pane[] panes = new Pane[count];
             SimpleGraphVertex[] controllers = new SimpleGraphVertex[count];
+            container.setOnMousePressed(this::canvasPressed);
+            container.setOnMouseDragged(a -> canvasDragged(a, graphViewModel, allNodes));
             for(int i=0; i<count; i++)
             {
                 PersonOnPlane pop = personsOnPlane.get(i);
@@ -96,11 +97,17 @@ public class SimpleGraphPainter {
     }
 
     public void canvasPressed(MouseEvent mouseEvent) {
-        MouseMove.setPosition(mouseEvent);
+        mouseMove.setPosition(mouseEvent);
     }
 
-    private void canvasDragged(MouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getSceneX() - MouseMove.mouseX + ", " + (mouseEvent.getSceneY() - MouseMove.mouseY));
-        MouseMove.setPosition(mouseEvent);
+    private void canvasDragged(MouseEvent mouseEvent, GraphViewModel viewModel, List<Node> nodes) {
+        int dx = (int)mouseEvent.getSceneX() - mouseMove.mouseX;
+        int dy = (int)mouseEvent.getSceneY() - mouseMove.mouseY;
+        viewModel.changeMod(dx, dy);
+        for(Node p : nodes) {
+            p.setLayoutX(p.getLayoutX() + dx);
+            p.setLayoutY(p.getLayoutY() + dy);
+        }
+        mouseMove.setPosition(mouseEvent);
     }
 }
