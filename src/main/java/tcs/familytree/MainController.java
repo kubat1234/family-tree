@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import tcs.familytree.core.person.Person;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
@@ -139,28 +140,34 @@ public class MainController {
         }
     }
 
-    public void openEditionPanel(ActionEvent actionEvent) {
+    public void openEditionPanel(Person person, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("views/edit-person.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edytuj osobę");
+            dialogStage.setTitle(title);
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(stage);  // mainStage musisz mieć przekazany wcześniej
+            dialogStage.initOwner(stage);
             dialogStage.setScene(new Scene(page));
 
             PersonEditionController controller = loader.getController();
             controller.setViewModel(graphViewModel);
             controller.init();
-            controller.setPerson(graphViewModel.central());
+            controller.setPerson(person);
 
             dialogStage.showAndWait();
-
-            //refreshGraph();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void openEditionPanelMainPerson(ActionEvent actionEvent){
+        openEditionPanel(graphViewModel.central(),"Edytuj osobę");
+    }
+    public void openAddingPanel(ActionEvent actionEvent) {
+        Person person = graphViewModel.createNewPerson();
+        openEditionPanel(person,"Dodaj Osobę");
     }
 }

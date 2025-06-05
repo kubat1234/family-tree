@@ -5,6 +5,7 @@ import tcs.familytree.MainController;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.services.GraphProvider;
+import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.views.SimplePersonDescription;
 
 public class GraphOrientedViewModel implements GraphViewModel {
@@ -87,5 +88,8 @@ public class GraphOrientedViewModel implements GraphViewModel {
         return mainController;
     }
 
-
+    @Override
+    public Person createNewPerson() {
+       return provider.createNewPerson();
+    }
 }

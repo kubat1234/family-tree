@@ -1,6 +1,7 @@
 package tcs.familytree.services;
 
 import javafx.beans.property.SimpleObjectProperty;
+import tcs.familytree.core.person.Person;
 import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.RealDatabaseConnection;
 
@@ -23,6 +24,10 @@ public class RealGraphProvider implements GraphProvider{
     @Override
     public SimpleObjectProperty<FamilyGraph> getGraphProperty() {
         return graphProperty;
+    }
+
+    public Person createNewPerson() {
+        return connection.createNewPerson();
     }
 
     /**

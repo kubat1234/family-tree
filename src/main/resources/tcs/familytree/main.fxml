@@ -9,7 +9,8 @@
             <MenuItem mnemonicParsing="false" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Edit Person" onAction="#openEditionPanel"/>
+            <MenuItem mnemonicParsing="false" text="Edit Person" onAction="#openEditionPanelMainPerson"/>
+            <MenuItem mnemonicParsing="false" text="Add Person" onAction="#openAddingPanel"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Load">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
