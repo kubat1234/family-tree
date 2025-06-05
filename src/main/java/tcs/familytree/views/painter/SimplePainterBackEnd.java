@@ -52,6 +52,12 @@ public class SimplePainterBackEnd {
         boolean firstRun = pop.myWidth == 0;
         List<OffsetPersonOnPlane> oPops = new ArrayList<>();
         pop.myWidth = slot_width * (1 + pop.person.getPartners().size());
+        int partnersSpace = pop.person.getPartners().size() * slot_width / 2;
+        if(firstRun) {
+            System.out.println("Moving " + pop.person.getName() + " by " + partnersSpace);
+            System.out.println("Size: " + pop.myWidth);
+            pop.offsetX -= partnersSpace;
+        }
         for(Person p : fun.apply(familyGraph, pop.person)) {
             OffsetPersonOnPlane child = new OffsetPersonOnPlane(p, 0, slot_height);
             oPops.add(child);
@@ -59,9 +65,10 @@ public class SimplePainterBackEnd {
             recursiveGraph(child, depth+1, fun, slot_height);
             childrenWidth += child.myWidth;
         }
-        childrenWidth = -childrenWidth/2;
+        pop.myWidth = Math.max(pop.myWidth, childrenWidth);
+        childrenWidth = -childrenWidth/2 + partnersSpace;
         for(OffsetPersonOnPlane child : oPops) {
-            child.offsetX = childrenWidth;
+            child.offsetX += childrenWidth + child.myWidth/2;
             childrenWidth += child.myWidth;
             SimpleLineOnPlane line = new SimpleLineOnPlane(0, 0, child.offsetX, child.offsetY);
             pop.lines.add(line);
@@ -71,7 +78,7 @@ public class SimplePainterBackEnd {
             List<Person> list = pop.person.getPartners().stream().toList();
             for(int i=0; i<pop.person.getPartners().size(); i++) {
                 Person p = list.get(i);
-                OffsetPersonOnPlane partner = new OffsetPersonOnPlane(p, slot_width, 0);
+                OffsetPersonOnPlane partner = new OffsetPersonOnPlane(p, (i+1) * slot_width, 0);
                 oPops.add(partner);
                 persons.add(partner);
                 SimpleLineOnPlane line = new SimpleLineOnPlane(0, 0, partner.offsetX, partner.offsetY);
