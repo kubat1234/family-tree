@@ -14,6 +14,7 @@ public interface Date /* extends Identifiable */ {
     boolean isAccurate();
     // TODO getDate() accepts nullables
     default String getDate(){
+        if(getYear() == null)return "";
         if(getMonth() == null) {
             return String.valueOf(getYear());
         }
@@ -22,8 +23,11 @@ public interface Date /* extends Identifiable */ {
         }
         return getDay() + "." + String.format("%02d", getMonth()) + "." + getYear();
     }
+    default boolean isEmpty(){
+        return getYear() == null;
+    }
     default String getDateDescription(){
-        return isAccurate() ? "" : "~" + getDate();
+        return isAccurate() || isEmpty() ? "" : "~" + getDate();
     }
 
     void setYear(Integer year);

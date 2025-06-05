@@ -55,6 +55,6 @@ public class SimpleDate implements Date {
 
     @Override
     public String toString(){
-        return getDate();
+        return getDateDescription();
     }
 }
