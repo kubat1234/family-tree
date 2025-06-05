@@ -14,7 +14,7 @@
         <Menu mnemonicParsing="false" text="Load">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
             <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-         <MenuItem mnemonicParsing="false" onAction="#OpenLeftPanel" text="Open Left Panel" />
+         <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Open Left Panel" />
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About" />

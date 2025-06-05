@@ -21,6 +21,8 @@ public class Main extends Application {
 //        ModuleLayer.Controller controller = loader.getController();
         MainController controller = loader.getController();
         controller.setStage(stage);
+        controller.loaderGraphOrientedViewModel();
+        controller.openLeftPanel(null);
 
         Scene scene = new Scene(root, 1000, 700);
         scene.setOnKeyPressed(
