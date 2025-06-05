@@ -125,7 +125,7 @@ public class MainController {
         refresh();
     }
 
-    public void OpenLeftPanel(ActionEvent actionEvent) {
+    public void openLeftPanel(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/simple-person-description.fxml"));
         try{
             AnchorPane view = loader.load();

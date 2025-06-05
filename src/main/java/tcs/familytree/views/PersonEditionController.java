@@ -17,16 +17,35 @@ public class PersonEditionController{
     public TextField allNamesField;
     public ComboBox<Person> motherBox;
     public ComboBox<Person> fatherBox;
+    public TextField allSurnamesField;
+    public CheckBox deathDateAccurateField;
+    public CheckBox birthDateAccurateField;
+    public Spinner<Integer> birthYearField;
+    public Spinner<Integer> birthMonthField;
+    public Spinner<Integer> birthDayField;
+    public Spinner<Integer> deathDayField;
+    public Spinner<Integer> deathMonthField;
+    public Spinner<Integer> deathYearField;
 
     GraphViewModel viewModel;
 
     Person person;
 
     public void init() {
-        genderBox.setConverter(Gender.getConverter());
         genderBox.getItems().addAll(Gender.MALE, Gender.FEMALE, Gender.OTHER);
+        motherBox.getItems().add(null);
+        fatherBox.getItems().add(null);
         motherBox.getItems().addAll(viewModel.getGraphProperty().get().getAllPersons());
         fatherBox.getItems().addAll(viewModel.getGraphProperty().get().getAllPersons());
+
+        birthDayField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31));
+        deathDayField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31));
+
+        birthMonthField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12));
+        deathMonthField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12));
+
+        birthYearField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20000));
+        deathYearField.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20000));
     }
 
     public void setViewModel(GraphViewModel viewModel) {
@@ -42,6 +61,24 @@ public class PersonEditionController{
         genderBox.getSelectionModel().select(person.getGender());
         motherBox.getSelectionModel().select(person.getMother());
         fatherBox.getSelectionModel().select(person.getFather());
+
+        birthDayField.getValueFactory().setValue(person.getDateOfBirth().getDay());
+        birthMonthField.getValueFactory().setValue(person.getDateOfBirth().getMonth());
+        birthYearField.getValueFactory().setValue(person.getDateOfBirth().getYear());
+
+        deathDayField.getValueFactory().setValue(person.getDateOfDeath().getDay());
+        deathMonthField.getValueFactory().setValue(person.getDateOfDeath().getMonth());
+        deathYearField.getValueFactory().setValue(person.getDateOfDeath().getYear());
+
+        birthDayField.setEditable(true);
+        birthMonthField.setEditable(true);
+        birthYearField.setEditable(true);
+        deathDayField.setEditable(true);
+        deathMonthField.setEditable(true);
+        deathYearField.setEditable(true);
+
+        birthDateAccurateField.setSelected(person.getDateOfBirth().isAccurate());
+        deathDateAccurateField.setSelected(person.getDateOfDeath().isAccurate());
     }
 
     public void handleSave(ActionEvent actionEvent) {
@@ -53,6 +90,17 @@ public class PersonEditionController{
             person.setGender(genderBox.getValue());
             person.setMother(motherBox.getValue());
             person.setFather(fatherBox.getValue());
+
+            person.getDateOfBirth().setDay(birthDayField.getValue());
+            person.getDateOfBirth().setMonth(birthMonthField.getValue());
+            person.getDateOfBirth().setYear(birthYearField.getValue());
+
+            person.getDateOfDeath().setDay(deathDayField.getValue());
+            person.getDateOfDeath().setMonth(deathMonthField.getValue());
+            person.getDateOfDeath().setYear(deathYearField.getValue());
+
+            person.getDateOfBirth().setAccurate(birthDateAccurateField.isSelected());
+            person.getDateOfDeath().setAccurate(deathDateAccurateField.isSelected());
 
             label.setTextFill(Color.GREEN);
             label.setText("Edycja osoby " + person.getId() + " zakończona pomyślnie.");
