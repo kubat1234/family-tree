@@ -1,8 +1,8 @@
-package tcs.familytree;
+package tcs.familytree.services;
 
 import java.util.Random;
 
-public class TmpUtil {
+public class RandUtil {
     static Random random = new Random();
     public static int rand(int bound) {
         return random.nextInt(bound);

@@ -1,6 +1,5 @@
 package tcs.familytree.views.painter;
 
-import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.views.plane.*;

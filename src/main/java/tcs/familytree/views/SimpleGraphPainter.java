@@ -8,10 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import tcs.familytree.TmpUtil;
 import tcs.familytree.core.person.Gender;
-import tcs.familytree.core.person.Person;
-import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.views.plane.GraphOnPlane;
 import tcs.familytree.views.plane.ParentLineOnPlane;
@@ -129,11 +126,11 @@ public class SimpleGraphPainter {
                 panes[i] = loader.load();
                 controllers[i] = loader.getController();
                 controllers[i].setAllDataFromStrings(personList.get(i).getName(),
-                         personList.get(i).getFamilySurname(), TmpUtil.randDate(20), TmpUtil.randDate(60),
+                         personList.get(i).getFamilySurname(), RandUtil.randDate(20), RandUtil.randDate(60),
                         getGenderColor(personList.get(i).getGender())
                         );
-                panes[i].setLayoutX(TmpUtil.rand(900) + 10);
-                panes[i].setLayoutY(TmpUtil.rand(500) + 10);
+                panes[i].setLayoutX(RandUtil.rand(900) + 10);
+                panes[i].setLayoutY(RandUtil.rand(500) + 10);
             }
             container.getChildren().addAll(panes);
         } catch (Exception e) {

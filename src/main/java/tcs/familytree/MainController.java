@@ -68,48 +68,6 @@ public class MainController {
         return true;
     }
 
-    @FXML
-    protected void red() {
-        if(!colorClicked("Red", OpenedTab.RED_PAINTER)) {
-            return;
-        }
-        if(graphView == null) {
-            SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
-            graphView = new GraphView(painter, viewModel);
-        }
-        graphView.paintCenteredAtRandom();
-    }
-
-    @FXML
-    protected void green() {
-        if(!colorClicked("Green", OpenedTab.RANDOM_PAINTER)) {
-            return;
-        }
-        if(graphView == null) {
-            SimpleGraphPainter painter = load("views/simple-graph-painter.fxml");
-            graphView = new GraphView(painter, viewModel);
-        }
-        graphView.paintRandomly();
-    }
-
-    @FXML
-    protected void blue() {
-
-        if(viewModel != null) {
-            viewModel.updateGraph();
-        }
-        else {
-            throw new IllegalStateException("There is no viewModel??");
-        }
-
-        /*
-        if(!colorClicked("Blue", OpenedTab.HELLO_WORLD)) {
-            return;
-        }
-        HelloController helloController = load("hello-view.fxml");
-        helloController.setWelcomeText("Greetings from Blue!");
-         */
-    }
 
     public void setStage(Stage stage) {
         this.stage = stage;

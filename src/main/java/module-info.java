@@ -30,4 +30,5 @@ module tcs.familytree {
     exports tcs.familytree.jooq.generated.udt to org.jooq;
     exports tcs.familytree.views.painter;
     opens tcs.familytree.views.painter to javafx.fxml;
+    opens tcs.familytree.services to javafx.fxml;
 }
