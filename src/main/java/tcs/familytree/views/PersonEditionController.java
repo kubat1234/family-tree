@@ -23,7 +23,6 @@ public class PersonEditionController{
     Person person;
 
     public void init() {
-        genderBox.setConverter(Gender.getConverter());
         genderBox.getItems().addAll(Gender.MALE, Gender.FEMALE, Gender.OTHER);
         motherBox.getItems().addAll(viewModel.getGraphProperty().get().getAllPersons());
         fatherBox.getItems().addAll(viewModel.getGraphProperty().get().getAllPersons());
