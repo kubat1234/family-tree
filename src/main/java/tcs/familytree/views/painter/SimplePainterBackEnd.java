@@ -11,11 +11,8 @@ import java.util.function.BiFunction;
 
 public class SimplePainterBackEnd {
 
-    abstract class OffsetEntity {
+    class OffsetPersonOnPlane{
         int offsetX, offsetY;
-    }
-
-    final class OffsetPersonOnPlane extends OffsetEntity {
         int myWidth;
         Person person;
         List<OffsetPersonOnPlane> oPops = new ArrayList<>();
