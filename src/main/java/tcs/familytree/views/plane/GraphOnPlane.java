@@ -4,10 +4,7 @@ import java.util.List;
 
 public interface GraphOnPlane {
     List<PersonOnPlane> getPersons();
-    default List<ParentLineOnPlane> getParents() {
-        return null;
-    }
-    default List<SymmetricLineOnPlane> getMarriages() {
+    default List<LineOnPlane> getLines() {
         return null;
     }
 }

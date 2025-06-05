@@ -5,9 +5,9 @@ import java.util.List;
 public class SimpleGraphWithLineOnPlane implements GraphOnPlane {
 
     final List<PersonOnPlane> personsOnPlane;
-    final List<ParentLineOnPlane> lineOnPlane;
+    final List<LineOnPlane> lineOnPlane;
 
-    public SimpleGraphWithLineOnPlane(List<PersonOnPlane> personsOnPlane, List<ParentLineOnPlane> lineOnPlane) {
+    public SimpleGraphWithLineOnPlane(List<PersonOnPlane> personsOnPlane, List<LineOnPlane> lineOnPlane) {
         this.personsOnPlane = personsOnPlane;
         this.lineOnPlane = lineOnPlane;
     }
@@ -17,7 +17,7 @@ public class SimpleGraphWithLineOnPlane implements GraphOnPlane {
     }
 
     @Override
-    public List<ParentLineOnPlane> getParents() {
+    public List<LineOnPlane> getLines() {
         return lineOnPlane;
     }
 }

@@ -2,13 +2,13 @@ package tcs.familytree.views.plane;
 
 import javafx.scene.shape.Line;
 
-public class SimpleParentLineOnPlane implements ParentLineOnPlane{
+public class SimpleLineOnPlane implements LineOnPlane {
     private final PersonOnPlane parent;
     private final PersonOnPlane child;
     private final int labelWidth = 120;
     private final int labelHeight = 75;
 
-    public SimpleParentLineOnPlane(PersonOnPlane parent, PersonOnPlane child){
+    public SimpleLineOnPlane(PersonOnPlane parent, PersonOnPlane child){
         this.parent = parent;
         this.child = child;
     }

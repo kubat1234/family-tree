@@ -12,7 +12,7 @@ import javafx.scene.shape.Line;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.views.plane.GraphOnPlane;
-import tcs.familytree.views.plane.ParentLineOnPlane;
+import tcs.familytree.views.plane.LineOnPlane;
 import tcs.familytree.views.plane.PersonOnPlane;
 
 import java.util.*;
@@ -52,11 +52,11 @@ public class SimpleGraphPainter {
             List<Node> allNodes = new ArrayList<>();
 
             System.out.println("Before lines:");
-            List<ParentLineOnPlane> lines = graphOnPlane.getParents();
+            List<LineOnPlane> lines = graphOnPlane.getLines();
             if(lines != null){
                 System.out.println("In Lines");
                 List<Line> doneLines = new LinkedList<>();
-                for(ParentLineOnPlane parentLine: lines){
+                for(LineOnPlane parentLine: lines){
                     Line line = parentLine.build(graphViewModel.x(), graphViewModel.y());
                     System.out.println("Line: (" + line.getStartX() + ", " + line.getStartY() + ") -> (" +
                             line.getEndX() + ", " + line.getEndY() + ")");
