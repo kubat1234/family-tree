@@ -126,6 +126,10 @@ public class MainController {
         refresh();
     }
 
+    void move(int x, int y){
+        graphViewModel.changeMod(x, y);
+    }
+
     public void openLeftPanel(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/simple-person-description.fxml"));
         try{

@@ -3,6 +3,7 @@ package tcs.familytree.views;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -14,14 +15,24 @@ import tcs.familytree.views.plane.GraphOnPlane;
 import tcs.familytree.views.plane.ParentLineOnPlane;
 import tcs.familytree.views.plane.PersonOnPlane;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SimpleGraphPainter {
     @FXML
     protected AnchorPane container;
+    MouseMove mouseMove = new MouseMove();
+
+    private static class MouseMove {
+        int mouseX;
+        int mouseY;
+        void setPosition(MouseEvent event) {
+            localX += (int)event.getSceneX() - mouseX;
+            localY += (int)event.getSceneX() - mouseX;
+            mouseX = (int)event.getSceneX(); mouseY = (int)event.getSceneY();
+        }
+        int localX = 0;
+        int localY = 0;
+    }
 
     private Paint getGenderColor(Gender gender){
         if(gender == Gender.MALE){
@@ -55,13 +66,15 @@ public class SimpleGraphPainter {
                 }
                 allNodes.addAll(doneLines); // linie
 
-                container.getChildren().setAll(doneLines);
+//                container.getChildren().setAll(doneLines);
             }
 
             List<PersonOnPlane> personsOnPlane = graphOnPlane.getPersons();
             final int count = personsOnPlane.size();
             Pane[] panes = new Pane[count];
             SimpleGraphVertex[] controllers = new SimpleGraphVertex[count];
+            container.setOnMousePressed(this::canvasPressed);
+            container.setOnMouseDragged(a -> canvasDragged(a, graphViewModel, allNodes));
             for(int i=0; i<count; i++)
             {
                 PersonOnPlane pop = personsOnPlane.get(i);
@@ -81,5 +94,20 @@ public class SimpleGraphPainter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void canvasPressed(MouseEvent mouseEvent) {
+        mouseMove.setPosition(mouseEvent);
+    }
+
+    private void canvasDragged(MouseEvent mouseEvent, GraphViewModel viewModel, List<Node> nodes) {
+        int dx = (int)mouseEvent.getSceneX() - mouseMove.mouseX;
+        int dy = (int)mouseEvent.getSceneY() - mouseMove.mouseY;
+        viewModel.changeMod(dx, dy);
+        for(Node p : nodes) {
+            p.setLayoutX(p.getLayoutX() + dx);
+            p.setLayoutY(p.getLayoutY() + dy);
+        }
+        mouseMove.setPosition(mouseEvent);
     }
 }
