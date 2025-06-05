@@ -6,7 +6,6 @@ import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
 import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.Updater;
-import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.place.Place;

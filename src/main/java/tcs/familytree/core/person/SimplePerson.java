@@ -1,9 +1,7 @@
 package tcs.familytree.core.person;
 
-import jdk.jshell.spi.ExecutionControl;
 import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.date.Date;
-import tcs.familytree.core.date.SimpleDateBuilder;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
@@ -271,24 +269,6 @@ public class SimplePerson implements Person {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append("\n-=- Simple Person:  -=-").append("\nName:").append(firstName);
-//        if(names != null){
-//            for(String name: names){
-//                stringBuilder.append(" ").append(name);
-//            }
-//        }
-//        stringBuilder.append("\nSurname: ");
-//        if(familyName != null){
-//            stringBuilder.append(familyName);
-//        }
-//        if(surnames != null){
-//            for(String surname: surnames){
-//                stringBuilder.append(" ").append(surname);
-//            }
-//        }
-//
-//
-//        stringBuilder.append("\n-=-  -=-  -=-  -=-  -=-" );
         stringBuilder.append(Objects.requireNonNullElse(firstName, "Unknown"));
         stringBuilder.append(" ");
         if(familyName == null){

@@ -6,9 +6,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.viewmodels.GraphOrientedViewModel;
 import tcs.familytree.viewmodels.GraphViewModel;
 
 import java.net.URL;
@@ -28,7 +26,7 @@ public class SimplePersonDescription implements Initializable {
         if(displayPerson.isAlive()){
             rootItem = new TreeItem<>(displayPerson.toString());
         }else{
-            rootItem = new TreeItem<>(displayPerson.toString() + " (x)");
+            rootItem = new TreeItem<>(displayPerson + " (x)");
         }
 
         TreeItem<String> branchItem1 = new TreeItem<>("Imie: " + displayPerson.getName());
@@ -40,7 +38,7 @@ public class SimplePersonDescription implements Initializable {
                 surnames.append(surname);
             }
         }
-        TreeItem<String> branchItem3 = new TreeItem<>("Wszystkie Nazwiska: " + surnames.toString());
+        TreeItem<String> branchItem3 = new TreeItem<>("Wszystkie Nazwiska: " + surnames);
         TreeItem<String> branchItem4;
 
         if(displayPerson.getMother() != null){

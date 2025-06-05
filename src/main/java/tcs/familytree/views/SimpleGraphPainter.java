@@ -33,36 +33,6 @@ public class SimpleGraphPainter {
         return Color.WHITE;
     }
 
-
-    public void paintGraphOnPlane(GraphOnPlane graphOnPlane) {
-        if(graphOnPlane == null || graphOnPlane.getPersons() == null) {
-            throw new NullPointerException();
-        }
-        try {
-            List<PersonOnPlane> personsOnPlane = graphOnPlane.getPersons();
-            final int count = personsOnPlane.size();
-            Pane[] panes = new Pane[count];
-            SimpleGraphVertex[] controllers = new SimpleGraphVertex[count];
-            for(int i=0; i<count; i++)
-            {
-                PersonOnPlane pop = personsOnPlane.get(i);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("simple-graph-vertex.fxml"));
-                panes[i] = loader.load();
-                controllers[i] = loader.getController();
-
-                controllers[i].setAllData(pop, pop.person().getName(),
-                        pop.person().getAllSurnames()==null?"":String.join(" ", pop.person().getAllSurnames()),
-                        pop.person().getDateOfBirth(), pop.person().getDateOfDeath(),
-                        getGenderColor(pop.person().getGender()), null);
-                panes[i].setLayoutX(pop.x());
-                panes[i].setLayoutY(pop.y());
-            }
-            container.getChildren().setAll(panes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void paintMovableGraphOnPlane(GraphOnPlane graphOnPlane, GraphViewModel graphViewModel) {
         if(graphOnPlane == null || graphOnPlane.getPersons() == null || graphViewModel == null) {
             throw new NullPointerException();
@@ -112,30 +82,4 @@ public class SimpleGraphPainter {
             e.printStackTrace();
         }
     }
-
-    /*
-    public void paintRandomly(FamilyGraph graph) {
-        try {
-            final int count = graph.getSize();
-            List<Person> personList = graph.getAllPersons().stream().toList();
-            Pane[] panes = new Pane[count];
-            SimpleGraphVertex[] controllers = new SimpleGraphVertex[count];
-            for(int i=0; i<count; i++)
-            {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("simple-graph-vertex.fxml"));
-                panes[i] = loader.load();
-                controllers[i] = loader.getController();
-                controllers[i].setAllDataFromStrings(personList.get(i).getName(),
-                         personList.get(i).getFamilySurname(), RandUtil.randDate(20), RandUtil.randDate(60),
-                        getGenderColor(personList.get(i).getGender())
-                        );
-                panes[i].setLayoutX(RandUtil.rand(900) + 10);
-                panes[i].setLayoutY(RandUtil.rand(500) + 10);
-            }
-            container.getChildren().addAll(panes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }

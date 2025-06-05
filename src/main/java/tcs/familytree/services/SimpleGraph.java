@@ -13,7 +13,7 @@ public class SimpleGraph implements FamilyGraph{
 
     SimpleGraph(List<Person> persons) {
         this.persons = persons;
-    };
+    }
 
     SimpleGraph() {
         persons = Collections.emptyList();

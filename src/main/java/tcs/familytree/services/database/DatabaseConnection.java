@@ -1,7 +1,6 @@
 package tcs.familytree.services.database;
 
 import tcs.familytree.core.*;
-import tcs.familytree.core.date.Date;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;

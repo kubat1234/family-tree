@@ -1,7 +1,5 @@
 package tcs.familytree.core.date;
 
-import tcs.familytree.core.Identifiable;
-
 import java.util.List;
 
 public interface Date /* extends Identifiable */ {

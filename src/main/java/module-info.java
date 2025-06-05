@@ -1,7 +1,6 @@
 module tcs.familytree {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.xml;
     requires jdk.jshell;
     requires org.jooq;
 

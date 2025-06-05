@@ -1,6 +1,5 @@
 package tcs.familytree.services;
 
-import org.jooq.impl.QOM;
 import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.person.Person;
 

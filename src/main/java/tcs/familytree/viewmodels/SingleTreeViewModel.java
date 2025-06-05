@@ -1,9 +1,7 @@
 package tcs.familytree.viewmodels;
 
 import javafx.beans.property.SimpleObjectProperty;
-import tcs.familytree.core.NotImplemented;
 import tcs.familytree.services.FamilyGraph;
-import tcs.familytree.services.database.DatabaseConnection;
 
 public interface SingleTreeViewModel {
     /**
@@ -13,7 +11,4 @@ public interface SingleTreeViewModel {
         throw new UnsupportedOperationException();
     }
     SimpleObjectProperty<FamilyGraph> getGraphProperty();
-    default DatabaseConnection getDatabaseConnection(){
-        throw new NotImplemented();
-    }
 }

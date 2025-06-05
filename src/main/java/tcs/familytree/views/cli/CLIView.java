@@ -2,7 +2,6 @@ package tcs.familytree.views.cli;
 
 import tcs.familytree.core.person.Person;
 import tcs.familytree.viewmodels.SingleTreeViewModel;
-import tcs.familytree.viewmodels.SingleTreeViewModel;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -98,14 +97,11 @@ abstract class ResourceMode extends Mode {
                 return mode;
             }
         }
-        switch (line.getFirst().toLowerCase()) {
-            case "close":
-                return new BasicMode(viewModel);
-            case "back":
-                return lastMode;
-            default:
-                return null;
-        }
+        return switch (line.getFirst().toLowerCase()) {
+            case "close" -> new BasicMode(viewModel);
+            case "back" -> lastMode;
+            default -> null;
+        };
     }
 }
 

@@ -44,10 +44,8 @@ public class SimplePainterBackEnd implements PainterBackEnd {
             x += slot_size;
         }
         list.add(new SimplePersonOnPlane((old_x+x-slot_size)/2, y + depth * depth_size, person));
-        int counter = 0;
-        for(Person p: familyGraph.getChildren(person)){
-            parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(counter))));
-            counter++;
+        for(int i = 0; i < familyGraph.getChildren(person).size(); i++){
+            parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(i))));
         }
         return x;
     }
@@ -74,14 +72,12 @@ public class SimplePainterBackEnd implements PainterBackEnd {
         if(depth != 0){
             list.add(new SimplePersonOnPlane((old_x+x-slot_size)/2, y - depth * depth_size, person));
         }
-        int counter = 0;
-        for(Person p: familyGraph.getParents(person)){
+        for(int i = 0; i < familyGraph.getParents(person).size(); i++){
             if(depth != 0){
-                parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(counter))));
+                parentList.add(new SimpleParentLineOnPlane(list.getLast(), list.get(downId.get(i))));
             }else{
-                parentList.add(new SimpleParentLineOnPlane(first, list.get(downId.get(counter))));
+                parentList.add(new SimpleParentLineOnPlane(first, list.get(downId.get(i))));
             }
-            counter++;
         }
         return x;
     }

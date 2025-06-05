@@ -2,7 +2,6 @@ package tcs.familytree.core.place;
 
 import tcs.familytree.core.AbstractConnectionData;
 import tcs.familytree.core.Identifiable;
-import tcs.familytree.core.date.Date;
 import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.DatabaseError;
 

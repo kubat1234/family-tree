@@ -1,18 +1,14 @@
 package tcs.familytree.views;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import tcs.familytree.core.date.Date;
-import tcs.familytree.core.person.Person;
 import tcs.familytree.viewmodels.GraphViewModel;
 import tcs.familytree.views.plane.PersonOnPlane;
 

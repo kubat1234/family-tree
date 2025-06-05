@@ -3,10 +3,7 @@ package tcs.familytree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -25,29 +22,20 @@ import java.io.IOException;
 public class MainController {
     @FXML
     public StackPane mainSpace;
-    public ScrollPane leftPanel;
     public StackPane leftPanel2;
 
     Stage stage;
 
     private enum OpenedTab {
         NONE,
-        RANDOM_PAINTER,
-        RED_PAINTER,
         MOVABLE_PAINTER,
     }
 
-    private final SingleTreeViewModel viewModel = new SingleDatabaseViewModel();//HardcodedSingleTreeViewModel.getModel();
     private GraphViewModel graphViewModel = null;
     private OpenedTab openedTab = OpenedTab.NONE;
     private GraphView graphView;
 
-    private void colorClicked(String value) {
-        //System.out.println(value);
-    }
-
     private boolean colorClicked(String value, OpenedTab tab) {
-        colorClicked(value);
         OpenedTab oldTab = openedTab;
         openedTab = tab;
         if(tab == oldTab) {
@@ -57,14 +45,6 @@ public class MainController {
             return true;
         }
         graphView.dropListener();
-        /*
-        if(openedTab == OpenedTab.RANDOM_PAINTER) {
-            if(graphView == null) {
-                throw new NullPointerException();
-            }
-            graphView.dropListener();
-        }
-         */
         return true;
     }
 
@@ -125,23 +105,23 @@ public class MainController {
 
     void moveLeft(){
         System.out.println("Move Left");
-        graphViewModel.changeMod(10, 0);
-        refresh();
-    }
-
-    void moveRight(){
         graphViewModel.changeMod(-10, 0);
         refresh();
     }
 
+    void moveRight(){
+        graphViewModel.changeMod(10, 0);
+        refresh();
+    }
+
     void moveUp(){
-        graphViewModel.changeMod(0, 10);
+        graphViewModel.changeMod(0, -10);
         refresh();
 
     }
 
     void moveDown(){
-        graphViewModel.changeMod(0, -10);
+        graphViewModel.changeMod(0, 10);
         refresh();
     }
 
@@ -155,7 +135,7 @@ public class MainController {
             leftPanel2.getChildren().setAll(view);
         }catch (Exception e){
             System.out.println("error");
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 

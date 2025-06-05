@@ -62,7 +62,7 @@ public class GraphView {
 //                runLater(() -> painter.paintRandomly(graphProperty.get()));
                 GraphOnPlane graphOnPlane = new SimplePainterBackEnd(graphProperty.get(), graphViewModel.central()).build();
                 runLater(() -> painter.paintMovableGraphOnPlane(graphOnPlane, graphViewModel));
-            }; //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
+            } //malowanie musi odbywać się na wątku JavaFX. Można to uzyskać metodą runLater
         };
         graphProperty.addListener(listener);
 

@@ -1,6 +1,5 @@
 package tcs.familytree.core.person;
 
-import jdk.jshell.spi.ExecutionControl;
 import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.NotImplemented;
 import tcs.familytree.core.date.Date;
@@ -13,7 +12,7 @@ import java.util.List;
 public interface Person extends Identifiable {
     // Interface to Person
 
-    default public List<Object> getAllData(){
+    default List<Object> getAllData(){
         throw new NotImplemented();
     }
 

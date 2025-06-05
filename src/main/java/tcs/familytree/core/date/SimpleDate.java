@@ -30,7 +30,7 @@ public class SimpleDate implements Date {
 
     @Override
     public boolean isAccurate() {
-        return false;
+        return accurate;
     }
 
     @Override

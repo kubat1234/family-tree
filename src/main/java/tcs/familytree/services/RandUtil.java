@@ -12,7 +12,7 @@ public class RandUtil {
         if(rand(100) < nullPercentage) {
             return null;
         }
-        return String.valueOf(rand(31) + 1) + "." + String.format("%02d", rand(12) + 1) + "."
-                + String.valueOf(rand(100) + 1924);
+        return rand(31) + 1 + "." + String.format("%02d", rand(12) + 1) + "."
+                + (rand(100) + 1924);
     }
 }

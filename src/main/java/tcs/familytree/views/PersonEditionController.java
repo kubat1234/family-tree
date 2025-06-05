@@ -1,17 +1,11 @@
 package tcs.familytree.views;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.services.database.DatabaseError;
 import tcs.familytree.viewmodels.GraphViewModel;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class PersonEditionController{
     public TextField nameField;
