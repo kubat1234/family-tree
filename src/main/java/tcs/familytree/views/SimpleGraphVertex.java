@@ -49,7 +49,7 @@ public class SimpleGraphVertex extends Region {
 
     public void vertexClicked(MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() >= 2){
-            graphViewModel.getMainController().openEditionPanel(null);
+            graphViewModel.getMainController().openEditionPanelMainPerson(null);
         }else{
             graphViewModel.updateCentral(person.person());
         }

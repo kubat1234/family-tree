@@ -53,7 +53,7 @@ CREATE TABLE osoby (
   ojciec int REFERENCES osoby(id),
   data_ur custom_date not null default row(null,null,null,false),
   miejsce_ur int REFERENCES miejsca(id),
-  wciaz_zyje boolean NOT NULL,
+  wciaz_zyje boolean NOT NULL default false,
   miejsce_sm int REFERENCES miejsca(id),
   data_sm custom_date not null default row(null,null,null,false),
   plec boolean
@@ -302,19 +302,19 @@ Basztowa 2 3
 8 3 4
 \.
 
-COPY osoby (id,imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur, miejsce_ur, wciaz_zyje, miejsce_sm, data_sm, plec) FROM stdin WITH DELIMITER ' ';
-1 Stefania \N \N \N \N (,,,f) \N 0 \N (,,,f) 1
-2 Jan \N Nowak 1 \N (,,,f) \N 0 \N (1949,,,f) 0
-3 Genowefa \N Wilkoryj \N \N (1899,,,f) \N 0 \N (1956,4,,f) 1
-4 Stanisław \N Nowak 3 2 (1925,1,,f) \N 0 \N (2009,4,22,t) 0
-5 Dorota \N Nowak 3 2 (1935,9,19,f) \N 0 \N (2005,1,1,t) 1
-6 Krzysztof \N Kowal \N \N (1933,12,12,f) \N 0 \N (2013,11,13,t) 0
-7 Adam \N Kowal 5 6 (1975,3,3,t) \N 0 \N (2003,6,9,t) 0
-8 Antoni \N Kowal 5 6 (1975,3,3,t) \N 0 \N (2003,6,9,t) 0
-9 Konrad \N \N \N \N (1985,,,f) \N 1 \N (,,,f) 0
-10 Martyna Weronika Wielka \N \N (1983,5,5,t) 2 1 \N (,,,f) 1
-11 Jakub Piotr Kowal 10 9 (2008,11,17,t) 3 1 \N (,,,f) 0
-12 Maria Martyna Kowal 10 9 (2015,12,18,t) 4 1 \N (,,,f) 1
+COPY osoby (imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur, miejsce_ur, wciaz_zyje, miejsce_sm, data_sm, plec) FROM stdin WITH DELIMITER ' ';
+Stefania \N \N \N \N (,,,f) \N 0 \N (,,,f) 1
+Jan \N Nowak 1 \N (,,,f) \N 0 \N (1949,,,f) 0
+Genowefa \N Wilkoryj \N \N (1899,,,f) \N 0 \N (1956,4,,f) 1
+Stanisław \N Nowak 3 2 (1925,1,,f) \N 0 \N (2009,4,22,t) 0
+Dorota \N Nowak 3 2 (1935,9,19,f) \N 0 \N (2005,1,1,t) 1
+Krzysztof \N Kowal \N \N (1933,12,12,f) \N 0 \N (2013,11,13,t) 0
+Adam \N Kowal 5 6 (1975,3,3,t) \N 0 \N (2003,6,9,t) 0
+Antoni \N Kowal 5 6 (1975,3,3,t) \N 0 \N (2003,6,9,t) 0
+Konrad \N \N \N \N (1985,,,f) \N 1 \N (,,,f) 0
+Martyna Weronika Wielka \N \N (1983,5,5,t) 2 1 \N (,,,f) 1
+Jakub Piotr Kowal 10 9 (2008,11,17,t) 3 1 \N (,,,f) 0
+Maria Martyna Kowal 10 9 (2015,12,18,t) 4 1 \N (,,,f) 1
 \.
 
 COPY typy_rs (nazwa) FROM stdin WITH DELIMITER ' ';

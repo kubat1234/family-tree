@@ -102,6 +102,11 @@ public class RealDatabaseConnection implements DatabaseConnection {
     }
 
     @Override
+    public Person createNewPerson(){
+        return databaseConverter.toPerson(dsl.insertInto(OSOBY).defaultValues().returning().fetchOne());
+    }
+
+    @Override
     public boolean deletePerson(int id) {
         try {
             dsl.delete(OSOBY).where(OSOBY.ID.eq(id)).execute();

@@ -21,6 +21,7 @@ public interface DatabaseConnection {
     }
     boolean updatePerson(Person person);
     boolean addPerson(Person person);
+    Person createNewPerson();
     boolean deletePerson(int id);
     default boolean deletePerson(Person person){
         return deletePerson(person.getId());
