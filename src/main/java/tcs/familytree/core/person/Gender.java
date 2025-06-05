@@ -1,7 +1,5 @@
 package tcs.familytree.core.person;
 
-import javafx.util.StringConverter;
-
 public enum Gender {
     MALE, FEMALE, OTHER;
     public static Gender fromBoolean(Boolean gender){
