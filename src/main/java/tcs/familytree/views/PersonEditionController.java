@@ -62,7 +62,8 @@ public class PersonEditionController{
 
             label.setTextFill(Color.GREEN);
             label.setText("Edycja osoby " + person.getId() + " zakończona pomyślnie.");
-        }catch(DatabaseError e){
+            viewModel.refresh().centeredPersonChange();
+        }catch(Exception e){
             label.setTextFill(Color.RED);
             label.setText("Database Error: " + e.getMessage());
         }

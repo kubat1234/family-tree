@@ -3,6 +3,7 @@ package tcs.familytree.views;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -51,7 +52,11 @@ public class SimpleGraphVertex extends Region {
     }
 
     public void vertexClicked(MouseEvent mouseEvent) {
-        graphViewModel.updateCentral(person.person());
+        if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() >= 2){
+            graphViewModel.getMainController().openEditionPanel(null);
+        }else{
+            graphViewModel.updateCentral(person.person());
+        }
         vertexLabel.setFill(Color.YELLOW);
     }
 }

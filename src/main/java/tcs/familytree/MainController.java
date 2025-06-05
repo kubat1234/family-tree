@@ -219,7 +219,7 @@ public class MainController {
 
             dialogStage.showAndWait();
 
-            refreshGraph();
+            //refreshGraph();
 
         } catch (IOException e) {
             e.printStackTrace();

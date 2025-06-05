@@ -214,6 +214,7 @@ BEGIN
 			where os.id = NEW.matka
 		)::osoby, NEW)
 		THEN 
+			RAISE EXCEPTION 'TRY TO MODIFY PERSON - GET CYCLE'; 
 			RETURN OLD;
 		END IF;
     END IF;
@@ -225,6 +226,7 @@ BEGIN
 			where os.id = NEW.ojciec
 		)::osoby, NEW)
 		THEN 
+			RAISE EXCEPTION 'TRY TO MODIFY PERSON - GET CYCLE'; 
 			RETURN OLD;
 		END IF;
     END IF;

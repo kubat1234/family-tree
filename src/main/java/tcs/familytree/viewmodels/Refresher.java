@@ -7,15 +7,21 @@ public class Refresher {
     }
 
     public void refreshGraph(){
-        graphViewModel.getMainController().refreshGraph();
+        if(graphViewModel.getMainController() != null){
+            graphViewModel.getMainController().refreshGraph();
+        }
     }
 
     private void fullRefreshOfSimplePersonDescription(){
-        graphViewModel.getSimplePersonDescription().hardRefresh();
+        if(graphViewModel.getSimplePersonDescription() != null){
+            graphViewModel.getSimplePersonDescription().hardRefresh();
+        }
     }
 
     private void partialRefreshOfSimplePersonDescription(){
-        graphViewModel.getSimplePersonDescription().lightRefresh();
+        if(graphViewModel.getSimplePersonDescription() != null){
+            graphViewModel.getSimplePersonDescription().lightRefresh();
+        }
     }
 
     public void hardRefresh(){
