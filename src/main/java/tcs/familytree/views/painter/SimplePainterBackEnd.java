@@ -16,11 +16,18 @@ public class SimplePainterBackEnd {
         int myWidth;
         Person person;
         List<OffsetPersonOnPlane> oPops = new ArrayList<>();
-        List<SimpleLineOnPlane> lines = new ArrayList<>();
         OffsetPersonOnPlane(Person p, int x, int y) {
             person = p;
             offsetX = x;
             offsetY = y;
+        }
+    }
+
+    class OpopLine {
+        OffsetPersonOnPlane first, second;
+        OpopLine(OffsetPersonOnPlane first, OffsetPersonOnPlane second) {
+            this.first = first;
+            this.second = second;
         }
     }
 
@@ -30,7 +37,7 @@ public class SimplePainterBackEnd {
     static final int slot_width = 150;
     static final int slot_height = 100;
     List<OffsetPersonOnPlane> persons;
-    List<LineOnPlane> lines;
+    List<OpopLine> lines;
 
     public SimplePainterBackEnd(FamilyGraph familyGraph, Person person) {
         if(familyGraph == null || person == null) {
@@ -58,7 +65,12 @@ public class SimplePainterBackEnd {
             addPartners(child, partnersToDraw);
             int partnersSpace = partnersToDraw.size() * slot_width / 2;
             child.offsetX -= partnersSpace;
-            child.myWidth = slot_width * (1 + partnersToDraw.size());;
+            child.myWidth = slot_width * (1 + partnersToDraw.size());
+            for(OffsetPersonOnPlane child1 : oPops) {
+                if(child1.person.getPartners().contains(child.person)) {
+                    lines.add(new OpopLine(child1, child));
+                }
+            }
             oPops.add(child);
             persons.add(child);
             recursiveGraph(child, depth+1, fun, filter, slot_height);
@@ -70,8 +82,7 @@ public class SimplePainterBackEnd {
         for(OffsetPersonOnPlane child : oPops) {
             child.offsetX += childrenWidth + child.myWidth/2;
             childrenWidth += child.myWidth;
-            SimpleLineOnPlane line = new SimpleLineOnPlane(0, 0, child.offsetX, child.offsetY);
-            pop.lines.add(line);
+            OpopLine line = new OpopLine(pop, child);
             lines.add(line);
         }
         pop.oPops.addAll(oPops);
@@ -86,9 +97,6 @@ public class SimplePainterBackEnd {
         for(OffsetPersonOnPlane child : pop.oPops) {
             recalculateOffsets(child, x, y);
         }
-        for(SimpleLineOnPlane line : pop.lines) {
-            line.moveBy(x, y);
-        }
     }
 
     private void addPartners(OffsetPersonOnPlane pop, List<Person> partnersToDraw) {
@@ -97,8 +105,7 @@ public class SimplePainterBackEnd {
             OffsetPersonOnPlane partner = new OffsetPersonOnPlane(p, (i+1) * slot_width, 0);
             pop.oPops.add(partner);
             persons.add(partner);
-            SimpleLineOnPlane line = new SimpleLineOnPlane(0, 0, partner.offsetX, partner.offsetY);
-            pop.lines.add(line);
+            OpopLine line = new OpopLine(pop, partner);
             lines.add(line);
         }
 
@@ -116,16 +123,9 @@ public class SimplePainterBackEnd {
         recalculateOffsets(centralOnPlane, 450, 250);
         List<PersonOnPlane> pops = persons.stream().map(
                 pop -> (PersonOnPlane)new SimplePersonOnPlane(pop.offsetX, pop.offsetY, pop.person)).toList();
-        for(PersonOnPlane p : pops) {
-            for(PersonOnPlane q : pops) {
-                if(p == q) { //it's fine, they're the same object
-                    break;
-                }
-                if(p.person().getPartners().contains(q.person())) {
-                    lines.add(new SimpleLineOnPlane(p, q));
-                }
-            }
-        }
-        return new SimpleGraphWithLineOnPlane(pops, lines);
+        List<LineOnPlane> lines2 = lines.stream().map(
+                l -> (LineOnPlane)new SimpleLineOnPlane(l.first.offsetX, l.first.offsetY,
+                        l.second.offsetX, l.second.offsetY)).toList();
+        return new SimpleGraphWithLineOnPlane(pops, lines2);
     }
 }
