@@ -5,31 +5,26 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            onMouseClicked="#vertexClicked" prefHeight="75.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.views.SimpleGraphVertex">
-   <Rectangle fx:id="vertexLabel" arcHeight="30.0" arcWidth="30.0" fill="#a0a0a0" height="75.0" stroke="BLACK"
-              strokeType="INSIDE" width="120.0"/>
-   <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="RIGHT" layoutY="2.0" prefHeight="25.0"
-          prefWidth="120.0" text="Label1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#vertexClicked" prefHeight="75.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.views.SimpleGraphVertex">
+   <Rectangle fx:id="vertexLabel" arcHeight="30.0" arcWidth="30.0" fill="#a0a0a0" height="75.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+   <Label fx:id="firstNameLabel" alignment="CENTER" contentDisplay="RIGHT" layoutY="2.0" prefHeight="25.0" prefWidth="120.0" text="Label1">
       <font>
-         <Font size="16.0"/>
+         <Font size="16.0" />
       </font>
    </Label>
    <Label fx:id="surnameLabel" alignment="CENTER" layoutY="26.0" prefHeight="25.0" prefWidth="120.0" text="Label2">
       <font>
-         <Font size="16.0"/>
+         <Font size="16.0" />
       </font>
    </Label>
-   <Label fx:id="dateOfBirthLabel" layoutX="6.0" layoutY="55.0" prefHeight="16.0" prefWidth="63.0" text="01.01.1970">
+   <Label fx:id="dateOfBirthLabel" layoutX="6.0" layoutY="55.0" prefHeight="16.0" prefWidth="63.0" text="~01.01.1970">
       <font>
-         <Font size="11.0"/>
+         <Font size="9.0" />
       </font>
    </Label>
-   <Label fx:id="dateOfDeathLabel" alignment="BASELINE_RIGHT" layoutX="57.0" layoutY="55.0" prefHeight="16.0"
-          prefWidth="57.0" text="13.05.2025">
+   <Label fx:id="dateOfDeathLabel" alignment="BASELINE_RIGHT" layoutX="57.0" layoutY="55.0" prefHeight="16.0" prefWidth="57.0" text="~13.05.2025">
       <font>
-         <Font size="11.0"/>
+         <Font size="9.0" />
       </font>
    </Label>
 </AnchorPane>

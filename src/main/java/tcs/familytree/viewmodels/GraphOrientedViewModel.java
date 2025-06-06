@@ -58,6 +58,7 @@ public class GraphOrientedViewModel implements GraphViewModel {
     public void updateCentral(Person person) {
         if(graphProperty.get().findPerson(person)){
             centralPerson = person;
+            x_mod = y_mod = 0;
             refresh().centeredPersonChange();
         }
     }
