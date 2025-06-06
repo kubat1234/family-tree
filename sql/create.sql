@@ -1,4 +1,4 @@
-BEGIN;
+﻿BEGIN;
 
 CREATE TYPE custom_date AS (
 	rok integer,
@@ -12,10 +12,41 @@ RETURNS boolean
     LANGUAGE plpgsql
     AS $$
 BEGIN
-RETURN (d IS NULL) OR ((d.rok IS NOT NULL) AND (d.czy_dokladna IS NOT NULL) AND
-(d.miesiac IS NOT NULL OR d.dzien IS NULL));
+IF d.czy_dokladna IS NULL THEN RETURN FALSE;
+ELSEIF d IS NULL THEN RETURN FALSE;
+ELSEIF d.czy_dokladna IS NULL THEN RETURN FALSE;
+ELSEIF d.miesiac IS NOT NULL AND d.rok IS NULL THEN RETURN FALSE;
+ELSEIF d.dzien IS NOT NULL AND (d.miesiac IS NULL OR d.rok IS NULL) THEN RETURN FALSE;
+ELSEIF d.dzien IS NULL AND d.czy_dokladna THEN RETURN FALSE;
+ELSEIF d.dzien IS NOT NULL AND  NOT (d.dzien BETWEEN 1 AND dni_w_miesiacu(d.rok, d.miesiac)) THEN RETURN FALSE;
+ELSE RETURN TRUE;
+END IF;
 END;
-$$; --TODO better checks
+$$;
+
+CREATE OR REPLACE FUNCTION date_comp(a custom_date, b custom_date) RETURNS boolean as $$
+BEGIN
+    IF a.rok = b.rok THEN
+        IF a.miesiac = b.miesiac THEN
+            IF a.dzien = b.dzien THEN RETURN TRUE;
+            ELSEIF a.dzien IS NULL THEN RETURN TRUE;
+            ELSEIF b.dzien IS NULL THEN RETURN TRUE;
+            ELSE RETURN a.dzien < b.dzien;
+            END IF;
+        ELSEIF a.miesiac IS NULL THEN RETURN TRUE;
+        ELSEIF b.miesiac IS NULL THEN RETURN TRUE;
+        ELSE RETURN a.miesiac < b.miesiac;
+        END IF;
+    ELSE RETURN a.rok < b.rok;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OPERATOR < (
+LEFTARG = custom_date,
+RIGHTARG = custom_date,
+PROCEDURE = date_comp
+);
 
 CREATE OR REPLACE FUNCTION dni_w_miesiacu(p_rok INT, p_miesiac INT)
 RETURNS INT AS $$
@@ -51,16 +82,14 @@ CREATE TABLE osoby (
   nazwisko_rodowe varchar,
   matka int REFERENCES osoby(id),
   ojciec int REFERENCES osoby(id),
-  data_ur custom_date not null default row(null,null,null,false),
+  data_ur custom_date not null default row(null,null,null,false) check(date_check(data_ur)),
   miejsce_ur int REFERENCES miejsca(id),
   wciaz_zyje boolean NOT NULL default false,
   miejsce_sm int REFERENCES miejsca(id),
-  data_sm custom_date not null default row(null,null,null,false),
-  plec boolean
-  --TODO  check data_ur < data_sm , własna funkcja porównująca daty
+  data_sm custom_date not null default row(null,null,null,false) check(date_check(data_sm)),
+  plec boolean,
+  CHECK ( data_ur < data_sm )
   -- check na wciaz_zyje = false, jeżeli data_sm < now()
-  -- ckeck na cykle
-  -- check na plec rodziców
 );
 
 CREATE TABLE typy_rs (
@@ -79,7 +108,7 @@ CREATE TABLE relacje_symetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rs int NOT NULL REFERENCES typy_rs(id),
   miejsce int REFERENCES miejsca(id),
-  data custom_date not null default row(null,null,null,false), --TODO check czy osoby wtedy żyły
+  data custom_date not null default row(null,null,null,false) check(date_check(data)), --TODO check czy osoby wtedy żyły
   CHECK(osoba1 is not null or osoba2 is not null)
 );
 
@@ -89,7 +118,7 @@ CREATE TABLE relacje_niesymetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rns int NOT NULL REFERENCES typy_rns(id),
   miejsce int REFERENCES miejsca(id),
-  data custom_date not null default row(null,null,null,false), --TODO check czy osoby wtedy żyły
+  data custom_date not null default row(null,null,null,false) check(date_check(data)), --TODO check czy osoby wtedy żyły
   CHECK(osoba1 is not null or osoba2 is not null)
 );
 
@@ -121,10 +150,10 @@ CREATE TABLE zawody_osoby (
   id_zawodu int NOT NULL REFERENCES zawody(id),
   stanowisko varchar,
   miejsce int REFERENCES miejsca(id),
-  data_od custom_date not null default row(null,null,null,false),
-  data_do custom_date not null default row(null,null,null,false)
-  --check data_od < data_do
-  --check czy osoba wtedy żyła
+  data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)),
+  data_do custom_date not null default row(null,null,null,false) check(date_check(data_do)),
+    CHECK ( data_od < data_do )
+  --TODO check czy osoba wtedy żyła
 );
 
 CREATE TABLE tytuly (
@@ -164,7 +193,7 @@ CREATE SEQUENCE nazwiska_kolejnosc_seq
 CREATE TABLE nazwiska (
   id_osoby int REFERENCES osoby(id),
   nazwisko varchar NOT NULL,
-  data_od custom_date not null default row(null,null,null,false), --TODO check czy osoba wtedy żyła
+  data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)), --TODO check czy osoba wtedy żyła
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
   PRIMARY KEY (id_osoby, nazwisko)
 );
