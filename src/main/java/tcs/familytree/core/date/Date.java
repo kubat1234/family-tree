@@ -27,7 +27,7 @@ public interface Date /* extends Identifiable */ {
         return getYear() == null;
     }
     default String getDateDescription(){
-        return isAccurate() || isEmpty() ? "" : "~" + getDate();
+        return (isAccurate() || isEmpty() ? "" : "~") + getDate();
     }
 
     void setYear(Integer year);

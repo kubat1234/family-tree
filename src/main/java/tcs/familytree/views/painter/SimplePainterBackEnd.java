@@ -7,11 +7,12 @@ import tcs.familytree.views.plane.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 
 public class SimplePainterBackEnd {
 
-    class OffsetPersonOnPlane{
+    static class OffsetPersonOnPlane{
         int offsetX, offsetY;
         int myWidth;
         Person person;
@@ -23,7 +24,7 @@ public class SimplePainterBackEnd {
         }
     }
 
-    class OpopLine {
+    static class OpopLine {
         OffsetPersonOnPlane first, second;
         OpopLine(OffsetPersonOnPlane first, OffsetPersonOnPlane second) {
             this.first = first;
@@ -34,8 +35,8 @@ public class SimplePainterBackEnd {
     FamilyGraph familyGraph;
     Person centralPerson;
     static final int max_depth = 20;
-    static final int slot_width = 150;
-    static final int slot_height = 100;
+    static final int slot_width = 160;
+    static final int slot_height = 120;
     List<OffsetPersonOnPlane> persons;
     List<OpopLine> lines;
 
@@ -71,6 +72,12 @@ public class SimplePainterBackEnd {
                     lines.add(new OpopLine(child1, child));
                 }
             }
+            OffsetPersonOnPlane secondParent = pop.oPops.stream().
+                    filter(x -> p.getParents().contains(x.person)).findAny().orElse(null);
+            if(secondParent != null) {
+                System.out.println(p + " <- " + secondParent.person);
+                lines.add(new OpopLine(child, secondParent));
+            }
             oPops.add(child);
             persons.add(child);
             recursiveGraph(child, depth+1, fun, filter, slot_height);
@@ -102,7 +109,7 @@ public class SimplePainterBackEnd {
     private void addPartners(OffsetPersonOnPlane pop, List<Person> partnersToDraw) {
         for(int i=0; i<partnersToDraw.size(); i++) {
             Person p = partnersToDraw.get(i);
-            OffsetPersonOnPlane partner = new OffsetPersonOnPlane(p, (i+1) * slot_width, 0);
+            OffsetPersonOnPlane partner = new OffsetPersonOnPlane(p, (i + 1) * slot_width, 0);
             pop.oPops.add(partner);
             persons.add(partner);
             OpopLine line = new OpopLine(pop, partner);
