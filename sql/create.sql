@@ -315,6 +315,11 @@ select o.imie, o.nazwisko_rodowe, z.nazwa, zo.stanowisko
 from osoby o inner join zawody_osoby zo on o.id = zo.id_osoby inner join zawody z on zo.id_zawodu = z.id
 order by 3, 4, 1, 2;
 
+create or replace view osoby_nazwiska as
+select osoby.*, string_agg(coalesce(nazwiska.nazwisko,''),' ' order by nazwiska.kolejnosc) as "nazwiska"
+from osoby left outer join nazwiska on osoby.id = nazwiska.id_osoby
+group by osoby.id;
+
 --przykładowe dane
 
 COPY typy_miejsc (nazwa, nadtyp) FROM stdin WITH DELIMITER ' ';

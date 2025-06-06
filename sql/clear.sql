@@ -33,6 +33,7 @@ DROP FUNCTION IF EXISTS check_if_nadtytul_update() CASCADE;
 DROP TRIGGER IF EXISTS dobry_poset_tytuly ON tytuly CASCADE;
 
 DROP VIEW IF EXISTS praca CASCADE;
+DROP VIEW IF EXISTS osoby_nazwiska;
 
 DROP FUNCTION IF EXISTS dni_w_miesiacu;
 DROP FUNCTION IF EXISTS czy_rok_przestepny;
