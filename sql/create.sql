@@ -300,6 +300,15 @@ Polska \N 1
 Kraków 1 2
 Basztowa 2 3
 8 3 4
+Toruń 1 2
+Kopernika 5 3
+al.\ Mickiewicza 2 3
+4 6 4
+19 7 4
+Tymbark \N 2
+1000 10 4
+26 7 4
+48 7 4
 \.
 
 COPY osoby (imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur, miejsce_ur, wciaz_zyje, miejsce_sm, data_sm, plec) FROM stdin WITH DELIMITER ' ';
