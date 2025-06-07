@@ -9,4 +9,6 @@ public interface GraphProvider {
     SimpleObjectProperty<FamilyGraph> getGraphProperty();
 
     Person createNewPerson();
+
+
 }

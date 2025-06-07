@@ -1,6 +1,7 @@
 package tcs.familytree.services;
 
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
 
 import java.util.*;
 
