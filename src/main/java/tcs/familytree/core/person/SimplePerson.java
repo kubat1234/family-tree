@@ -274,32 +274,35 @@ public class SimplePerson implements Person {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(Objects.requireNonNullElse(firstName, "Unknown"));
-        stringBuilder.append(" ");
-        if(familyName == null){
-            if(surnames != null){
-                if(surnames.isEmpty()){
-                    stringBuilder.append("Unknown");
-                }
-                 boolean first = true;
-                for(String surname: surnames){
-                    if(surname == null){
-                        continue;
-                    }
-                    if(!first){
-                        stringBuilder.append(" ");
-                    }
-                    stringBuilder.append(surname);
-                }
-            }else{
-                stringBuilder.append("Unknown");
-            }
-        }else{
-            if(surnames != null){
-                for(String surname: surnames){
-                    stringBuilder.append(" ").append(surname);
-                }
-            }
-        }
+        if(familyName != null) stringBuilder.append(" ").append(familyName);
+        if(surnames != null) stringBuilder.append(" ").append(String.join(" ",surnames));
+        if(familyName == null && (surnames == null || surnames.isEmpty())) stringBuilder.append(" unknown");
+//        stringBuilder.append(" ");
+//        if(familyName == null){
+//            if(surnames != null){
+//                if(surnames.isEmpty()){
+//                    stringBuilder.append("Unknown");
+//                }
+//                 boolean first = true;
+//                for(String surname: surnames){
+//                    if(surname == null){
+//                        continue;
+//                    }
+//                    if(!first){
+//                        stringBuilder.append(" ");
+//                    }
+//                    stringBuilder.append(surname);
+//                }
+//            }else{
+//                stringBuilder.append("Unknown");
+//            }
+//        }else{
+//            if(surnames != null){
+//                for(String surname: surnames){
+//                    stringBuilder.append(" ").append(surname);
+//                }
+//            }
+//        }
         return stringBuilder.toString();
     }
 }
