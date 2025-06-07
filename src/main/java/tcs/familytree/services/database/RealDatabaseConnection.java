@@ -1,6 +1,7 @@
 package tcs.familytree.services.database;
 
 import org.jooq.DSLContext;
+import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
@@ -38,6 +39,11 @@ public class RealDatabaseConnection implements DatabaseConnection {
         } catch (SQLException e) {
             throw new RuntimeException("Nie można połączyć się z bazą danych", e);
         }
+    }
+
+    @Override
+    public Result<org.jooq.Record> sendQuery(String query){
+        return dsl.fetch(query);
     }
 
     @Override

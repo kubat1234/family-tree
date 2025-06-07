@@ -1,0 +1,9 @@
+diff a/src/main/java/tcs/familytree/services/GraphProvider.java b/src/main/java/tcs/familytree/services/GraphProvider.java	(rejected hunks)
+@@ -9,4 +9,6 @@
+     SimpleObjectProperty<FamilyGraph> getGraphProperty();
+ 
+     Person createNewPerson();
++
++
+ }
+\ No newline at end of file

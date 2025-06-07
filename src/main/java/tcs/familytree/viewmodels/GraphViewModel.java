@@ -1,5 +1,7 @@
 package tcs.familytree.viewmodels;
 
+import org.jooq.Record;
+import org.jooq.Result;
 import tcs.familytree.MainController;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.database.DatabaseConnection;
@@ -16,4 +18,5 @@ public interface GraphViewModel extends SingleTreeViewModel {
     SimplePersonDescription getSimplePersonDescription();
     MainController getMainController();
     Person createNewPerson();
+    Result<org.jooq.Record> sendQuery(String query);
 }
