@@ -23,9 +23,7 @@ public interface PersonBuilder {
     PersonBuilder setPlaceOfDeath(Place placeOfDeath);
     PersonBuilder setPlaceOfDeath(Integer placeOfDeathId);
     PersonBuilder setDateOfBirth(Date dateOfBirth);
-    PersonBuilder setDateOfBirth(Integer dateOfBirthId);
     PersonBuilder setDateOfDeath(Date dateOfDeath);
-    PersonBuilder setDateOfDeath(Integer dateOfDeathId);
     PersonBuilder setGender(Gender gender);
     PersonBuilder addPartner(Person partner);
     PersonBuilder addPartner(Integer partnerId);

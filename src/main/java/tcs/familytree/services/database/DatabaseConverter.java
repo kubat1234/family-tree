@@ -45,12 +45,15 @@ public class DatabaseConverter {
         return builder;
     }
 
-    private Date toDate(CustomDateRecord date) {
-        if(date == null) {
-            return null;
-        }
+    public Date toDate(CustomDateRecord date) {
+        if(date == null) throw new NullPointerException("Date can't be null");
         return new SimpleDateBuilder().setYear(date.getRok()).
         setMonth(date.getMiesiac()).setDay(date.getDzien()).setAccurate(date.getCzyDokladna()).build();
+    }
+
+    public CustomDateRecord toCustomDate(Date date) {
+        if(date == null) throw new NullPointerException("Date can't be null");
+        return new CustomDateRecord(date.getYear(),date.getMonth(),date.getDay(),date.isAccurate());
     }
 
     public Person toPerson(OsobyRecord record) {
@@ -67,9 +70,9 @@ public class DatabaseConverter {
         record.setOjciec(person.getFather() == null ? null : person.getFather().getId());
         record.setPozostaleImiona(person.getAllSurnames() == null ? null : String.join(" ",person.getAllSurnames()));
         record.setMiejsceUr(person.getPlaceOfBirth() == null ? null : person.getPlaceOfBirth().getId());
-//        record.setDataUr(person.getDateOfBirth() == null ? null : person.getDateOfBirth().getId()); //TODO
+        record.setDataUr(toCustomDate(person.getDateOfBirth()));
         record.setMiejsceSm(person.getPlaceOfDeath() == null ? null : person.getPlaceOfDeath().getId());
-//        record.setDataSm(person.getDateOfDeath() == null ? null : person.getDateOfDeath().getId());
+        record.setDataSm(toCustomDate(person.getDateOfDeath()));
         record.setPlec(person.getGender().toBoolean());
         record.setWciazZyje(person.isAlive());
         return record;

@@ -104,6 +104,8 @@ public interface Person extends Identifiable {
 
     void setPlaceOfDeath(Place placeOfDeath);
 
+    void setPerson(Person person);
+
     boolean equals(Object o);
 
     int hashCode();

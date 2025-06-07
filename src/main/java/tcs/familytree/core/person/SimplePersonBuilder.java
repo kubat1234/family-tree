@@ -151,21 +151,9 @@ public class SimplePersonBuilder implements PersonBuilder {
     }
 
     @Override
-    public PersonBuilder setDateOfBirth(Integer dateOfBirthId) {
-        return this;
-//        return setDateOfBirth(dateOfBirthId == null ? null : new SimpleConnectionDate(dateOfBirthId,connection));
-    }
-
-    @Override
     public PersonBuilder setDateOfDeath(Date dateOfDeath) {
         this.deathDate = dateOfDeath;
         return this;
-    }
-
-    @Override
-    public PersonBuilder setDateOfDeath(Integer dateOfDeathId) {
-        return this;
-//        return setDateOfDeath(dateOfDeathId == null ? null : new SimpleConnectionDate(dateOfDeathId,connection));
     }
 
     @Override
@@ -188,6 +176,7 @@ public class SimplePersonBuilder implements PersonBuilder {
     @Override
     public Person build() {
         if(gender == null)throw new IllegalStateException("Gender must be set");
+        if(birthDate == null || deathDate == null)throw new IllegalStateException("Date must be set");
         return new SimplePerson(id, firstName, names, familyName, surnames, 
                               mother, father, birthDate, deathDate, 
                               birthPlace, deathPlace, alive, gender, partners);

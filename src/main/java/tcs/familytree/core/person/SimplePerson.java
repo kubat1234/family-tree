@@ -40,12 +40,7 @@ public class SimplePerson implements Person {
         }
         this.mother = mother;
         this.father = father;
-//        if(birthDate == null){
-//            birthDate = new SimpleDateBuilder().build();
-//        }
-//        if(deathDate == null){
-//            deathDate = new SimpleDateBuilder().build();
-//        }
+        if(birthDate == null || deathDate == null) throw new NullPointerException("Date cannot be null");
         this.birthDate = birthDate;
         this.deathDate = deathDate;
 
@@ -57,25 +52,7 @@ public class SimplePerson implements Person {
     }
 
     public SimplePerson(Person person){
-        if(person == null)throw new NullPointerException();
-        if(person.getGender() == null) throw new NullPointerException("Gender cannot be null");
-        this.id = person.getId();
-        this.firstName = person.getName();
-        this.names = person.getAllNames();
-        this.familyName = person.getFamilySurname();
-        this.surnames = person.getAllSurnames();
-        if(surnames == null){
-            this.surnames = new ArrayList<>();
-        }
-        this.mother = person.getMother();
-        this.father = person.getFather();
-        this.birthDate = person.getDateOfBirth();
-        this.deathDate = person.getDateOfDeath();
-        this.birthPlace = person.getPlaceOfBirth();
-        this.deathPlace = person.getPlaceOfDeath();
-        this.alive = person.isAlive();
-        this.gender = person.getGender();
-        this.partners = person.getPartners();
+        setPerson(person);
     }
     @Override
     public Person copy(){
@@ -225,11 +202,13 @@ public class SimplePerson implements Person {
 
     @Override
     public void setDateOfBirth(Date dateOfBirth) {
+        if(dateOfBirth == null) throw new NullPointerException("Date cannot be null");
         this.birthDate = dateOfBirth;
     }
 
     @Override
     public void setDateOfDeath(Date dateOfDeath) {
+        if(dateOfDeath == null) throw new NullPointerException("Date cannot be null");
         this.deathDate = dateOfDeath;
     }
 
@@ -250,7 +229,32 @@ public class SimplePerson implements Person {
 
     @Override
     public void setGender(Gender gender) {
+        if(gender == null) throw new NullPointerException("Gender cannot be null");
         this.gender = gender;
+    }
+
+    @Override
+    public void setPerson(Person person) {
+        if(person == null)throw new NullPointerException();
+        if(person.getGender() == null) throw new NullPointerException("Gender cannot be null");
+        this.id = person.getId();
+        this.firstName = person.getName();
+        this.names = person.getAllNames();
+        this.familyName = person.getFamilySurname();
+        this.surnames = person.getAllSurnames();
+        if(surnames == null){
+            this.surnames = new ArrayList<>();
+        }
+        this.mother = person.getMother();
+        this.father = person.getFather();
+        if(person.getDateOfBirth() == null ||person.getDateOfBirth() == null) throw new NullPointerException("Date cannot be null");
+        this.birthDate = person.getDateOfBirth();
+        this.deathDate = person.getDateOfDeath();
+        this.birthPlace = person.getPlaceOfBirth();
+        this.deathPlace = person.getPlaceOfDeath();
+        this.alive = person.isAlive();
+        this.gender = person.getGender();
+        this.partners = person.getPartners();
     }
 
     @Override
