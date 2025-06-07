@@ -1,6 +1,8 @@
 package tcs.familytree.viewmodels;
 
 import javafx.beans.property.SimpleObjectProperty;
+import org.jooq.Record;
+import org.jooq.Result;
 import tcs.familytree.MainController;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
@@ -92,5 +94,10 @@ public class GraphOrientedViewModel implements GraphViewModel {
     @Override
     public Person createNewPerson() {
        return provider.createNewPerson();
+    }
+
+    @Override
+    public Result<org.jooq.Record> sendQuery(String query) {
+        return provider.sendQuery(query);
     }
 }

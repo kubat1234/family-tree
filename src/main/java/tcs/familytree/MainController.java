@@ -13,10 +13,7 @@ import tcs.familytree.core.person.Person;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
-import tcs.familytree.views.GraphView;
-import tcs.familytree.views.PersonEditionController;
-import tcs.familytree.views.SimpleGraphPainter;
-import tcs.familytree.views.SimplePersonDescription;
+import tcs.familytree.views.*;
 
 import java.io.IOException;
 
@@ -174,5 +171,23 @@ public class MainController {
     public void openAddingPanel(ActionEvent actionEvent) {
         Person person = graphViewModel.createNewPerson();
         openEditionPanel(person,"Dodaj Osobę");
+    }
+    public void openAdminPanel(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/admin-panel.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Panel Administratora");
+//            dialogStage.initModality(Modality.WINDOW_MODAL);
+//            dialogStage.initOwner(stage);
+            dialogStage.setScene(new Scene(page));
+            AdminPanel controller = loader.getController();
+            controller.setViewModel(graphViewModel);
+
+            dialogStage.showAndWait();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
