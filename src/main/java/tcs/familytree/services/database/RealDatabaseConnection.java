@@ -9,10 +9,12 @@ import tcs.familytree.core.Updater;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.place.Place;
+import tcs.familytree.core.place.PlaceType;
 import tcs.familytree.core.relation.Relation;
 import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
 import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
 import tcs.familytree.jooq.generated.tables.records.RelacjeSymetryczneRecord;
+import tcs.familytree.jooq.generated.tables.records.TypyMiejscRecord;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -179,6 +181,51 @@ public class RealDatabaseConnection implements DatabaseConnection {
             return false;
         }
     }
+
+    @Override
+    public PlaceType getPlaceType(int id) {
+        return databaseConverter.toPlaceType(dsl.select().from(TYPY_MIEJSC).where(TYPY_MIEJSC.ID.eq(id)).fetchOneInto(TypyMiejscRecord.class));
+    }
+
+    @Override
+    public boolean updatePlaceType(PlaceType place) {
+        try {
+            TypyMiejscRecord record = databaseConverter.toTypyMiejscRecord(place);
+            record.attach(dsl.configuration());
+            record.update();
+            updater.updatePlaceType(place);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas aktualizacji miejsca o id: " + place.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addPlaceType(PlaceType place) {
+        try {
+            TypyMiejscRecord record = databaseConverter.toTypyMiejscRecord(place);
+            record.attach(dsl.configuration());
+            record.store();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas dodania miejsca o id: " + place.getId() + " " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deletePlaceType(int id) {
+        try {
+            dsl.delete(TYPY_MIEJSC).where(TYPY_MIEJSC.ID.eq(id)).execute();
+            updater.updatePlaceType(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Błąd podczas usuwania typu miejsc o id: " + id + " " + e.getMessage());
+            return false;
+        }
+    }
+
 
     //Place methods
 

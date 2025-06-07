@@ -6,9 +6,7 @@ import tcs.familytree.core.date.SimpleDateBuilder;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
-import tcs.familytree.core.place.Place;
-import tcs.familytree.core.place.PlaceType;
-import tcs.familytree.core.place.SimpleConnectionPlaceBuilder;
+import tcs.familytree.core.place.*;
 import tcs.familytree.core.relation.Relation;
 import tcs.familytree.core.relation.RelationBuilder;
 import tcs.familytree.core.relation.SimpleRelationBuilder;
@@ -90,7 +88,31 @@ public class DatabaseConverter {
     }
 
     public MiejscaRecord toMiejscaRecord(Place place){
-        throw new NotImplemented();
+        MiejscaRecord record = new MiejscaRecord();
+        record.setId(place.getId());
+        record.setNazwa(place.getName());
+        record.setNadmiejsce(place.getSuperPlace() == null ? null : place.getSuperPlace().getId());
+        return record;
+    }
+
+    public PlaceType toPlaceType(TypyMiejscRecord record){
+        if(record == null){
+            throw new NullPointerException("TYPY MIEJSC RECORD CANNOT BE NULL");
+        }
+
+        PlaceType placeType = new SimplePlaceType(record.getValue(TYPY_MIEJSC.ID), record.getValue(TYPY_MIEJSC.NAZWA), new SimpleConnectionPlaceType(record.getValue(TYPY_MIEJSC.NADTYP), connection));
+        return new SimpleConnectionPlaceType(placeType, connection);
+    }
+
+    public TypyMiejscRecord toTypyMiejscRecord(PlaceType placeType){
+        if(placeType == null){
+            return null;
+        }
+        TypyMiejscRecord record = new TypyMiejscRecord();
+        record.setId(placeType.getId());
+        record.setNazwa(placeType.getName());
+        record.setNadtyp(placeType.getSuperPlaceType() == null ? null : placeType.getSuperPlaceType().getId());
+        return record;
     }
 
     public Relation toRelation(org.jooq.Record record){

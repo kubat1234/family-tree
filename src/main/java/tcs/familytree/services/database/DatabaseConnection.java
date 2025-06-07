@@ -3,6 +3,7 @@ package tcs.familytree.services.database;
 import tcs.familytree.core.*;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
+import tcs.familytree.core.place.PlaceType;
 import tcs.familytree.core.relation.Relation;
 
 import java.util.List;
@@ -61,6 +62,21 @@ public interface DatabaseConnection {
     default boolean deletePlace(Place place){
         return deletePlace(place.getId());
     }
+
+    PlaceType getPlaceType(int id);
+    default boolean checkIfPlaceTypeExist(int id){
+        return getPlaceType(id) != null;
+    }
+    default boolean checkIfPlaceTYpeExist(PlaceType place){
+        return checkIfPlaceTypeExist(place.getId());
+    }
+    boolean updatePlaceType(PlaceType place);
+    boolean addPlaceType(PlaceType place);
+    boolean deletePlaceType(int id);
+    default boolean deletePlaceType(PlaceType place){
+        return deletePlaceType(place.getId());
+    }
+
 
     List<Relation> getAllRelations();
     Relation getRelation(int id);
