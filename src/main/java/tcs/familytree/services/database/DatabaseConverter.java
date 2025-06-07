@@ -29,7 +29,6 @@ public class DatabaseConverter {
         PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
         builder.setId(record.getValue(OSOBY_NAZWISKA.ID));
         builder.setName(record.getValue(OSOBY_NAZWISKA.IMIE));
-        builder.setSurnames(record.getValue(OSOBY_NAZWISKA.NAZWISKO_RODOWE));
         builder.setNames(record.getValue(OSOBY_NAZWISKA.POZOSTALE_IMIONA) == null ? null : record.getValue(OSOBY_NAZWISKA.POZOSTALE_IMIONA).split(" "));
         builder.setFamilyName(record.getValue(OSOBY_NAZWISKA.NAZWISKO_RODOWE));
         builder.setSurnames(record.getValue(OSOBY_NAZWISKA.NAZWISKA) == null ? null : record.getValue(OSOBY_NAZWISKA.NAZWISKA).split(" "));
@@ -49,7 +48,6 @@ public class DatabaseConverter {
         PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
         builder.setId(record.getValue(OSOBY.ID));
         builder.setName(record.getValue(OSOBY.IMIE));
-        builder.setSurnames(record.getValue(OSOBY.NAZWISKO_RODOWE));
         builder.setNames(record.getValue(OSOBY.POZOSTALE_IMIONA) == null ? null : record.getValue(OSOBY.POZOSTALE_IMIONA).split(" "));
         builder.setFamilyName(record.getValue(OSOBY.NAZWISKO_RODOWE));
         builder.setMother(record.getValue(OSOBY.MATKA));

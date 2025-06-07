@@ -81,9 +81,9 @@ public class PersonEditionController{
 
         birthDateAccurateField.setSelected(person.getDateOfBirth().isAccurate());
         deathDateAccurateField.setSelected(person.getDateOfDeath().isAccurate());
-
-        allNamesField.setText(String.join(" ", person.getAllNames()));
-        allSurnamesField.setText(String.join(" ", person.getAllSurnames()));
+        System.out.println(person.getAllSurnames() + " loolodldsolfolsdoflodsf");
+        if(!person.getAllNames().isEmpty())allNamesField.setText(String.join(" ", person.getAllNames()));
+        if(!person.getAllSurnames().isEmpty())allSurnamesField.setText(String.join(" ", person.getAllSurnames()));
     }
 
     public void handleSave(ActionEvent actionEvent) {

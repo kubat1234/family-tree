@@ -33,6 +33,9 @@ public class SimplePerson implements Person {
         this.id = id;
         this.firstName = firstName;
         this.names = names;
+        if(names == null){
+            this.names = new ArrayList<>();
+        }
         this.familyName = familyName;
         this.surnames = surnames;
         if(surnames == null){
@@ -89,9 +92,6 @@ public class SimplePerson implements Person {
 
     @Override
     public List<String> getAllSurnames() {
-        if(surnames == null){
-            return new LinkedList<>();
-        }
         return surnames;
     }
 

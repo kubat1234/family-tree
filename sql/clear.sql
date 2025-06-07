@@ -32,6 +32,8 @@ DROP FUNCTION IF EXISTS check_if_nadtytul(child tytuly, ancestor tytuly) CASCADE
 DROP FUNCTION IF EXISTS check_if_nadtytul_update() CASCADE;
 DROP TRIGGER IF EXISTS dobry_poset_tytuly ON tytuly CASCADE;
 
+drop function if exists czy_osoba_zyla(osoba int, data custom_date) cascade;
+
 DROP VIEW IF EXISTS praca CASCADE;
 DROP VIEW IF EXISTS osoby_nazwiska;
 

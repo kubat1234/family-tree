@@ -26,21 +26,29 @@ $$;
 
 CREATE OR REPLACE FUNCTION date_comp(a custom_date, b custom_date) RETURNS boolean as $$
 BEGIN
-    IF a.rok = b.rok THEN
-        IF a.miesiac = b.miesiac THEN
-            IF a.dzien = b.dzien THEN RETURN TRUE;
-            ELSEIF a.dzien IS NULL THEN RETURN TRUE;
+    IF a.rok IS NULL THEN RETURN TRUE;
+    ELSEIF b.rok IS NULL THEN RETURN TRUE;
+    ELSEIF a.rok = b.rok THEN
+        IF a.miesiac IS NULL THEN RETURN TRUE;
+        ELSEIF b.miesiac IS NULL THEN RETURN TRUE;
+        ELSEIF a.miesiac = b.miesiac THEN
+            IF a.dzien IS NULL THEN RETURN TRUE;
             ELSEIF b.dzien IS NULL THEN RETURN TRUE;
+            ELSEIF a.dzien = b.dzien THEN RETURN TRUE;
             ELSE RETURN a.dzien < b.dzien;
             END IF;
-        ELSEIF a.miesiac IS NULL THEN RETURN TRUE;
-        ELSEIF b.miesiac IS NULL THEN RETURN TRUE;
         ELSE RETURN a.miesiac < b.miesiac;
         END IF;
     ELSE RETURN a.rok < b.rok;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
+
+create or replace function date_to_custom_date(data date) returns custom_date as $$
+begin
+    return (EXTRACT(YEAR FROM data),EXTRACT(MONTH FROM data),EXTRACT(DAY FROM data),true)::custom_date;
+end;
+$$ language plpgsql;
 
 CREATE OPERATOR < (
 LEFTARG = custom_date,
@@ -61,6 +69,12 @@ BEGIN
     RETURN (p_rok % 4 = 0 AND p_rok % 100 != 0) OR (p_rok % 400 = 0);
 END;
 $$ LANGUAGE plpgsql;
+
+create or replace function czy_osoba_zyla(osoba int, data custom_date) returns boolean as $$
+begin
+    return data < (select data_sm from osoby where id = osoba) and (select data_ur from osoby where id = osoba) < data;
+end;
+$$ language plpgsql;
 
 CREATE TABLE typy_miejsc (
   id serial PRIMARY KEY,
@@ -88,8 +102,8 @@ CREATE TABLE osoby (
   miejsce_sm int REFERENCES miejsca(id),
   data_sm custom_date not null default row(null,null,null,false) check(date_check(data_sm)),
   plec boolean,
-  CHECK ( data_ur < data_sm )
-  -- check na wciaz_zyje = false, jeżeli data_sm < now()
+  CHECK ( data_ur < data_sm ),
+  check ((date_to_custom_date(now()::date) < data_sm) or not wciaz_zyje)
 );
 
 CREATE TABLE typy_rs (
@@ -108,8 +122,9 @@ CREATE TABLE relacje_symetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rs int NOT NULL REFERENCES typy_rs(id),
   miejsce int REFERENCES miejsca(id),
-  data custom_date not null default row(null,null,null,false) check(date_check(data)), --TODO check czy osoby wtedy żyły
-  CHECK(osoba1 is not null or osoba2 is not null)
+  data custom_date not null default row(null,null,null,false) check(date_check(data)),
+  CHECK(osoba1 is not null or osoba2 is not null),
+  check(czy_osoba_zyla(osoba1,data))
 );
 
 CREATE TABLE relacje_niesymetryczne (
@@ -118,8 +133,9 @@ CREATE TABLE relacje_niesymetryczne (
   osoba2 int REFERENCES osoby(id),
   typ_rns int NOT NULL REFERENCES typy_rns(id),
   miejsce int REFERENCES miejsca(id),
-  data custom_date not null default row(null,null,null,false) check(date_check(data)), --TODO check czy osoby wtedy żyły
-  CHECK(osoba1 is not null or osoba2 is not null)
+  data custom_date not null default row(null,null,null,false) check(date_check(data)),
+  CHECK(osoba1 is not null or osoba2 is not null),
+  check(czy_osoba_zyla(osoba1,data) and czy_osoba_zyla(osoba2,data))
 );
 
 CREATE TABLE typy_uwag (
@@ -152,8 +168,8 @@ CREATE TABLE zawody_osoby (
   miejsce int REFERENCES miejsca(id),
   data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)),
   data_do custom_date not null default row(null,null,null,false) check(date_check(data_do)),
-    CHECK ( data_od < data_do )
-  --TODO check czy osoba wtedy żyła
+    CHECK ( data_od < data_do ),
+      check(czy_osoba_zyla(id_osoby,data_do) and czy_osoba_zyla(id_osoby,data_od))
 );
 
 CREATE TABLE tytuly (
@@ -193,9 +209,10 @@ CREATE SEQUENCE nazwiska_kolejnosc_seq
 CREATE TABLE nazwiska (
   id_osoby int REFERENCES osoby(id),
   nazwisko varchar NOT NULL,
-  data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)), --TODO check czy osoba wtedy żyła
+  data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)),
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
-  PRIMARY KEY (id_osoby, nazwisko)
+  PRIMARY KEY (id_osoby, nazwisko),
+    check(czy_osoba_zyla(id_osoby,data_od))
 );
 
 -- Funckje odpowiedzialnie za spójność tablicy osoby
@@ -410,7 +427,7 @@ adopcja
 COPY relacje_symetryczne(osoba1, osoba2, typ_rs, miejsce, data) FROM stdin WITH DELIMITER ' ';
 2 3 1 \N (1921,,,f)
 5 6 1 2 (1966,7,18,t)
-9 10 2 2 (1010,3,3,t)
+9 10 2 2 (2010,3,3,t)
 \.
 
 COPY relacje_niesymetryczne(osoba1, osoba2, typ_rns, miejsce, data) FROM stdin WITH DELIMITER ' ';
@@ -469,11 +486,11 @@ COPY tytuly_osoby(id_osoby, id_tytulu) FROM stdin WITH DELIMITER ' ';
 
 COPY nazwiska(id_osoby, nazwisko, data_od) FROM stdin WITH DELIMITER ' ';
 1 Nowak (,,,f)
-3 Nowak (2013,11,13,t)
+3 Nowak (1950,11,13,t)
 5 Kowal (,,,f)
 5 Nowak-Kowal (1966,7,18,t)
 9 Kowal (1988,3,,f)
-10 Kowal (1010,3,3,t)
+10 Kowal (2010,3,3,t)
 \.
 
 COMMIT;
