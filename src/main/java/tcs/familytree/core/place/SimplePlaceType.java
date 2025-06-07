@@ -26,4 +26,9 @@ public class SimplePlaceType implements PlaceType{
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

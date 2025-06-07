@@ -39,4 +39,9 @@ public class SimpleConnectionPlaceType extends AbstractConnectionData<PlaceType>
     public PlaceType getSuperPlaceType() {
         return data.getSuperPlaceType();
     }
+
+    @Override
+    public String toString() {
+        return data.toString();
+    }
 }

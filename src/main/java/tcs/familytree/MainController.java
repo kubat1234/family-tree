@@ -215,6 +215,6 @@ public class MainController {
     }
 
     public void openPlaceEdition(ActionEvent actionEvent) {
-        openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Edition");
+        openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Random Place Edition");
     }
 }

@@ -27,6 +27,16 @@ public class SimpleConnectionPlace extends AbstractConnectionData<Place> impleme
     }
 
     @Override
+    public void setPlace(Place place) {
+        if(isUnloaded()) load();
+        data.setPlace(place);
+        if(!connection.updatePlace(data)){
+            unload();
+            throw new DatabaseError("Place with id: " + id + "cannot update in database: " + connection + ".");
+        }
+    }
+
+    @Override
     public String getName() {
         return data.getName();
     }
