@@ -7,6 +7,8 @@ import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.person.SimpleConnectionPersonBuilder;
 import tcs.familytree.core.place.Place;
+import tcs.familytree.core.place.PlaceType;
+import tcs.familytree.core.place.SimpleConnectionPlaceBuilder;
 import tcs.familytree.core.relation.Relation;
 import tcs.familytree.core.relation.RelationBuilder;
 import tcs.familytree.core.relation.SimpleRelationBuilder;
@@ -76,7 +78,15 @@ public class DatabaseConverter {
     }
 
     public Place toPlace(MiejscaRecord record){
-        throw new NotImplemented();
+        if(record == null){
+            return null;
+        }
+        SimpleConnectionPlaceBuilder builder = new SimpleConnectionPlaceBuilder(connection);
+        builder.setId(record.getValue(MIEJSCA.ID));
+        builder.setName(record.getValue(MIEJSCA.NAZWA));
+        builder.setSuperPlace(record.getValue(MIEJSCA.NADMIEJSCE));
+        //TODO type;
+        return builder.build();
     }
 
     public MiejscaRecord toMiejscaRecord(Place place){

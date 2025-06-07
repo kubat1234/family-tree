@@ -128,7 +128,7 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder setPlaceOfBirth(Integer placeOfBirthId) {
-        // TODO
+        this.birthPlace = connection.getPlace(placeOfBirthId == null ? 0 : placeOfBirthId);
         return this;
     }
 
@@ -140,7 +140,7 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder setPlaceOfDeath(Integer placeOfDeathId) {
-        //TODO
+        this.deathPlace = connection.getPlace(placeOfDeathId == null ? 0 : placeOfDeathId);
         return this;
     }
 

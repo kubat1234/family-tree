@@ -6,6 +6,13 @@ public class SimplePlace implements Place{
     Place superPlace;
     PlaceType placeType;
 
+    SimplePlace(int id, String name, Place superPlace, PlaceType placeType){
+        this.id = id;
+        this.name = name;
+        this.superPlace = superPlace;
+        this.placeType = placeType;
+    }
+
     @Override
     public String getName() {
         return name;
@@ -39,5 +46,15 @@ public class SimplePlace implements Place{
     @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        if(superPlace == null){
+            return name;
+        }else{
+            return superPlace.toString() + " " + name;
+
+        }
     }
 }

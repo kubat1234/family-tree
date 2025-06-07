@@ -4,7 +4,7 @@ import tcs.familytree.core.date.Date;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.services.database.DatabaseConnection;
 
-public class SimpleConnectionPersonBuilder implements PersonBuilder{
+public class SimpleConnectionPersonBuilder  implements PersonBuilder{
     DatabaseConnection connection;
     PersonBuilder builder;
 
@@ -113,7 +113,8 @@ public class SimpleConnectionPersonBuilder implements PersonBuilder{
 
     @Override
     public PersonBuilder setPlaceOfBirth(Integer placeOfBirthId) {
-        return null;
+        builder.setPlaceOfBirth(placeOfBirthId);
+        return this;
     }
 
     @Override

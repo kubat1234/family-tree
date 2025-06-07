@@ -11,9 +11,19 @@ public class SimpleConnectionPlace extends AbstractConnectionData<Place> impleme
         connection.getUpdater().registerPlace(this);
     }
 
+    public SimpleConnectionPlace(Place place, DatabaseConnection connection) {
+        super(place, connection);
+        connection.getUpdater().registerPlace(this);
+    }
+
     @Override
     public void load() {
-
+        if(isUnloaded()){
+            if(!connection.checkIfPlaceExist(id)){
+                throw new DatabaseError("Person with id: " + id + "cannot load from database: " + connection + ".");
+            }
+            data = connection.getPlace(id);
+        }
     }
 
     @Override
@@ -65,5 +75,16 @@ public class SimpleConnectionPlace extends AbstractConnectionData<Place> impleme
     @Override
     public Class<? extends Identifiable> getDataClass(){
         return Place.class;
+    }
+
+    @Override
+    public String toString() {
+        if(data == null){
+            load();
+        }
+        if(data == null){
+            return "";
+        }
+        return data.toString();
     }
 }
