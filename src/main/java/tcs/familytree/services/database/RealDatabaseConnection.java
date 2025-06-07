@@ -192,6 +192,11 @@ public class RealDatabaseConnection implements DatabaseConnection {
     }
 
     @Override
+    public List<PlaceType> getAllPlaceType() {
+        return dsl.select().from(TYPY_MIEJSC).fetchInto(TypyMiejscRecord.class).stream().map(databaseConverter::toPlaceType).toList();
+    }
+
+    @Override
     public boolean updatePlaceType(PlaceType place) {
         try {
             TypyMiejscRecord record = databaseConverter.toTypyMiejscRecord(place);

@@ -5,10 +5,14 @@ import org.jooq.Record;
 import org.jooq.Result;
 import tcs.familytree.MainController;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
+import tcs.familytree.core.place.PlaceType;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.views.SimplePersonDescription;
+
+import java.util.List;
 
 public class GraphOrientedViewModel implements GraphViewModel {
     Person centralPerson;
@@ -99,5 +103,15 @@ public class GraphOrientedViewModel implements GraphViewModel {
     @Override
     public Result<org.jooq.Record> sendQuery(String query) {
         return provider.sendQuery(query);
+    }
+
+    @Override
+    public List<Place> getAllPlaces() {
+        return provider.getAllPlaces();
+    }
+
+    @Override
+    public List<PlaceType> getAllPlaceTypes() {
+        return provider.getAllPlacesType();
     }
 }

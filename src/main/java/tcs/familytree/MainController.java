@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
@@ -189,5 +190,31 @@ public class MainController {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void openEditionPanel(Place place, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/edit-place.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(stage);
+            dialogStage.setScene(new Scene(page));
+
+            EditionPlaceController controller = loader.getController();
+            controller.init(graphViewModel);
+            controller.setPlace(place);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openPlaceEdition(ActionEvent actionEvent) {
+        openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Edition");
     }
 }

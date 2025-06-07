@@ -9,20 +9,21 @@
             <MenuItem mnemonicParsing="false" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Edit Person" onAction="#openEditionPanelMainPerson"/>
-            <MenuItem mnemonicParsing="false" text="Add Person" onAction="#openAddingPanel"/>
+            <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edit Person" />
+            <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Add Person" />
+         <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edit Place" />
         </Menu>
         <Menu mnemonicParsing="false" text="Load">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
             <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
          <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Open Left Panel" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Admin" >
+        <Menu mnemonicParsing="false" text="Admin">
             <MenuItem mnemonicParsing="false" onAction="#openAdminPanel" text="Admin" />
         </Menu>
     </MenuBar>
     <SplitPane dividerPositions="0.29797979797979796" prefWidth="1000.0" VBox.vgrow="ALWAYS">
-        <ScrollPane fitToHeight="true" fitToWidth="true"  prefWidth="200.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="200.0">
             <StackPane fx:id="leftPanel2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="176.0" />
         </ScrollPane>
         <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="747.0">

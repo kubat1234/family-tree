@@ -68,6 +68,7 @@ public interface DatabaseConnection {
     }
 
     PlaceType getPlaceType(int id);
+    List<PlaceType> getAllPlaceType();
     default boolean checkIfPlaceTypeExist(int id){
         return getPlaceType(id) != null;
     }
