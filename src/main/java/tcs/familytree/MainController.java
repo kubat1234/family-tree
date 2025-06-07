@@ -130,7 +130,7 @@ public class MainController {
         graphViewModel.changeMod(x, y);
     }
 
-    public void openLeftPanel(ActionEvent actionEvent) {
+    public void openLeftPanel(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/simple-person-description.fxml"));
         try{
             AnchorPane view = loader.load();
@@ -141,6 +141,7 @@ public class MainController {
         }catch (Exception e){
             System.out.println("error");
             System.out.println(e.getMessage());
+            throw e;
         }
     }
 

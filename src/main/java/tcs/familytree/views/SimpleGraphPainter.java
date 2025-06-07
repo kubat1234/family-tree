@@ -51,15 +51,11 @@ public class SimpleGraphPainter {
         try {
             List<Node> allNodes = new ArrayList<>();
 
-            System.out.println("Before lines:");
             List<LineOnPlane> lines = graphOnPlane.getLines();
             if(lines != null){
-                System.out.println("In Lines");
                 List<Line> doneLines = new LinkedList<>();
                 for(LineOnPlane parentLine: lines){
                     Line line = parentLine.build(graphViewModel.x(), graphViewModel.y());
-                    System.out.println("Line: (" + line.getStartX() + ", " + line.getStartY() + ") -> (" +
-                            line.getEndX() + ", " + line.getEndY() + ")");
                     line.setStroke(Color.BLACK);
                     line.setStrokeWidth(1.5);
                     doneLines.add(line);

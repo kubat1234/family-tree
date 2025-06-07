@@ -138,6 +138,8 @@ public class SimplePersonDescription implements Initializable {
         TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             System.out.println("SELECT ITEM: " + selectedItem.getValue());
+        }else{
+            return;
         }
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 2) {
             if(treeItemPersonMap.containsKey(selectedItem)){

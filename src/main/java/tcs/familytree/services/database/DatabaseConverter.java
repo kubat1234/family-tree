@@ -83,7 +83,7 @@ public class DatabaseConverter {
         builder.setId(record.getValue(MIEJSCA.ID));
         builder.setName(record.getValue(MIEJSCA.NAZWA));
         builder.setSuperPlace(record.getValue(MIEJSCA.NADMIEJSCE));
-        //TODO type;
+        builder.setPlaceType(record.getValue(MIEJSCA.TYP_MIEJSCA) == null ? null : connection.getPlaceType(record.getValue(MIEJSCA.TYP_MIEJSCA)));
         return builder.build();
     }
 
@@ -100,7 +100,7 @@ public class DatabaseConverter {
             throw new NullPointerException("TYPY MIEJSC RECORD CANNOT BE NULL");
         }
 
-        PlaceType placeType = new SimplePlaceType(record.getValue(TYPY_MIEJSC.ID), record.getValue(TYPY_MIEJSC.NAZWA), new SimpleConnectionPlaceType(record.getValue(TYPY_MIEJSC.NADTYP), connection));
+        PlaceType placeType = new SimplePlaceType(record.getValue(TYPY_MIEJSC.ID), record.getValue(TYPY_MIEJSC.NAZWA),record.getValue(TYPY_MIEJSC.NADTYP) == null ? null : new SimpleConnectionPlaceType(record.getValue(TYPY_MIEJSC.NADTYP), connection));
         return new SimpleConnectionPlaceType(placeType, connection);
     }
 
