@@ -320,6 +320,44 @@ select osoby.*, string_agg(coalesce(nazwiska.nazwisko,''),' ' order by nazwiska.
 from osoby left outer join nazwiska on osoby.id = nazwiska.id_osoby
 group by osoby.id;
 
+create rule osoby_nazwiska_insert as
+on insert to osoby_nazwiska do instead
+(
+    insert into osoby values (new.id,
+                              new.imie,
+                              new.pozostale_imiona,
+                              new.nazwisko_rodowe,
+                              new.matka,new.ojciec,
+                              coalesce(new.data_ur,(null,null,null,false)::custom_date),
+                              new.miejsce_ur,
+                              coalesce(new.wciaz_zyje,false),
+                              new.miejsce_sm,
+                              coalesce(new.data_sm,(null,null,null,false)::custom_date),
+                              new.plec);
+    insert into nazwiska(id_osoby, nazwisko)
+    select new.id, unnest(string_to_array(new.nazwiska,' '));
+);
+
+create rule osoby_nazwiska_update as
+    on update to osoby_nazwiska do instead
+    (
+    update osoby set (imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur,miejsce_ur,wciaz_zyje,miejsce_sm,data_sm,plec)
+        = (new.imie,
+          new.pozostale_imiona,
+          new.nazwisko_rodowe,
+          new.matka,new.ojciec,
+          coalesce(new.data_ur,(null,null,null,false)::custom_date),
+          new.miejsce_ur,
+          coalesce(new.wciaz_zyje,false),
+          new.miejsce_sm,
+          coalesce(new.data_sm,(null,null,null,false)::custom_date),
+          new.plec)
+    where id = new.id;
+    delete from nazwiska where id_osoby = new.id;
+    insert into nazwiska(id_osoby, nazwisko)
+    select new.id, unnest(string_to_array(new.nazwiska,' '));
+    );
+
 --przykładowe dane
 
 COPY typy_miejsc (nazwa, nadtyp) FROM stdin WITH DELIMITER ' ';
