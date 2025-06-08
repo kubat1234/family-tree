@@ -15,6 +15,7 @@ import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
 import tcs.familytree.views.*;
+import tcs.familytree.views.cli.CLIView;
 
 import java.io.IOException;
 
@@ -25,6 +26,10 @@ public class MainController {
 
     Stage stage;
 
+    public void openCLI(ActionEvent actionEvent) {
+        CLIView cliView = new CLIView(new SingleDatabaseViewModel());
+    }
+
     private enum OpenedTab {
         NONE,
         MOVABLE_PAINTER,
@@ -34,7 +39,7 @@ public class MainController {
     private OpenedTab openedTab = OpenedTab.NONE;
     private GraphView graphView;
 
-    private boolean colorClicked(String value, OpenedTab tab) {
+    private boolean colorClicked(OpenedTab tab) {
         OpenedTab oldTab = openedTab;
         openedTab = tab;
         if(tab == oldTab) {
@@ -74,11 +79,9 @@ public class MainController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//        GraphProvider tdp = new TemporaryDataProvider2();
         graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp, this);
         graphView = null;
-        colorClicked("NONE", OpenedTab.NONE);
-        System.out.println("Load OK");
+        colorClicked(OpenedTab.NONE);
         refresh();
     }
 
@@ -88,7 +91,7 @@ public class MainController {
 
     public void refreshGraph(){
         graphViewModel.updateGraph();
-        if(!colorClicked("movable", OpenedTab.MOVABLE_PAINTER)) {
+        if(!colorClicked(OpenedTab.MOVABLE_PAINTER)) {
             return;
         }
         if(graphViewModel == null){
@@ -103,7 +106,6 @@ public class MainController {
     }
 
     void moveLeft(){
-        System.out.println("Move Left");
         graphViewModel.changeMod(-10, 0);
         refresh();
     }

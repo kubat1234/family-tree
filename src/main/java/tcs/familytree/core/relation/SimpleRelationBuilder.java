@@ -75,7 +75,6 @@ public class SimpleRelationBuilder implements RelationBuilder{
 
     @Override
     public RelationBuilder setPlace(Integer placeId) {
-//         TODO
 //        return setPlace(new SimpleConnectionPlace(placeId,connection));
         return this;
     }

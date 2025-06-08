@@ -1,20 +1,17 @@
 package tcs.familytree.views;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
-import tcs.familytree.core.place.SimpleConnectionPlace;
 import tcs.familytree.viewmodels.GraphViewModel;
 
-import java.net.URL;
 import java.util.*;
 
-public class SimplePersonDescription implements Initializable {
+public class SimplePersonDescription {
 
     Map<TreeItem<String>, Person> treeItemPersonMap = new HashMap<>();
     Map<TreeItem<String>, Place> treeItemPlaceMap = new HashMap<>();
@@ -141,27 +138,15 @@ public class SimplePersonDescription implements Initializable {
     @FXML
     public void selectItem(MouseEvent event){
         TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            System.out.println("SELECT ITEM: " + selectedItem.getValue());
-        }else{
-            return;
-        }
+        if (selectedItem == null) {
+            return;        }
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 2) {
             if(treeItemPersonMap.containsKey(selectedItem)){
                 viewModel.updateCentral(treeItemPersonMap.get(selectedItem));
-                System.out.println("Double-clicked and find : " + selectedItem.getValue());
             }
             if(treeItemPlaceMap.containsKey(selectedItem)){
                 viewModel.getMainController().openEditionPanel(treeItemPlaceMap.get(selectedItem), "Place edition");
             }
-            System.out.println("Double-clicked on: " + selectedItem.getValue());
         }
-        System.out.println("SELECT ITEM");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("initialize");
-//        init();
     }
 }

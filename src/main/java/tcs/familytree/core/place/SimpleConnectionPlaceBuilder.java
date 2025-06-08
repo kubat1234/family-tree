@@ -1,6 +1,5 @@
 package tcs.familytree.core.place;
 
-import tcs.familytree.core.person.Person;
 import tcs.familytree.services.database.DatabaseConnection;
 
 public class SimpleConnectionPlaceBuilder{

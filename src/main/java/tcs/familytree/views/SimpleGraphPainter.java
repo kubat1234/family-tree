@@ -61,8 +61,6 @@ public class SimpleGraphPainter {
                     doneLines.add(line);
                 }
                 allNodes.addAll(doneLines); // linie
-
-//                container.getChildren().setAll(doneLines);
             }
 
             List<PersonOnPlane> personsOnPlane = graphOnPlane.getPersons();

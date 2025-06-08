@@ -2,6 +2,7 @@ package tcs.familytree.core.relationtype;
 
 import tcs.familytree.core.AbstractConnectionData;
 import tcs.familytree.core.Identifiable;
+import tcs.familytree.core.NotImplemented;
 import tcs.familytree.services.database.DatabaseConnection;
 
 public class SimpleConnectionRelationType  extends AbstractConnectionData<RelationType> implements RelationType{
@@ -16,7 +17,7 @@ public class SimpleConnectionRelationType  extends AbstractConnectionData<Relati
     }
     @Override
     public void load() {
-        //TODO
+        throw new NotImplemented("Load in SimpleConnectionRelationType");
     }
 
     @Override

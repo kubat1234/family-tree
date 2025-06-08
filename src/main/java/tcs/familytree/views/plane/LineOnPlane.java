@@ -1,6 +1,5 @@
 package tcs.familytree.views.plane;
 
-
 import javafx.scene.shape.Line;
 
 public interface LineOnPlane {

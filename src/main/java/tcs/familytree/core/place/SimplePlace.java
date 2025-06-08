@@ -68,7 +68,7 @@ public class SimplePlace implements Place{
         if(superPlace == null){
             return name;
         }else{
-            return superPlace.toString() + " " + name;
+            return superPlace + " " + name;
         }
     }
 }

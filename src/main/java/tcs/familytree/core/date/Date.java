@@ -12,7 +12,6 @@ public interface Date /* extends Identifiable */ {
     Integer getMonth();
     Integer getDay();
     boolean isAccurate();
-    // TODO getDate() accepts nullables
     default String getDate(){
         if(getYear() == null)return "";
         if(getMonth() == null) {

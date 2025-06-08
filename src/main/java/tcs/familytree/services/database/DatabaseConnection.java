@@ -1,6 +1,5 @@
 package tcs.familytree.services.database;
 
-import org.jooq.Record;
 import org.jooq.Result;
 import tcs.familytree.core.*;
 import tcs.familytree.core.person.Person;

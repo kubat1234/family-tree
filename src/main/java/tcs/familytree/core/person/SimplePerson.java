@@ -6,7 +6,6 @@ import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -277,32 +276,6 @@ public class SimplePerson implements Person {
         if(familyName != null) stringBuilder.append(" ").append(familyName);
         if(surnames != null) stringBuilder.append(" ").append(String.join(" ",surnames));
         if(familyName == null && (surnames == null || surnames.isEmpty())) stringBuilder.append(" unknown");
-//        stringBuilder.append(" ");
-//        if(familyName == null){
-//            if(surnames != null){
-//                if(surnames.isEmpty()){
-//                    stringBuilder.append("Unknown");
-//                }
-//                 boolean first = true;
-//                for(String surname: surnames){
-//                    if(surname == null){
-//                        continue;
-//                    }
-//                    if(!first){
-//                        stringBuilder.append(" ");
-//                    }
-//                    stringBuilder.append(surname);
-//                }
-//            }else{
-//                stringBuilder.append("Unknown");
-//            }
-//        }else{
-//            if(surnames != null){
-//                for(String surname: surnames){
-//                    stringBuilder.append(" ").append(surname);
-//                }
-//            }
-//        }
         return stringBuilder.toString();
     }
 }

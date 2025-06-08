@@ -3,10 +3,8 @@ package tcs.familytree.views;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import tcs.familytree.core.date.SimpleDate;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.core.person.SimplePerson;
 import tcs.familytree.viewmodels.GraphViewModel;
 
 import java.util.Collection;
@@ -158,14 +156,6 @@ public class PersonFinderController {
 
     public void handleSave(ActionEvent actionEvent) {
         try{
-//            Person newPerson = new SimplePerson(person);
-//            newPerson.setAllNames(allNamesField.getText().split(" "));
-//            newPerson.setFamilyName(surnameField.getText());
-//            newPerson.setAlive(aliveCheckbox.isSelected());
-//            newPerson.setGender(genderBox.getValue());
-//            newPerson.setMother(motherBox.getValue());
-//            newPerson.setFather(fatherBox.getValue());
-
             Collection<Person> list = viewModel.getGraphProperty().get().getAllPersons();
             List<TreeItem<String>> ready = new LinkedList<>();
 

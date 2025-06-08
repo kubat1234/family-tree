@@ -21,7 +21,7 @@ public class SimpleConnectionRelation extends AbstractConnectionData<Relation> i
 
     @Override
     public void load() {
-        throw new NotImplemented(); // TODO
+        throw new NotImplemented();
     }
 
     @Override

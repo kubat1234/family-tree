@@ -2,8 +2,6 @@ package tcs.familytree.services;
 
 import tcs.familytree.core.Identifiable;
 import tcs.familytree.core.person.Person;
-import tcs.familytree.core.place.Place;
-import tcs.familytree.core.place.PlaceType;
 
 import java.util.Collection;
 import java.util.List;
