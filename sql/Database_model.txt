@@ -5,11 +5,11 @@ Table osoby {
   nazwisko_rodowe varchar
   matka integer
   ojciec integer
-  data_ur integer
+  data_ur custom_date
   miejsce_ur integer
   wciaz_zyje boolean [not null]
   miejsce_sm integer
-  data_sm integer
+  data_sm custom_date
   plec boolean
 }
 
@@ -19,7 +19,7 @@ Table relacje_symetryczne {
   osoba2 integer
   typ_rs integer [not null]
   miejsce integer
-  data integer
+  data custom_date
 }
 
 Table relacje_niesymetryczne {
@@ -28,7 +28,7 @@ Table relacje_niesymetryczne {
   osoba2 integer
   typ_rns integer [not null]
   miejsce integer
-  data integer
+  data custom_date
 }
 
 Table typy_rs {
@@ -81,8 +81,8 @@ Table zawody_osoby{
   id_zawodu integer [not null]
   stanowisko varchar
   miejsce integer
-  data_od integer
-  data_do integer
+  data_od custom_date
+  data_do custom_date
 }
 
 Table tytuly{
@@ -123,8 +123,34 @@ Table daty{
 Table nazwiska{
   id_osoby integer [primary key]
   nazwisko varchar [primary key]
-  data_od integer
+  data_od custom_date
+  data_do custom_date
   kolejnosc integer [not null] 
+}
+
+TABLE typy_dokumentow{
+  id integer [primary key]
+  nazwa varchar
+}
+
+TABLE instytucje{
+  id integer [primary key]
+  nazwa varchar
+}
+
+TABLE swiadkowie{
+  osoba integer [primary key]
+  dokument integer [primary key]
+}
+
+TABLE dokumenty{
+  id integer [primary key]
+  name varchar
+  osoba integer
+  data_zawarcia custom_date
+  miejsce_zawarcia integer
+  instytucja integer
+  typy_dokumentow integer
 }
 
 Ref: "osoby"."id" > "relacje_symetryczne"."osoba1"
@@ -172,3 +198,13 @@ Ref: "osoby"."id" < "nazwiska"."id_osoby"
 Ref: "osoby"."id" < "osoby"."matka"
 
 Ref: "osoby"."id" < "osoby"."ojciec"
+
+Ref: "typy_dokumentow"."id" < "dokumenty"."typy_dokumentow"
+
+Ref: "dokumenty"."instytucja" < "instytucje"."id"
+
+Ref: "swiadkowie"."osoba" < "osoby"."id"
+
+Ref: "dokumenty"."miejsce_zawarcia" < "miejsca"."id"
+
+Ref: "swiadkowie"."dokument" < "dokumenty"."id"
