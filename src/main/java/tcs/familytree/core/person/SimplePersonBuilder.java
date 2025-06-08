@@ -164,7 +164,9 @@ public class SimplePersonBuilder implements PersonBuilder {
 
     @Override
     public PersonBuilder addPartner(Person partner) {
-        partners.add(partner);
+        if(partner != null) {
+            partners.add(partner);
+        }
         return this;
     }
 
