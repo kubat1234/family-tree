@@ -242,10 +242,8 @@ create table dokumenty(
 create table swiadkowie(
 	osoba INTEGER references OSOBY(id),
 	dokument INTEGER references DOKUMENTY(id),
-	primary_key(osoba, dokumenty)
+	primary key(osoba, dokument)
 );
-
-select * from dokumenty;
 
 -- Funckje odpowiedzialnie za spójność tablicy osoby
 
@@ -606,25 +604,36 @@ create index idx_nazwiska_id on nazwiska(id_osoby);
 
 COPY typy_miejsc (nazwa, nadtyp) FROM stdin WITH DELIMITER ' ';
 kraj \N
-miasto 1
-ulica 2
-dom 3
+województwo 1
+miasto 2
+dzielnica 3
+ulica 4
+dom 5
+mieszkanie 6
 \.
 
 COPY miejsca (nazwa, nadmiejsce, typ_miejsca) FROM stdin WITH DELIMITER ' ';
 Polska \N 1
+Czechy \N 1
 Kraków 1 2
-Basztowa 2 3
-8 3 4
 Toruń 1 2
-Kopernika 5 3
-al.\ Mickiewicza 2 3
-4 6 4
-19 7 4
 Tymbark \N 2
-1000 10 4
-26 7 4
-48 7 4
+Wrocław \N 2
+Praga 2 2
+Ruczaj 3 3
+Nowa\ Huta 3 3
+Basztowa 3 4
+al.\ Mickiewicza 3 4
+Kopernika 4 4
+Łojasiewicza 3 4
+Akacjowa 9 4
+8 10 5
+6 13 5
+4 13 5
+100 14 5
+1000 5 5
+5 18 6
+2 15 6
 \.
 
 COPY osoby (imie,pozostale_imiona,nazwisko_rodowe,matka,ojciec,data_ur, miejsce_ur, wciaz_zyje, miejsce_sm, data_sm, plec) FROM stdin WITH DELIMITER ' ';
