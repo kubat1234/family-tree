@@ -18,12 +18,18 @@ import tcs.familytree.views.*;
 
 import java.io.IOException;
 
+import static javafx.application.Platform.exit;
+
 public class MainController {
     @FXML
     public StackPane mainSpace;
     public StackPane leftPanel2;
 
     Stage stage;
+
+    public void closeApp() {
+        exit();
+    }
 
     private enum OpenedTab {
         NONE,
@@ -78,7 +84,6 @@ public class MainController {
         graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp, this);
         graphView = null;
         colorClicked("NONE", OpenedTab.NONE);
-        System.out.println("Load OK");
         refresh();
     }
 
@@ -103,7 +108,6 @@ public class MainController {
     }
 
     void moveLeft(){
-        System.out.println("Move Left");
         graphViewModel.changeMod(-10, 0);
         refresh();
     }

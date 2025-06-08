@@ -5,21 +5,19 @@
 
 <VBox prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.MainController">
     <MenuBar prefHeight="25.0" prefWidth="1000.0">
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" text="Close" />
+        <Menu mnemonicParsing="false" text="Plik">
+            <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Wczytaj" />
+            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Odśwież" />
+            <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Otwórz lewy panel" />
+            <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Zamknij" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edit Person" />
-            <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Add Person" />
-         <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edit Place" />
+        <Menu mnemonicParsing="false" text="Edytuj">
+            <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edytuj osobę" />
+            <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Dodaj osobę" />
+            <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edytuj miejsce" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Load">
-            <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
-            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-         <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Open Left Panel" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Admin">
-            <MenuItem mnemonicParsing="false" onAction="#openAdminPanel" text="Admin" />
+        <Menu mnemonicParsing="false" text="Zaawansowane">
+            <MenuItem mnemonicParsing="false" onAction="#openAdminPanel" text="Panel administratora" />
         </Menu>
     </MenuBar>
     <SplitPane dividerPositions="0.29797979797979796" prefWidth="1000.0" VBox.vgrow="ALWAYS">

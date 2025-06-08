@@ -94,7 +94,7 @@ public class SimplePersonDescription implements Initializable {
             return globalPersonList;
         }
 
-        TreeItem<String> personListItem = new TreeItem<>("List of all person");
+        TreeItem<String> personListItem = new TreeItem<>("Lista wszystkich osób");
         List<TreeItem<String>> personList = new LinkedList<>();
 
         for(Person person: viewModel.getGraphProperty().get().getAllPersons()){
@@ -114,7 +114,6 @@ public class SimplePersonDescription implements Initializable {
     }
 
     public void init(GraphViewModel viewModel){
-        System.out.println("init");
         this.viewModel = viewModel;
         if(viewModel == null){
             throw new NullPointerException("INIT - view model don't exist");
@@ -136,24 +135,19 @@ public class SimplePersonDescription implements Initializable {
     @FXML
     public void selectItem(MouseEvent event){
         TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            System.out.println("SELECT ITEM: " + selectedItem.getValue());
-        }else{
+        if (selectedItem == null) {
             return;
         }
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 2) {
             if(treeItemPersonMap.containsKey(selectedItem)){
                 viewModel.updateCentral(treeItemPersonMap.get(selectedItem));
-                System.out.println("Double-clicked and find : " + selectedItem.getValue());
             }
-            System.out.println("Double-clicked on: " + selectedItem.getValue());
         }
-        System.out.println("SELECT ITEM");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("initialize");
+//        System.out.println("initialize");
 //        init();
     }
 }
