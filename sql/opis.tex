@@ -24,12 +24,15 @@ Projektem jest baza danych genealogicznych. Projekt jest łączony z kursem Prog
 \end{center}
 Centralną tabelą w bazie jest tabela \texttt{osoby}. Pozostałe tabele można podzielić na kilka grup.
 
-\subsection{Daty i miejsca}
-Do tych dwóch tabel odwołuje się bardzo wiele tabel z różnych części schematu. Dla czytelności pozwoliliśmy sobie nie rysować wszystkich tych połączeń.
+\subsection{Daty}
+Daty u nas są własnym typ Daty odpowiadający, za obsługę dat. Posiada on rok, miesiąc i dzień. 
+
+Często daty z życia przodków jesteśmy w stanie oszacować jedynie z pewną dokładnością, dlatego dodaliśmy do typu \texttt{daty} atrybut \texttt{czy\_dokladna}, a dzień i miesiąc są nieobowiązkowe.
+
+\subsection{Miejsca}
+Do tabeli Miejsca odwołujemy się bardzo wiele tabel z różnych części schematu. Dla czytelności pozwoliliśmy sobie nie rysować wszystkich tych połączeń.
 
 W przypadku miejsc wprowadziliśmy strukturę hierarchiczną, np. dom jest na ulicy, ulica jest w miejscowości itp.
-
-Często daty z życia przodków jesteśmy w stanie oszacować jedynie z pewną dokładnością, dlatego dodaliśmy w tabeli \texttt{daty} atrybut \texttt{czy\_dokladna}, a dzień i miesiąc są nieobowiązkowe.
 
 \subsection{Osoby}
 Jest to centralna tabela, zawierająca podstawowe informacje o każdej osobie.
@@ -83,7 +86,7 @@ Tabele dokument, zawiera informacje o dokumentach powiązanych z daną osobą. P
 \subsection{Funkcje}
 \begin{itemize}
 \item funkcje przechodzące po drzewie genealogicznym, np. funkcja sprawdzająca, czy ktoś nie jest swoim własnym przodkiem.
-\item funkcje obsługujące nasz typ dat (miesiąc albo dzień mogą być \texttt{null}), np. porównująca dwie daty lub konwertująca na datę w formacie sql
+\item funkcje obsługujące nasz typ dat (miesiąc albo dzień mogą być \texttt{null}), np. porównująca dwie daty
 \end{itemize}
 
 \subsection{Checki}
