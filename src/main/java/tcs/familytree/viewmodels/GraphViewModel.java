@@ -25,4 +25,5 @@ public interface GraphViewModel extends SingleTreeViewModel {
     Result<org.jooq.Record> sendQuery(String query);
     List<Place> getAllPlaces();
     List<PlaceType> getAllPlaceTypes();
+    void updateAll();
 }

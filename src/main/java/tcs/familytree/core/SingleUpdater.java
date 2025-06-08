@@ -16,6 +16,14 @@ public class SingleUpdater<T extends Identifiable> {
         }
     }
 
+    public void updateAll(){
+        for(Map.Entry<Integer, List<ConnectionData<T>>> entry : elements.entrySet()){
+            for(ConnectionData<T> element : entry.getValue()){
+                element.unload();
+            }
+        }
+    }
+
     public void update(int id){
         if(elements.containsKey(id)){
             for(ConnectionData<T> element : elements.get(id)){

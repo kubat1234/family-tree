@@ -36,6 +36,8 @@ public class AdminPanel implements Initializable {
         try {
             Result<org.jooq.Record> result = viewModel.sendQuery(queryTextArea.getText());
             buildDynamicTable(dynamicTable, result);
+            viewModel.updateAll();
+            viewModel.refresh().hardRefresh();
         }catch(Exception e) {
             errorArea.setText(e.getMessage());
         }

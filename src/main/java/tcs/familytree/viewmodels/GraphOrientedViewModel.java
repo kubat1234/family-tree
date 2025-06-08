@@ -114,4 +114,9 @@ public class GraphOrientedViewModel implements GraphViewModel {
     public List<PlaceType> getAllPlaceTypes() {
         return provider.getAllPlacesType();
     }
+
+    @Override
+    public void updateAll(){
+        provider.updateAll();
+    };
 }

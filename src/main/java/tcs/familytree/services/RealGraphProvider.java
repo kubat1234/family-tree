@@ -50,6 +50,11 @@ public class RealGraphProvider implements GraphProvider{
         return connection.sendQuery(query);
     }
 
+    @Override
+    public void updateAll(){
+        connection.getUpdater().updateAll();
+    };
+
     /**
      * Don't use it plz
      */

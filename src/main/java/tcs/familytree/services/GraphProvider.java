@@ -19,6 +19,6 @@ public interface GraphProvider {
     Person createNewPerson();
 
     Result<org.jooq.Record> sendQuery(String query);
-
+    void updateAll();
 
 }

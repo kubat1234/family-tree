@@ -76,4 +76,12 @@ public class Updater {
     public void unregisterRelationType(ConnectionData<RelationType> data){
         relationTypeUpdater.unregister(data);
     }
+
+    public void updateAll(){
+        personUpdater.updateAll();
+        placeUpdater.updateAll();
+        relationUpdater.updateAll();
+        relationTypeUpdater.updateAll();
+        placeTypeUpdater.updateAll();
+    }
 }
