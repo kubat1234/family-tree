@@ -25,9 +25,9 @@ Projektem jest baza danych genealogicznych. Projekt jest łączony z kursem Prog
 Centralną tabelą w bazie jest tabela \texttt{osoby}. Pozostałe tabele można podzielić na kilka grup.
 
 \subsection{Daty}
-Daty u nas są własnym typ Daty odpowiadający, za obsługę dat. Posiada on rok, miesiąc i dzień. 
+Daty u nas są własnym typem. Posiada on rok, miesiąc i dzień. 
 
-Często daty z życia przodków jesteśmy w stanie oszacować jedynie z pewną dokładnością, dlatego dodaliśmy do typu \texttt{daty} atrybut \texttt{czy\_dokladna}, a dzień i miesiąc są nieobowiązkowe.
+Często daty z życia przodków jesteśmy w stanie oszacować jedynie z pewną dokładnością, dlatego dodaliśmy do typu \texttt{custom\_date} atrybut \texttt{czy\_dokladna}, a dzień i miesiąc są nieobowiązkowe.
 
 \subsection{Miejsca}
 Do tabeli Miejsca odwołujemy się bardzo wiele tabel z różnych części schematu. Dla czytelności pozwoliliśmy sobie nie rysować wszystkich tych połączeń.
@@ -78,7 +78,7 @@ Na wypadek nieprzewidzianych sytuacji dajemy możliwość dodania dodatkowych in
 
 \subsection{Dokumenty}
 
-Tabele dokument, zawiera informacje o dokumentach powiązanych z daną osobą. Posiada takie informacje, jak nazwa, typ dokumentu, miejsce zawarcia. Jak i również, insytucje wystawiającą, która znajduję się w osobnej tabeli. Dodatkowo istnieje jeszcze tabela wiele do wielu świadkowie, która mówi o osobach , które poręczają co pdoany dokument.
+Tabela dokumenty zawiera informacje o dokumentach powiązanych z daną osobą. Posiada takie informacje, jak nazwa, typ dokumentu, miejsce zawarcia. Jak i również, insytucje wystawiającą, która znajduję się w osobnej tabeli. Dodatkowo istnieje jeszcze tabela wiele do wielu świadkowie, która mówi o osobach, które poręczają co podany dokument.
 
 
 \section{Funkcje, wyzwalacze, checki itp}
@@ -87,6 +87,14 @@ Tabele dokument, zawiera informacje o dokumentach powiązanych z daną osobą. P
 \begin{itemize}
 \item funkcje przechodzące po drzewie genealogicznym, np. funkcja sprawdzająca, czy ktoś nie jest swoim własnym przodkiem.
 \item funkcje obsługujące nasz typ dat (miesiąc albo dzień mogą być \texttt{null}), np. porównująca dwie daty
+\item funkcje używane w wyzwalaczach
+\end{itemize}
+
+\subsection{Wyzwalacze}
+\begin{itemize}
+\item ochrona przed zmianą id w każdej tabeli
+\item ochrona przed stworzeniem cyklu w miejscach, tytułach, osobach
+\item usuwanie krotek z samymi nullami z relacji (które mogą powstać po skasowaniu osoby)
 \end{itemize}
 
 \subsection{Checki}
