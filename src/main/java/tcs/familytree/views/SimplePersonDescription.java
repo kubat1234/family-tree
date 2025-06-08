@@ -7,6 +7,8 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
+import tcs.familytree.core.place.SimpleConnectionPlace;
 import tcs.familytree.viewmodels.GraphViewModel;
 
 import java.net.URL;
@@ -15,6 +17,7 @@ import java.util.*;
 public class SimplePersonDescription implements Initializable {
 
     Map<TreeItem<String>, Person> treeItemPersonMap = new HashMap<>();
+    Map<TreeItem<String>, Place> treeItemPlaceMap = new HashMap<>();
     TreeItem<String> globalPersonList = null;
 
     GraphViewModel viewModel = null;
@@ -72,6 +75,7 @@ public class SimplePersonDescription implements Initializable {
         TreeItem<String> branchItem8;
         if(displayPerson.getPlaceOfBirth() != null){
             branchItem8 = new TreeItem<>("Miejsce urodzenia: " + displayPerson.getPlaceOfBirth().toString());
+            treeItemPlaceMap.put(branchItem8, displayPerson.getPlaceOfBirth());
         }else{
             branchItem8 = new TreeItem<>("Miejsce urodzenia: [unknown]");
         }
@@ -79,6 +83,7 @@ public class SimplePersonDescription implements Initializable {
         TreeItem<String> branchItem9;
         if(displayPerson.getPlaceOfDeath() != null){
             branchItem9 = new TreeItem<>("Miejsce śmierci: " + displayPerson.getPlaceOfDeath().toString());
+            treeItemPlaceMap.put(branchItem9, displayPerson.getPlaceOfDeath());
         }else{
             branchItem9 = new TreeItem<>("Miejsce śmierci: [unknown]");
         }
@@ -145,6 +150,9 @@ public class SimplePersonDescription implements Initializable {
             if(treeItemPersonMap.containsKey(selectedItem)){
                 viewModel.updateCentral(treeItemPersonMap.get(selectedItem));
                 System.out.println("Double-clicked and find : " + selectedItem.getValue());
+            }
+            if(treeItemPlaceMap.containsKey(selectedItem)){
+                viewModel.getMainController().openEditionPanel(treeItemPlaceMap.get(selectedItem), "Place edition");
             }
             System.out.println("Double-clicked on: " + selectedItem.getValue());
         }
