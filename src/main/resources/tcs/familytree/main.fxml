@@ -5,21 +5,21 @@
 
 <VBox prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.MainController">
     <MenuBar prefHeight="25.0" prefWidth="1000.0">
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem onAction="#openCLI" mnemonicParsing="false" text="Open CLI" />
+        <Menu mnemonicParsing="false" text="Plik">
+            <MenuItem onAction="#openCLI" mnemonicParsing="false" text="Interfejs Tekstowy" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Finder">
-            <MenuItem mnemonicParsing="false" onAction="#openFinderMenu" text="Find Person" />
+        <Menu mnemonicParsing="false" text="Znajdowanie">
+            <MenuItem mnemonicParsing="false" onAction="#openFinderMenu" text="Znajdź osobę" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edit Person" />
-            <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Add Person" />
-         <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edit Place" />
+        <Menu mnemonicParsing="false" text="Edycja">
+            <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edycja Osoby" />
+            <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Dodaj osobę" />
+         <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edytuj miejce" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Load">
+        <Menu mnemonicParsing="false" text="Załaduj">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
-            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-         <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Open Left Panel" />
+            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Odśwież" />
+         <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Otwórz lewy panel" />
         </Menu>
         <Menu mnemonicParsing="false" text="Admin">
             <MenuItem mnemonicParsing="false" onAction="#openAdminPanel" text="Admin" />

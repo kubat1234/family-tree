@@ -96,7 +96,7 @@ public class SimplePersonDescription {
             return globalPersonList;
         }
 
-        TreeItem<String> personListItem = new TreeItem<>("List of all person");
+        TreeItem<String> personListItem = new TreeItem<>("Lista Wszystkich ludzi");
         List<TreeItem<String>> personList = new LinkedList<>();
 
         for(Person person: viewModel.getGraphProperty().get().getAllPersons()){
@@ -116,7 +116,6 @@ public class SimplePersonDescription {
     }
 
     public void init(GraphViewModel viewModel){
-        System.out.println("init");
         this.viewModel = viewModel;
         if(viewModel == null){
             throw new NullPointerException("INIT - view model don't exist");
@@ -139,7 +138,8 @@ public class SimplePersonDescription {
     public void selectItem(MouseEvent event){
         TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            return;        }
+            return;
+        }
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 2) {
             if(treeItemPersonMap.containsKey(selectedItem)){
                 viewModel.updateCentral(treeItemPersonMap.get(selectedItem));

@@ -169,7 +169,7 @@ public class MainController {
     }
 
     public void openFinderMenu(){
-        openFinderPanel(graphViewModel.central(), "Person Finder");
+        openFinderPanel(graphViewModel.central(), "Znajdowacz osób");
     }
 
     public void openFinderPanel(Person person, String title) {
@@ -244,6 +244,6 @@ public class MainController {
     }
 
     public void openPlaceEdition(ActionEvent actionEvent) {
-        openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Random Place Edition");
+        openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Randomowy edytor miejsc");
     }
 }
