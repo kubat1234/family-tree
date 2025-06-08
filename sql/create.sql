@@ -44,7 +44,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-create or replace function date_to_custom_date(data date) returns custom_date as $$
+CREATE OR REPLACE FUNCTION date_to_custom_date(data date) returns custom_date as $$
 begin
     return (EXTRACT(YEAR FROM data),EXTRACT(MONTH FROM data),EXTRACT(DAY FROM data),true)::custom_date;
 end;
@@ -70,7 +70,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-create or replace function czy_osoba_zyla(osoba int, data custom_date) returns boolean as $$
+CREATE OR REPLACE FUNCTION czy_osoba_zyla(osoba int, data custom_date) returns boolean as $$
 begin
     return data < (select data_sm from osoby where id = osoba) and (select data_ur from osoby where id = osoba) < data;
 end;
@@ -251,7 +251,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-create or replace function check_if_ancestor_update() 
+CREATE OR REPLACE FUNCTION check_if_ancestor_update() 
 RETURNS trigger as $$
 BEGIN
 	IF NEW.matka IS NOT NULL 
@@ -308,7 +308,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-create or replace function check_if_nadtytul_update() 
+CREATE OR REPLACE FUNCTION check_if_nadtytul_update() 
 RETURNS trigger as $$
 BEGIN
 	IF NEW.nadtytul IS NOT NULL 
@@ -513,7 +513,7 @@ on delete to osoby_nazwiska do instead
 delete from osoby where id=old.id;
 
 -- funkcja odpowiedzialna za bezpieczne usuwanie osoby
-create or replace function safe_person_delete() returns trigger as $$
+CREATE OR REPLACE FUNCTION safe_person_delete() returns trigger as $$
 begin
     delete from relacje_niesymetryczne where (osoba1 = old.id and osoba2 is null) or (osoba2 = old.id and osoba1 is null);
     delete from relacje_symetryczne where (osoba1 = old.id and osoba2 is null) or (osoba2 = old.id and osoba1 is null);
@@ -522,7 +522,7 @@ end;
 $$ language plpgsql;
 
 create trigger safe_person_delete before delete on osoby
-for each row execute function safe_person_delete();
+for each row execute procedure safe_person_delete();
 
 -- nie modyfikujemy id
 
