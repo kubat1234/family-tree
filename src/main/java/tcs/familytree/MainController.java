@@ -166,6 +166,33 @@ public class MainController {
         }
     }
 
+    public void openFinderMenu(){
+        openFinderPanel(graphViewModel.central(), "Person Finder");
+    }
+
+    public void openFinderPanel(Person person, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/find-person.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(stage);
+            dialogStage.setScene(new Scene(page));
+
+            PersonEditionController controller = loader.getController();
+            controller.setViewModel(graphViewModel);
+            controller.init();
+            controller.setPerson(person);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openEditionPanelMainPerson(ActionEvent actionEvent){
         openEditionPanel(graphViewModel.central(),"Edytuj osobę");
     }

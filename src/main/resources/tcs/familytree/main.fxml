@@ -8,6 +8,9 @@
         <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" text="Close" />
         </Menu>
+        <Menu mnemonicParsing="false" text="Finder">
+            <MenuItem mnemonicParsing="false" onAction="#openFinderMenu" text="Find Person" />
+        </Menu>
         <Menu mnemonicParsing="false" text="Edit">
             <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edit Person" />
             <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Add Person" />
