@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.views.PersonEditionController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.views.PersonFinderController">
    <TextField fx:id="nameField" layoutX="63.0" layoutY="35.0" promptText="Imię" />
    <TextField fx:id="surnameField" layoutX="63.0" layoutY="100.0" promptText="Nazwisko Rodowe" />
    <Button fx:id="saveButton" layoutX="270.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSave" text="Find" />
@@ -26,4 +26,5 @@
    <Spinner fx:id="deathDayField" layoutX="254.0" layoutY="149.0" prefHeight="26.0" prefWidth="78.0" promptText="Dzień" />
    <Spinner fx:id="deathMonthField" layoutX="339.0" layoutY="149.0" prefHeight="26.0" prefWidth="69.0" promptText="Msc." />
    <Spinner fx:id="deathYearField" layoutX="417.0" layoutY="149.0" prefHeight="26.0" prefWidth="78.0" promptText="Rok" />
+   <TreeView fx:id="treeView" layoutX="340.0" layoutY="200.0" prefHeight="180.0" prefWidth="200.0" />
 </AnchorPane>
