@@ -293,5 +293,13 @@ public class Generator {
         }
 
         System.out.println("\\.");
+
+        System.out.println("COPY tytuly_osoby (id_osoby, id_tytulu) from stdin with (format csv, delimiter ';',null '');");
+
+        for(int i=0;i<70;i++){
+            System.out.println((random.nextInt(N)+1) + ";" + (random.nextInt(17)+1));
+        }
+
+        System.out.println("\\.");
     }
 }

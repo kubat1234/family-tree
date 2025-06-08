@@ -1131,5 +1131,125 @@ COPY zawody_osoby (id_osoby, id_zawodu, stanowisko, miejsce) from stdin with (fo
 53;11;senior;4
 \.
 
+COPY grupy (nazwa) FROM stdin WITH DELIMITER ' ';
+prawosławni
+rodzina\ z\ Ameryki
+\.
+
+COPY grupy_osoby (id_grupy, id_osoby) FROM stdin WITH DELIMITER ' ';
+1 71
+1 72
+1 106
+1 107
+1 108
+1 110
+1 114
+1 120
+1 126
+2 109
+2 119
+2 137
+2 141
+2 146
+\.
+
+COPY tytuly (nazwa, skrot, nadtytul) from stdin with (format csv, delimiter ';',null '');
+szeregowiec;szer.;2
+starszy szeregowiec;st. szer.;3
+kapral;kpr;4
+plutonowy;plut;5
+sierżant;sierż.;6
+choroży;chor.;7
+podporucznik;ppor;8
+poruczknik;por.;9
+kapitan;kpt;10
+major;mjr;11
+generał;gen.;
+hrabia;hbr;13
+książe;ks.;14
+król;kr.;15
+cesarz;emp.;
+ksiądz;ks;17
+biskup;bis.;
+\.
+
+COPY tytuly_osoby (id_osoby, id_tytulu) from stdin with (format csv, delimiter ';',null '');
+124;10
+89;10
+84;15
+103;3
+76;14
+100;12
+17;1
+91;7
+104;8
+14;6
+36;15
+114;2
+45;15
+133;16
+43;15
+41;2
+73;6
+105;11
+142;17
+41;6
+102;7
+40;6
+37;13
+130;12
+150;2
+58;1
+141;2
+109;6
+7;3
+115;9
+35;13
+98;16
+27;5
+26;13
+17;10
+73;17
+45;8
+144;12
+6;3
+133;3
+75;4
+28;15
+69;17
+54;8
+131;14
+51;15
+76;17
+118;2
+26;9
+55;11
+52;9
+4;15
+142;13
+99;3
+122;8
+60;7
+3;4
+116;12
+2;10
+109;1
+12;1
+132;6
+95;13
+49;14
+119;14
+93;12
+127;10
+98;17
+57;4
+138;3
+\.
+
+insert into typy_uwag(nazwa) values ('pochodzenie');
+insert into uwagi(zawartosc, typ_uwagi) values ('pochodzi z afryki',1);
+insert into uwagi_osoby(id_uwagi, id_osoby) values (1,69);
+
+
 
 COMMIT;
