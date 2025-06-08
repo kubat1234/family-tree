@@ -3,7 +3,6 @@ package tcs.familytree.views;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import tcs.familytree.services.RandUtil;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.services.FamilyGraph;
 import tcs.familytree.viewmodels.GraphViewModel;
@@ -50,10 +49,6 @@ public class GraphView {
             dropListener();
             throw new RuntimeException("CRITICAL ERROR - NO CONNECTION TO DATABASE!!!");
         }
-        final Person randomPerson = list.get(RandUtil.rand(list.size()));
-
-
-
 
         dropListener();
         this.listener = new ChangeListener<FamilyGraph>() {

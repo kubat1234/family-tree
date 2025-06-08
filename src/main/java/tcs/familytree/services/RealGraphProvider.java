@@ -50,13 +50,4 @@ public class RealGraphProvider implements GraphProvider{
         return connection.sendQuery(query);
     }
 
-    /**
-     * Don't use it plz
-     */
-    public DatabaseConnection getDatabase(String password) {
-        if(!password.equals("admin")) {
-            throw new IllegalStateException();
-        }
-        return connection;
-    }
 }
