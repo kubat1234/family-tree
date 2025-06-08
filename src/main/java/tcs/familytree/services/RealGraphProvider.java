@@ -54,14 +54,4 @@ public class RealGraphProvider implements GraphProvider{
     public void updateAll(){
         connection.getUpdater().updateAll();
     };
-
-    /**
-     * Don't use it plz
-     */
-    public DatabaseConnection getDatabase(String password) {
-        if(!password.equals("admin")) {
-            throw new IllegalStateException();
-        }
-        return connection;
-    }
 }

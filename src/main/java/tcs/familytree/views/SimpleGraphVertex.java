@@ -32,10 +32,6 @@ public class SimpleGraphVertex extends Region {
     @FXML
     protected Label dateOfDeathLabel;
 
-    /**
-     * Temporary method, sets values of every label in Simple Vertex. Null safe.
-     */
-
     public void setAllData(PersonOnPlane person, String firstName, String surname, Date dateOfBirth, Date dateOfDeath, Paint color, GraphViewModel graphViewModel) {
         firstNameLabel.setText(firstName);
         firstNameLabel.setTextFill(color);

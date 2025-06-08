@@ -5,10 +5,6 @@ import tcs.familytree.core.place.Place;
 
 import java.util.*;
 
-/**
- * Answers queries in O(input) time, while it is supposed to answer in O(output).
- * This could be greatly improved.
- */
 public class SimpleGraph implements FamilyGraph{
     List<Person> persons;
 
