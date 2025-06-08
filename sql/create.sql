@@ -245,8 +245,6 @@ create table swiadkowie(
 	primary key(osoba, dokument)
 );
 
-select * from dokumenty;
-
 -- Funckje odpowiedzialnie za spójność tablicy osoby
 
 CREATE OR REPLACE FUNCTION check_if_ancestor(child OSOBY, ancestor OSOBY)
