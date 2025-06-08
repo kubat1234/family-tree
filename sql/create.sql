@@ -92,7 +92,7 @@ CREATE TABLE miejsca (
 CREATE TABLE osoby (
   id serial PRIMARY KEY,
   imie varchar,
-  pozostale_imiona varchar CHECK(imie is not null or pozostale_imiona is null),
+  pozostale_imiona varchar,
   nazwisko_rodowe varchar,
   matka int REFERENCES osoby(id),
   ojciec int REFERENCES osoby(id),
@@ -210,9 +210,11 @@ CREATE TABLE nazwiska (
   id_osoby int REFERENCES osoby(id),
   nazwisko varchar NOT NULL,
   data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)),
+  data_do custom_date not null default row(null,null,null,false) check(date_check(data_do)),
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
   PRIMARY KEY (id_osoby, nazwisko),
-    check(czy_osoba_zyla(id_osoby,data_od))
+    check(czy_osoba_zyla(id_osoby,data_od) and czy_osoba_zyla(id_osoby,data_do)),
+    check(data_od < data_do)
 );
 
 -- Funckje odpowiedzialnie za spójność tablicy osoby
@@ -484,13 +486,13 @@ COPY tytuly_osoby(id_osoby, id_tytulu) FROM stdin WITH DELIMITER ' ';
 8 3
 \.
 
-COPY nazwiska(id_osoby, nazwisko, data_od) FROM stdin WITH DELIMITER ' ';
-1 Nowak (,,,f)
-3 Nowak (1950,11,13,t)
-5 Kowal (,,,f)
-5 Nowak-Kowal (1966,7,18,t)
-9 Kowal (1988,3,,f)
-10 Kowal (2010,3,3,t)
+COPY nazwiska(id_osoby, nazwisko, data_od, data_do) FROM stdin WITH DELIMITER ' ';
+1 Nowak (,,,f) (,,,f)
+3 Nowak (1950,11,13,t) (,,,f)
+5 Kowal (,,,f) (1966,7,18,t)
+5 Nowak-Kowal (1966,7,18,t) (,,,f)
+9 Kowal (1988,3,,f) (,,,f)
+10 Kowal (2010,3,3,t) (,,,f)
 \.
 
 COMMIT;
