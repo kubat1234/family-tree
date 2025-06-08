@@ -380,6 +380,134 @@ create rule osoby_nazwiska_update as
     select new.id, unnest(string_to_array(new.nazwiska,' '));
     );
 
+-- checki na miejsca
+
+CREATE OR REPLACE FUNCTION check_if_nadmiejsce(child miejsca, ancestor miejsca)
+RETURNS BOOLEAN AS
+$$
+BEGIN
+    IF ancestor.id = child.id THEN
+        RETURN true;
+    END IF;
+    IF child.nadmiejsce IS NOT NULL
+    THEN
+        IF check_if_nadmiejsce((
+            SELECT z
+            FROM miejsca z
+            WHERE z.id = child.nadmiejsce
+            )::miejsca, ancestor)
+        THEN
+            RETURN true;
+        END IF;
+    END IF;
+    RETURN false;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_if_nadmiejsce_update()
+RETURNS trigger AS
+$$
+BEGIN
+    IF NEW.nadmiejsce IS NULL
+    THEN RETURN NEW;
+    END IF;
+    IF check_if_nadmiejsce((
+        SELECT z
+        FROM miejsca z
+        WHERE z.id = NEW.nadmiejsce
+        )::miejsca, NEW)
+    THEN
+        RAISE EXCEPTION 'UNABLE TO MODIFY PLACE - CYCLE DETECTED';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER dobry_poset_miejsca BEFORE UPDATE
+ON miejsca FOR EACH ROW EXECUTE PROCEDURE
+check_if_nadmiejsce_update();
+
+-- checki na typy miejsc
+
+CREATE OR REPLACE FUNCTION check_if_nadtyp_m(child typy_miejsc, ancestor typy_miejsc)
+RETURNS BOOLEAN AS
+$$
+BEGIN
+    IF ancestor.id = child.id THEN
+        RETURN true;
+    END IF;
+    IF child.nadtyp IS NOT NULL
+    THEN
+        IF check_if_nadtyp_m((
+            SELECT z
+            FROM typy_miejsc z
+            WHERE z.id = child.nadtyp
+            )::typy_miejsc, ancestor)
+        THEN
+            RETURN true;
+        END IF;
+    END IF;
+    RETURN false;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_if_nadtyp_m_update()
+RETURNS trigger AS
+$$
+BEGIN
+    IF NEW.nadtyp IS NULL
+    THEN RETURN NEW;
+    END IF;
+    IF check_if_nadtyp_m((
+        SELECT z
+        FROM typy_miejsc z
+        WHERE z.id = NEW.nadtyp
+        )::typy_miejsc, NEW)
+    THEN
+        RAISE EXCEPTION 'UNABLE TO MODIFY PLACE TYPE - CYCLE DETECTED';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER dobry_poset_typy_miejsc BEFORE UPDATE
+ON typy_miejsc FOR EACH ROW EXECUTE PROCEDURE
+check_if_nadtyp_m_update();
+
+---- powiązanie miejsca i typu
+
+CREATE OR REPLACE FUNCTION check_if_miejsce_matches_typ()
+RETURNS TRIGGER AS
+$$
+DECLARE
+second_type INT;
+BEGIN
+    IF (NEW.typ_miejsca IS NULL) OR (NEW.nadmiejsce IS NULL)
+        THEN RETURN NEW;
+    END IF;
+    second_type = (SELECT typ_miejsca FROM miejsca
+        WHERE id = NEW.nadmiejsce
+        LIMIT 1
+    );
+    IF (second_type != NEW.typ_miejsca) AND (
+        check_if_nadtyp_m((
+        SELECT z
+        FROM typy_miejsc z
+        WHERE id = NEW.typ_miejsca),
+        (SELECT z
+        FROM typy_miejsc z
+        WHERE id = second_type)
+        )
+    ) THEN RETURN NEW;
+    END IF;
+    RAISE EXCEPTION 'UNABLE TO MODIFY/CREATE PLACE - THE SUPERPLACE IS NOT OF SUPERTYPE';
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER miejsce_typ_trigger BEFORE UPDATE OR INSERT
+ON miejsca FOR EACH ROW EXECUTE PROCEDURE
+check_if_miejsce_matches_typ();
+
 create rule osoby_nazwiska_delete as
 on delete to osoby_nazwiska do instead
 delete from osoby where id=old.id;
