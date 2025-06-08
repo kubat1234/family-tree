@@ -159,7 +159,6 @@ public class PersonFinderController {
     public void handleSave(ActionEvent actionEvent) {
         try{
 //            Person newPerson = new SimplePerson(person);
-//            newPerson.setName(nameField.getText());
 //            newPerson.setAllNames(allNamesField.getText().split(" "));
 //            newPerson.setFamilyName(surnameField.getText());
 //            newPerson.setAlive(aliveCheckbox.isSelected());
@@ -176,13 +175,37 @@ public class PersonFinderController {
                         continue;
                     }
                 }
+                if(!Objects.equals(allNamesField.getText(), "") && !Objects.equals(allNamesField.getText(), null)){
+                    if(!Objects.equals(pop.getName(), allNamesField.getText())){
+                        continue;
+                    }
+                }
+                if(!Objects.equals(surnameField.getText(), "") && !Objects.equals(surnameField.getText(), null)){
+                    if(!Objects.equals(pop.getName(), surnameField.getText())){
+                        continue;
+                    }
+                }
+
+                if(!aliveCheckbox.isSelected() && pop.isAlive()){
+                    continue;
+                }
+                if(aliveCheckbox.isSelected() && !pop.isAlive()){
+                    continue;
+                }
+                if(aliveCheckbox.isSelected() && !pop.isAlive()){
+                    continue;
+                }
+                if(genderBox.getValue() != pop.getGender() && genderBox.getValue() != Gender.OTHER){
+                    continue;
+                }
                 ready.add(printFullPerson(pop));
             }
-            TreeItem<String> rootItem = new TreeItem<>("name");
+            TreeItem<String> rootItem = new TreeItem<>("root");
 
             rootItem.getChildren().setAll(ready);
 
             treeView.setRoot(rootItem);
+            treeView.setShowRoot(false);
 
 
             label.setTextFill(Color.GREEN);
