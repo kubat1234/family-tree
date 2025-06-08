@@ -79,27 +79,27 @@ $$ language plpgsql;
 CREATE TABLE typy_miejsc (
   id serial PRIMARY KEY,
   nazwa varchar NOT NULL,
-  nadtyp int REFERENCES typy_miejsc(id) --TODO check na cykle
+  nadtyp int REFERENCES typy_miejsc(id) on delete set null --TODO check na cykle
 );
 
 CREATE TABLE miejsca (
   id serial PRIMARY KEY,
   nazwa varchar NOT NULL,
-  nadmiejsce int REFERENCES miejsca(id), --TODO check na typ nadmiejsca
-  typ_miejsca int NOT NULL REFERENCES typy_miejsc(id)
+  nadmiejsce int REFERENCES miejsca(id) on delete set null, --TODO check na typ nadmiejsca
+  typ_miejsca int NOT NULL REFERENCES typy_miejsc(id) on delete cascade
 );
 
 CREATE TABLE osoby (
   id serial PRIMARY KEY,
   imie varchar,
-  pozostale_imiona varchar CHECK(imie is not null or pozostale_imiona is null),
+  pozostale_imiona varchar,
   nazwisko_rodowe varchar,
-  matka int REFERENCES osoby(id),
-  ojciec int REFERENCES osoby(id),
+  matka int REFERENCES osoby(id) on delete set null,
+  ojciec int REFERENCES osoby(id) on delete set null,
   data_ur custom_date not null default row(null,null,null,false) check(date_check(data_ur)),
-  miejsce_ur int REFERENCES miejsca(id),
+  miejsce_ur int REFERENCES miejsca(id) on delete set null,
   wciaz_zyje boolean NOT NULL default false,
-  miejsce_sm int REFERENCES miejsca(id),
+  miejsce_sm int REFERENCES miejsca(id) on delete set null,
   data_sm custom_date not null default row(null,null,null,false) check(date_check(data_sm)),
   plec boolean,
   CHECK ( data_ur < data_sm ),
@@ -118,10 +118,10 @@ CREATE TABLE typy_rns (
 
 CREATE TABLE relacje_symetryczne (
   id serial PRIMARY KEY,
-  osoba1 int REFERENCES osoby(id),
-  osoba2 int REFERENCES osoby(id),
-  typ_rs int NOT NULL REFERENCES typy_rs(id),
-  miejsce int REFERENCES miejsca(id),
+  osoba1 int REFERENCES osoby(id) on delete set null,
+  osoba2 int REFERENCES osoby(id) on delete set null,
+  typ_rs int NOT NULL REFERENCES typy_rs(id) on delete cascade,
+  miejsce int REFERENCES miejsca(id) on delete set null,
   data custom_date not null default row(null,null,null,false) check(date_check(data)),
   CHECK(osoba1 is not null or osoba2 is not null),
   check(czy_osoba_zyla(osoba1,data))
@@ -129,10 +129,10 @@ CREATE TABLE relacje_symetryczne (
 
 CREATE TABLE relacje_niesymetryczne (
   id serial PRIMARY KEY,
-  osoba1 int REFERENCES osoby(id),
-  osoba2 int REFERENCES osoby(id),
-  typ_rns int NOT NULL REFERENCES typy_rns(id),
-  miejsce int REFERENCES miejsca(id),
+  osoba1 int REFERENCES osoby(id) on delete set null,
+  osoba2 int REFERENCES osoby(id) on delete set null,
+  typ_rns int NOT NULL REFERENCES typy_rns(id) on delete cascade,
+  miejsce int REFERENCES miejsca(id) on delete set null,
   data custom_date not null default row(null,null,null,false) check(date_check(data)),
   CHECK(osoba1 is not null or osoba2 is not null),
   check(czy_osoba_zyla(osoba1,data) and czy_osoba_zyla(osoba2,data))
@@ -146,12 +146,12 @@ CREATE TABLE typy_uwag (
 CREATE TABLE uwagi (
   id serial PRIMARY KEY,
   zawartosc varchar NOT NULL,
-  typ_uwagi int REFERENCES typy_uwag(id)
+  typ_uwagi int REFERENCES typy_uwag(id) on delete set null
 );
 
 CREATE TABLE uwagi_osoby (
-  id_uwagi int REFERENCES uwagi(id),
-  id_osoby int REFERENCES osoby(id),
+  id_uwagi int REFERENCES uwagi(id) on delete cascade,
+  id_osoby int REFERENCES osoby(id) on delete cascade,
   PRIMARY KEY (id_uwagi, id_osoby)
 );
 
@@ -162,10 +162,10 @@ CREATE TABLE zawody (
 
 CREATE TABLE zawody_osoby (
   id serial PRIMARY KEY,
-  id_osoby int NOT NULL REFERENCES osoby(id),
-  id_zawodu int NOT NULL REFERENCES zawody(id),
+  id_osoby int NOT NULL REFERENCES osoby(id) on delete cascade,
+  id_zawodu int NOT NULL REFERENCES zawody(id) on delete cascade,
   stanowisko varchar,
-  miejsce int REFERENCES miejsca(id),
+  miejsce int REFERENCES miejsca(id) on delete set null,
   data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)),
   data_do custom_date not null default row(null,null,null,false) check(date_check(data_do)),
     CHECK ( data_od < data_do ),
@@ -176,12 +176,12 @@ CREATE TABLE tytuly (
   id serial PRIMARY KEY,
   nazwa varchar NOT NULL,
   skrot varchar,
-  nadtytul int REFERENCES tytuly(id) --TODO check na cykle
+  nadtytul int REFERENCES tytuly(id) on delete set null --TODO check na cykle
 );
 
 CREATE TABLE tytuly_osoby (
-  id_osoby int REFERENCES osoby(id),
-  id_tytulu int REFERENCES tytuly(id),
+  id_osoby int REFERENCES osoby(id) on delete cascade,
+  id_tytulu int REFERENCES tytuly(id) on delete cascade,
   PRIMARY KEY (id_osoby, id_tytulu)
 );
 
@@ -191,14 +191,14 @@ CREATE TABLE grupy (
 );
 
 CREATE TABLE grupy_osoby (
-  id_grupy int REFERENCES grupy(id),
-  id_osoby int REFERENCES osoby(id),
+  id_grupy int REFERENCES grupy(id) on delete cascade,
+  id_osoby int REFERENCES osoby(id) on delete cascade,
   PRIMARY KEY (id_grupy, id_osoby)
 );
 
 CREATE TABLE uwagi_grupy (
-  id_grupy int REFERENCES grupy(id),
-  id_uwagi int REFERENCES uwagi(id),
+  id_grupy int REFERENCES grupy(id) on delete cascade,
+  id_uwagi int REFERENCES uwagi(id) on delete cascade,
   PRIMARY KEY (id_grupy, id_uwagi)
 );
 
@@ -207,12 +207,14 @@ CREATE SEQUENCE nazwiska_kolejnosc_seq
   INCREMENT BY 100;
 
 CREATE TABLE nazwiska (
-  id_osoby int REFERENCES osoby(id),
+  id_osoby int REFERENCES osoby(id) on delete cascade,
   nazwisko varchar NOT NULL,
   data_od custom_date not null default row(null,null,null,false) check(date_check(data_od)),
+  data_do custom_date not null default row(null,null,null,false) check(date_check(data_do)),
   kolejnosc int NOT NULL DEFAULT nextval('nazwiska_kolejnosc_seq'),
   PRIMARY KEY (id_osoby, nazwisko),
-    check(czy_osoba_zyla(id_osoby,data_od))
+    check(czy_osoba_zyla(id_osoby,data_od) and czy_osoba_zyla(id_osoby,data_do)),
+    check(data_od < data_do)
 );
 
 -- Funckje odpowiedzialnie za spójność tablicy osoby
@@ -332,9 +334,12 @@ select o.imie, o.nazwisko_rodowe, z.nazwa, zo.stanowisko
 from osoby o inner join zawody_osoby zo on o.id = zo.id_osoby inner join zawody z on zo.id_zawodu = z.id
 order by 3, 4, 1, 2;
 
+-- Widok osoby_nazwiska
+
 create or replace view osoby_nazwiska as
 select osoby.*, string_agg(coalesce(nazwiska.nazwisko,''),' ' order by nazwiska.kolejnosc) as "nazwiska"
 from osoby left outer join nazwiska on osoby.id = nazwiska.id_osoby
+where date_to_custom_date(now()::date) < data_do
 group by osoby.id;
 
 create rule osoby_nazwiska_insert as
@@ -374,6 +379,159 @@ create rule osoby_nazwiska_update as
     insert into nazwiska(id_osoby, nazwisko)
     select new.id, unnest(string_to_array(new.nazwiska,' '));
     );
+
+-- checki na miejsca
+
+CREATE OR REPLACE FUNCTION check_if_nadmiejsce(child miejsca, ancestor miejsca)
+RETURNS BOOLEAN AS
+$$
+BEGIN
+    IF ancestor.id = child.id THEN
+        RETURN true;
+    END IF;
+    IF child.nadmiejsce IS NOT NULL
+    THEN
+        IF check_if_nadmiejsce((
+            SELECT z
+            FROM miejsca z
+            WHERE z.id = child.nadmiejsce
+            )::miejsca, ancestor)
+        THEN
+            RETURN true;
+        END IF;
+    END IF;
+    RETURN false;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_if_nadmiejsce_update()
+RETURNS trigger AS
+$$
+BEGIN
+    IF NEW.nadmiejsce IS NULL
+    THEN RETURN NEW;
+    END IF;
+    IF check_if_nadmiejsce((
+        SELECT z
+        FROM miejsca z
+        WHERE z.id = NEW.nadmiejsce
+        )::miejsca, NEW)
+    THEN
+        RAISE EXCEPTION 'UNABLE TO MODIFY PLACE - CYCLE DETECTED';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER dobry_poset_miejsca BEFORE UPDATE
+ON miejsca FOR EACH ROW EXECUTE PROCEDURE
+check_if_nadmiejsce_update();
+
+-- checki na typy miejsc
+
+CREATE OR REPLACE FUNCTION check_if_nadtyp_m(child typy_miejsc, ancestor typy_miejsc)
+RETURNS BOOLEAN AS
+$$
+BEGIN
+    IF ancestor.id = child.id THEN
+        RETURN true;
+    END IF;
+    IF child.nadtyp IS NOT NULL
+    THEN
+        IF check_if_nadtyp_m((
+            SELECT z
+            FROM typy_miejsc z
+            WHERE z.id = child.nadtyp
+            )::typy_miejsc, ancestor)
+        THEN
+            RETURN true;
+        END IF;
+    END IF;
+    RETURN false;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_if_nadtyp_m_update()
+RETURNS trigger AS
+$$
+BEGIN
+    IF NEW.nadtyp IS NULL
+    THEN RETURN NEW;
+    END IF;
+    IF check_if_nadtyp_m((
+        SELECT z
+        FROM typy_miejsc z
+        WHERE z.id = NEW.nadtyp
+        )::typy_miejsc, NEW)
+    THEN
+        RAISE EXCEPTION 'UNABLE TO MODIFY PLACE TYPE - CYCLE DETECTED';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER dobry_poset_typy_miejsc BEFORE UPDATE
+ON typy_miejsc FOR EACH ROW EXECUTE PROCEDURE
+check_if_nadtyp_m_update();
+
+---- powiązanie miejsca i typu
+
+CREATE OR REPLACE FUNCTION check_if_miejsce_matches_typ()
+RETURNS TRIGGER AS
+$$
+DECLARE
+second_type INT;
+BEGIN
+    IF (NEW.typ_miejsca IS NULL) OR (NEW.nadmiejsce IS NULL)
+        THEN RETURN NEW;
+    END IF;
+    second_type = (SELECT typ_miejsca FROM miejsca
+        WHERE id = NEW.nadmiejsce
+        LIMIT 1
+    );
+    IF (second_type != NEW.typ_miejsca) AND (
+        check_if_nadtyp_m((
+        SELECT z
+        FROM typy_miejsc z
+        WHERE id = NEW.typ_miejsca),
+        (SELECT z
+        FROM typy_miejsc z
+        WHERE id = second_type)
+        )
+    ) THEN RETURN NEW;
+    END IF;
+    RAISE EXCEPTION 'UNABLE TO MODIFY/CREATE PLACE - THE SUPERPLACE IS NOT OF SUPERTYPE';
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER miejsce_typ_trigger BEFORE UPDATE OR INSERT
+ON miejsca FOR EACH ROW EXECUTE PROCEDURE
+check_if_miejsce_matches_typ();
+
+create rule osoby_nazwiska_delete as
+on delete to osoby_nazwiska do instead
+delete from osoby where id=old.id;
+
+-- funkcja odpowiedzialna za bezpieczne usuwanie osoby
+create or replace function safe_person_delete() returns trigger as $$
+begin
+    delete from relacje_niesymetryczne where (osoba1 = old.id and osoba2 is null) or (osoba2 = old.id and osoba1 is null);
+    delete from relacje_symetryczne where (osoba1 = old.id and osoba2 is null) or (osoba2 = old.id and osoba1 is null);
+    return old;
+end;
+$$ language plpgsql;
+
+create trigger safe_person_delete before delete on osoby
+for each row execute function safe_person_delete();
+
+-- indeksy
+
+create index idx_osoby_matka on osoby(matka);
+create index idx_osoby_ojciec on osoby(ojciec);
+create index idx_rs1 on relacje_symetryczne(osoba1);
+create index idx_rs2 on relacje_symetryczne(osoba2);
+create index idx_rns1 on relacje_niesymetryczne(osoba1);
+create index idx_rns2 on relacje_niesymetryczne(osoba2);
 
 --przykładowe dane
 
@@ -484,13 +642,13 @@ COPY tytuly_osoby(id_osoby, id_tytulu) FROM stdin WITH DELIMITER ' ';
 8 3
 \.
 
-COPY nazwiska(id_osoby, nazwisko, data_od) FROM stdin WITH DELIMITER ' ';
-1 Nowak (,,,f)
-3 Nowak (1950,11,13,t)
-5 Kowal (,,,f)
-5 Nowak-Kowal (1966,7,18,t)
-9 Kowal (1988,3,,f)
-10 Kowal (2010,3,3,t)
+COPY nazwiska(id_osoby, nazwisko, data_od, data_do) FROM stdin WITH DELIMITER ' ';
+1 Nowak (,,,f) (,,,f)
+3 Nowak (1950,11,13,t) (,,,f)
+5 Kowal (,,,f) (1966,7,18,t)
+5 Nowak-Kowal (1966,7,18,t) (,,,f)
+9 Kowal (1988,3,,f) (,,,f)
+10 Kowal (2010,3,3,t) (,,,f)
 \.
 
 COMMIT;
