@@ -9,6 +9,11 @@ import tcs.familytree.core.person.Person;
 import tcs.familytree.core.person.SimplePerson;
 import tcs.familytree.viewmodels.GraphViewModel;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+
 public class PersonFinderController {
     public TextField nameField;
     public TextField surnameField;
@@ -28,10 +33,76 @@ public class PersonFinderController {
     public Spinner<Integer> deathDayField;
     public Spinner<Integer> deathMonthField;
     public Spinner<Integer> deathYearField;
+    public TreeView treeView;
 
     GraphViewModel viewModel;
 
     Person person;
+
+    TreeItem<String> printFullPerson(Person displayPerson){
+        TreeItem<String> rootItem;
+        if(displayPerson.isAlive()){
+            rootItem = new TreeItem<>(displayPerson.toString());
+        }else{
+            rootItem = new TreeItem<>(displayPerson + " (x)");
+        }
+
+        TreeItem<String> branchItem1 = new TreeItem<>("Imie: " + displayPerson.getName());
+        TreeItem<String> branchItem2 = new TreeItem<>("Nazwisko Rodowe: " + displayPerson.getFamilySurname());
+        StringBuilder surnames = new StringBuilder();
+        surnames.append(" ");
+        for(String surname: displayPerson.getAllSurnames()){
+            if(surname != null){
+                surnames.append(surname);
+            }
+        }
+        TreeItem<String> branchItem3 = new TreeItem<>("Wszystkie Nazwiska: " + surnames);
+        TreeItem<String> branchItem4;
+
+        if(displayPerson.getMother() != null){
+            branchItem4 = new TreeItem<>("Matka: " + displayPerson.getMother().toString());
+        }else{
+            branchItem4 = new TreeItem<>("Matka: [unknown]");
+        }
+        TreeItem<String> branchItem5;
+        if(displayPerson.getFather() != null){
+            branchItem5 = new TreeItem<>("Ojciec: " + displayPerson.getFather().toString());
+        }else{
+            branchItem5 = new TreeItem<>("Ojciec: [unknown]");
+        }
+
+        TreeItem<String> branchItem6;
+        if(displayPerson.getDateOfBirth() != null){
+            branchItem6 = new TreeItem<>("Data urodzenia: " + displayPerson.getDateOfBirth().toString());
+        }else{
+            branchItem6 = new TreeItem<>("Data urodzenia: [unknown]");
+        }
+
+        TreeItem<String> branchItem7;
+        if(displayPerson.getDateOfDeath() != null){
+            branchItem7 = new TreeItem<>("Data śmierci: " + displayPerson.getDateOfDeath().toString());
+        }else{
+            branchItem7 = new TreeItem<>("Data śmierci: [unknown]");
+        }
+
+        TreeItem<String> branchItem8;
+        if(displayPerson.getPlaceOfBirth() != null){
+            branchItem8 = new TreeItem<>("Miejsce urodzenia: " + displayPerson.getPlaceOfBirth().toString());
+        }else{
+            branchItem8 = new TreeItem<>("Miejsce urodzenia: [unknown]");
+        }
+
+        TreeItem<String> branchItem9;
+        if(displayPerson.getPlaceOfDeath() != null){
+            branchItem9 = new TreeItem<>("Miejsce śmierci: " + displayPerson.getPlaceOfDeath().toString());
+        }else{
+            branchItem9 = new TreeItem<>("Miejsce śmierci: [unknown]");
+        }
+
+        rootItem.getChildren().addAll(branchItem1, branchItem2, branchItem3, branchItem4,
+                branchItem5, branchItem6, branchItem7, branchItem8, branchItem9);
+        return rootItem;
+    }
 
     public void init() {
         genderBox.getItems().addAll(Gender.MALE, Gender.FEMALE, Gender.OTHER);
@@ -81,7 +152,6 @@ public class PersonFinderController {
 
         birthDateAccurateField.setSelected(person.getDateOfBirth().isAccurate());
         deathDateAccurateField.setSelected(person.getDateOfDeath().isAccurate());
-        System.out.println(person.getAllSurnames() + " loolodldsolfolsdoflodsf");
         if(!person.getAllNames().isEmpty())allNamesField.setText(String.join(" ", person.getAllNames()));
         if(!person.getAllSurnames().isEmpty())allSurnamesField.setText(String.join(" ", person.getAllSurnames()));
     }
@@ -96,6 +166,23 @@ public class PersonFinderController {
 //            newPerson.setGender(genderBox.getValue());
 //            newPerson.setMother(motherBox.getValue());
 //            newPerson.setFather(fatherBox.getValue());
+
+            Collection<Person> list = viewModel.getGraphProperty().get().getAllPersons();
+            List<TreeItem<String>> ready = new LinkedList<>();
+
+            for(Person pop: list){
+                if(!Objects.equals(nameField.getText(), "") && !Objects.equals(nameField.getText(), null)){
+                    if(!Objects.equals(pop.getName(), nameField.getText())){
+                        continue;
+                    }
+                }
+                ready.add(printFullPerson(pop));
+            }
+            TreeItem<String> rootItem = new TreeItem<>("name");
+
+            rootItem.getChildren().setAll(ready);
+
+            treeView.setRoot(rootItem);
 
 
             label.setTextFill(Color.GREEN);

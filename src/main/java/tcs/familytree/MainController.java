@@ -181,7 +181,7 @@ public class MainController {
             dialogStage.initOwner(stage);
             dialogStage.setScene(new Scene(page));
 
-            PersonEditionController controller = loader.getController();
+            PersonFinderController controller = loader.getController();
             controller.setViewModel(graphViewModel);
             controller.init();
             controller.setPerson(person);
