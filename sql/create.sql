@@ -298,7 +298,7 @@ BEGIN
 		IF check_if_ancestor((
 			SELECT t
 			FROM tytuly t
-			WHERE o.id = child.nadtytul
+			WHERE t.id = child.nadtytul
 		)::tytuly, ancestor)
 		THEN 
 			RETURN true;
@@ -532,6 +532,7 @@ create index idx_rs1 on relacje_symetryczne(osoba1);
 create index idx_rs2 on relacje_symetryczne(osoba2);
 create index idx_rns1 on relacje_niesymetryczne(osoba1);
 create index idx_rns2 on relacje_niesymetryczne(osoba2);
+create index idx_nazwiska_id on nazwiska(id_osoby);
 
 --przykładowe dane
 
