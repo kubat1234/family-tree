@@ -24,15 +24,32 @@ public class DatabaseConverter {
         this.connection = connection;
     }
 
+    public PersonBuilder toPersonBuilder(OsobyNazwiskaRecord record){
+        if(record == null) return null;
+        PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
+        builder.setId(record.getValue(OSOBY_NAZWISKA.ID));
+        builder.setName(record.getValue(OSOBY_NAZWISKA.IMIE));
+        builder.setNames(record.getValue(OSOBY_NAZWISKA.POZOSTALE_IMIONA) == null ? null : record.getValue(OSOBY_NAZWISKA.POZOSTALE_IMIONA).split(" "));
+        builder.setFamilyName(record.getValue(OSOBY_NAZWISKA.NAZWISKO_RODOWE));
+        builder.setSurnames(record.getValue(OSOBY_NAZWISKA.NAZWISKA) == null ? null : record.getValue(OSOBY_NAZWISKA.NAZWISKA).split(" "));
+        builder.setMother(record.getValue(OSOBY_NAZWISKA.MATKA));
+        builder.setFather(record.getValue(OSOBY_NAZWISKA.OJCIEC));
+        builder.setAlive(record.getValue(OSOBY_NAZWISKA.WCIAZ_ZYJE));
+        builder.setPlaceOfBirth(record.getValue(OSOBY_NAZWISKA.MIEJSCE_UR));
+        builder.setPlaceOfDeath(record.getValue(OSOBY_NAZWISKA.MIEJSCE_SM));
+        builder.setDateOfBirth(toDate(record.getValue(OSOBY_NAZWISKA.DATA_UR)));
+        builder.setDateOfDeath(toDate(record.getValue(OSOBY_NAZWISKA.DATA_SM)));
+        builder.setGender(Gender.fromBoolean(record.getValue(OSOBY_NAZWISKA.PLEC)));
+
+        return builder;
+    }
     public PersonBuilder toPersonBuilder(OsobyRecord record){
         if(record == null) return null;
         PersonBuilder builder = new SimpleConnectionPersonBuilder(connection);
         builder.setId(record.getValue(OSOBY.ID));
         builder.setName(record.getValue(OSOBY.IMIE));
-        builder.setSurnames(record.getValue(OSOBY.NAZWISKO_RODOWE));
         builder.setNames(record.getValue(OSOBY.POZOSTALE_IMIONA) == null ? null : record.getValue(OSOBY.POZOSTALE_IMIONA).split(" "));
         builder.setFamilyName(record.getValue(OSOBY.NAZWISKO_RODOWE));
-//        builder.setSurnames(record.getValue(OSOBY.)) TODO nazwiska
         builder.setMother(record.getValue(OSOBY.MATKA));
         builder.setFather(record.getValue(OSOBY.OJCIEC));
         builder.setAlive(record.getValue(OSOBY.WCIAZ_ZYJE));
@@ -45,14 +62,20 @@ public class DatabaseConverter {
         return builder;
     }
 
-    private Date toDate(CustomDateRecord date) {
-        if(date == null) {
-            return null;
-        }
+    public Date toDate(CustomDateRecord date) {
+        if(date == null) throw new NullPointerException("Date can't be null");
         return new SimpleDateBuilder().setYear(date.getRok()).
         setMonth(date.getMiesiac()).setDay(date.getDzien()).setAccurate(date.getCzyDokladna()).build();
     }
 
+    public CustomDateRecord toCustomDate(Date date) {
+        if(date == null) throw new NullPointerException("Date can't be null");
+        return new CustomDateRecord(date.getYear(),date.getMonth(),date.getDay(),date.isAccurate());
+    }
+
+    public Person toPerson(OsobyNazwiskaRecord record) {
+        return toPersonBuilder(record).build();
+    }
     public Person toPerson(OsobyRecord record) {
         return toPersonBuilder(record).build();
     }
@@ -65,11 +88,11 @@ public class DatabaseConverter {
         record.setNazwiskoRodowe(person.getFamilySurname());
         record.setMatka(person.getMother() == null ? null : person.getMother().getId());
         record.setOjciec(person.getFather() == null ? null : person.getFather().getId());
-        record.setPozostaleImiona(person.getAllSurnames() == null ? null : String.join(" ",person.getAllSurnames()));
+        record.setPozostaleImiona(person.getAllNames() == null ? null : String.join(" ",person.getAllNames()));
         record.setMiejsceUr(person.getPlaceOfBirth() == null ? null : person.getPlaceOfBirth().getId());
-//        record.setDataUr(person.getDateOfBirth() == null ? null : person.getDateOfBirth().getId()); //TODO
+        record.setDataUr(toCustomDate(person.getDateOfBirth()));
         record.setMiejsceSm(person.getPlaceOfDeath() == null ? null : person.getPlaceOfDeath().getId());
-//        record.setDataSm(person.getDateOfDeath() == null ? null : person.getDateOfDeath().getId());
+        record.setDataSm(toCustomDate(person.getDateOfDeath()));
         record.setPlec(person.getGender().toBoolean());
         record.setWciazZyje(person.isAlive());
         return record;

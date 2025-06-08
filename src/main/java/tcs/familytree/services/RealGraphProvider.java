@@ -1,9 +1,14 @@
 package tcs.familytree.services;
 
 import javafx.beans.property.SimpleObjectProperty;
+import org.jooq.Result;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
+import tcs.familytree.core.place.PlaceType;
 import tcs.familytree.services.database.DatabaseConnection;
 import tcs.familytree.services.database.RealDatabaseConnection;
+
+import java.util.List;
 
 public class RealGraphProvider implements GraphProvider{
     SimpleObjectProperty<FamilyGraph> graphProperty;
@@ -26,17 +31,22 @@ public class RealGraphProvider implements GraphProvider{
         return graphProperty;
     }
 
+    @Override
+    public List<Place> getAllPlaces() {
+        return connection.getAllPlaces();
+    }
+
+    @Override
+    public List<PlaceType> getAllPlacesType() {
+        return connection.getAllPlaceType();
+    }
+
+    @Override
     public Person createNewPerson() {
         return connection.createNewPerson();
     }
-
-    /**
-     * Don't use it plz
-     */
-    public DatabaseConnection getDatabase(String password) {
-        if(!password.equals("admin")) {
-            throw new IllegalStateException();
-        }
-        return connection;
+    @Override
+    public Result<org.jooq.Record> sendQuery(String query) {
+        return connection.sendQuery(query);
     }
 }

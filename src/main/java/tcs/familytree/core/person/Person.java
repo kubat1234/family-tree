@@ -31,7 +31,6 @@ public interface Person extends Identifiable {
     List<String> getAllSurnames();
 
     // Family getters;
-    // TODO family setters
 
     Person getMother();
 
@@ -49,8 +48,6 @@ public interface Person extends Identifiable {
     List<Person> getPartners();
 
     List<Relation> getRelations();
-
-    // TODO relations getters
 
     Date getDateOfBirth();
 
@@ -103,6 +100,8 @@ public interface Person extends Identifiable {
     void setPlaceOfBirth(Place placeOfBirth);
 
     void setPlaceOfDeath(Place placeOfDeath);
+
+    void setPerson(Person person);
 
     boolean equals(Object o);
 

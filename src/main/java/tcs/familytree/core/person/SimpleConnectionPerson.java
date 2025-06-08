@@ -314,6 +314,16 @@ public class SimpleConnectionPerson extends AbstractConnectionData<Person> imple
     }
 
     @Override
+    public void setPerson(Person person) {
+        if(isUnloaded()) load();
+        data.setPerson(person);
+        if(!connection.updatePerson(data)){
+            unload();
+            throw new DatabaseError("Person with id: " + id + "cannot update in database: " + connection + ".");
+        }
+    }
+
+    @Override
     public boolean equals(Object o) {
         if(!(o instanceof Person p)) {
             return false;

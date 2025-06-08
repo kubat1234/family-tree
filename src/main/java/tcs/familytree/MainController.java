@@ -10,13 +10,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
 import tcs.familytree.services.GraphProvider;
 import tcs.familytree.services.RealGraphProvider;
 import tcs.familytree.viewmodels.*;
-import tcs.familytree.views.GraphView;
-import tcs.familytree.views.PersonEditionController;
-import tcs.familytree.views.SimpleGraphPainter;
-import tcs.familytree.views.SimplePersonDescription;
+import tcs.familytree.views.*;
+import tcs.familytree.views.cli.CLIView;
 
 import java.io.IOException;
 
@@ -27,6 +26,10 @@ public class MainController {
 
     Stage stage;
 
+    public void openCLI(ActionEvent actionEvent) {
+        CLIView cliView = new CLIView(new SingleDatabaseViewModel());
+    }
+
     private enum OpenedTab {
         NONE,
         MOVABLE_PAINTER,
@@ -36,7 +39,7 @@ public class MainController {
     private OpenedTab openedTab = OpenedTab.NONE;
     private GraphView graphView;
 
-    private boolean colorClicked(String value, OpenedTab tab) {
+    private boolean colorClicked(OpenedTab tab) {
         OpenedTab oldTab = openedTab;
         openedTab = tab;
         if(tab == oldTab) {
@@ -76,11 +79,9 @@ public class MainController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//        GraphProvider tdp = new TemporaryDataProvider2();
         graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp, this);
         graphView = null;
-        colorClicked("NONE", OpenedTab.NONE);
-        System.out.println("Load OK");
+        colorClicked(OpenedTab.NONE);
         refresh();
     }
 
@@ -90,7 +91,7 @@ public class MainController {
 
     public void refreshGraph(){
         graphViewModel.updateGraph();
-        if(!colorClicked("movable", OpenedTab.MOVABLE_PAINTER)) {
+        if(!colorClicked(OpenedTab.MOVABLE_PAINTER)) {
             return;
         }
         if(graphViewModel == null){
@@ -105,7 +106,6 @@ public class MainController {
     }
 
     void moveLeft(){
-        System.out.println("Move Left");
         graphViewModel.changeMod(-10, 0);
         refresh();
     }
@@ -168,11 +168,82 @@ public class MainController {
         }
     }
 
+    public void openFinderMenu(){
+        openFinderPanel(graphViewModel.central(), "Znajdowacz osób");
+    }
+
+    public void openFinderPanel(Person person, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/find-person.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(stage);
+            dialogStage.setScene(new Scene(page));
+
+            PersonFinderController controller = loader.getController();
+            controller.setViewModel(graphViewModel);
+            controller.init();
+            controller.setPerson(person);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openEditionPanelMainPerson(ActionEvent actionEvent){
         openEditionPanel(graphViewModel.central(),"Edytuj osobę");
     }
     public void openAddingPanel(ActionEvent actionEvent) {
         Person person = graphViewModel.createNewPerson();
         openEditionPanel(person,"Dodaj Osobę");
+    }
+    public void openAdminPanel(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/admin-panel.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Panel Administratora");
+//            dialogStage.initModality(Modality.WINDOW_MODAL);
+//            dialogStage.initOwner(stage);
+            dialogStage.setScene(new Scene(page));
+            AdminPanel controller = loader.getController();
+            controller.setViewModel(graphViewModel);
+
+            dialogStage.showAndWait();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void openEditionPanel(Place place, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/edit-place.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(stage);
+            dialogStage.setScene(new Scene(page));
+
+            EditionPlaceController controller = loader.getController();
+            controller.init(graphViewModel);
+            controller.setPlace(place);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openPlaceEdition(ActionEvent actionEvent) {
+        openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Randomowy edytor miejsc");
     }
 }

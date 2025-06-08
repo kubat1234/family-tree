@@ -168,6 +168,10 @@
                             <packageName>tcs.familytree.jooq.generated</packageName>
                             <directory>target/generated-sources/jooq</directory>
                         </target>
+                        <generate>
+                            <sources>true</sources>
+                            <sourcesOnViews>true</sourcesOnViews>
+                        </generate>
                     </generator>
                 </configuration>
             </plugin>

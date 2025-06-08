@@ -136,20 +136,8 @@ public class SimpleConnectionPersonBuilder  implements PersonBuilder{
     }
 
     @Override
-    public PersonBuilder setDateOfBirth(Integer dateOfBirthId) {
-        builder.setDateOfBirth(dateOfBirthId);
-        return this;
-    }
-
-    @Override
     public PersonBuilder setDateOfDeath(Date dateOfDeath) {
         builder.setDateOfDeath(dateOfDeath);
-        return this;
-    }
-
-    @Override
-    public PersonBuilder setDateOfDeath(Integer dateOfDeathId) {
-        builder.setDateOfDeath(dateOfDeathId);
         return this;
     }
 

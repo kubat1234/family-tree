@@ -5,24 +5,28 @@
 
 <VBox prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tcs.familytree.MainController">
     <MenuBar prefHeight="25.0" prefWidth="1000.0">
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" text="Close" />
+        <Menu mnemonicParsing="false" text="Plik">
+            <MenuItem onAction="#openCLI" mnemonicParsing="false" text="Interfejs Tekstowy" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Edit Person" onAction="#openEditionPanelMainPerson"/>
-            <MenuItem mnemonicParsing="false" text="Add Person" onAction="#openAddingPanel"/>
+        <Menu mnemonicParsing="false" text="Znajdowanie">
+            <MenuItem mnemonicParsing="false" onAction="#openFinderMenu" text="Znajdź osobę" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Load">
+        <Menu mnemonicParsing="false" text="Edycja">
+            <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edycja Osoby" />
+            <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Dodaj osobę" />
+         <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edytuj miejce" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Załaduj">
             <MenuItem mnemonicParsing="false" onAction="#loaderGraphOrientedViewModel" text="Start" />
-            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-         <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Open Left Panel" />
+            <MenuItem mnemonicParsing="false" onAction="#refresh" text="Odśwież" />
+         <MenuItem mnemonicParsing="false" onAction="#openLeftPanel" text="Otwórz lewy panel" />
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About" />
+        <Menu mnemonicParsing="false" text="Admin">
+            <MenuItem mnemonicParsing="false" onAction="#openAdminPanel" text="Admin" />
         </Menu>
     </MenuBar>
     <SplitPane dividerPositions="0.29797979797979796" prefWidth="1000.0" VBox.vgrow="ALWAYS">
-        <ScrollPane fitToHeight="true" fitToWidth="true"  prefWidth="200.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="200.0">
             <StackPane fx:id="leftPanel2" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="176.0" />
         </ScrollPane>
         <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="747.0">

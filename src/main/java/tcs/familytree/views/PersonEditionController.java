@@ -3,8 +3,10 @@ package tcs.familytree.views;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import tcs.familytree.core.date.SimpleDate;
 import tcs.familytree.core.person.Gender;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.person.SimplePerson;
 import tcs.familytree.viewmodels.GraphViewModel;
 
 public class PersonEditionController{
@@ -79,28 +81,26 @@ public class PersonEditionController{
 
         birthDateAccurateField.setSelected(person.getDateOfBirth().isAccurate());
         deathDateAccurateField.setSelected(person.getDateOfDeath().isAccurate());
+        if(!person.getAllNames().isEmpty())allNamesField.setText(String.join(" ", person.getAllNames()));
+        if(!person.getAllSurnames().isEmpty())allSurnamesField.setText(String.join(" ", person.getAllSurnames()));
     }
 
     public void handleSave(ActionEvent actionEvent) {
         try{
-            person.setName(nameField.getText());
-            person.setAllNames(surnameField.getText().split(" "));
-            person.setFamilyName(surnameField.getText());
-            person.setAlive(aliveCheckbox.isSelected());
-            person.setGender(genderBox.getValue());
-            person.setMother(motherBox.getValue());
-            person.setFather(fatherBox.getValue());
+            Person newPerson = new SimplePerson(person);
+            newPerson.setName(nameField.getText());
+            newPerson.setAllNames(allNamesField.getText().split(" "));
+            newPerson.setFamilyName(surnameField.getText());
+            newPerson.setAlive(aliveCheckbox.isSelected());
+            newPerson.setGender(genderBox.getValue());
+            newPerson.setMother(motherBox.getValue());
+            newPerson.setFather(fatherBox.getValue());
 
-            person.getDateOfBirth().setDay(birthDayField.getValue());
-            person.getDateOfBirth().setMonth(birthMonthField.getValue());
-            person.getDateOfBirth().setYear(birthYearField.getValue());
+            newPerson.setDateOfBirth(new SimpleDate(birthYearField.getValue(),birthMonthField.getValue(),birthDayField.getValue(),birthDateAccurateField.isSelected()));
 
-            person.getDateOfDeath().setDay(deathDayField.getValue());
-            person.getDateOfDeath().setMonth(deathMonthField.getValue());
-            person.getDateOfDeath().setYear(deathYearField.getValue());
+            newPerson.setDateOfDeath(new SimpleDate(deathYearField.getValue(),deathMonthField.getValue(),deathDayField.getValue(),deathDateAccurateField.isSelected()));
 
-            person.getDateOfBirth().setAccurate(birthDateAccurateField.isSelected());
-            person.getDateOfDeath().setAccurate(deathDateAccurateField.isSelected());
+            person.setPerson(newPerson);
 
             label.setTextFill(Color.GREEN);
             label.setText("Edycja osoby " + person.getId() + " zakończona pomyślnie.");

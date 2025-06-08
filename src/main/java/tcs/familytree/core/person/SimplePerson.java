@@ -6,7 +6,6 @@ import tcs.familytree.core.place.Place;
 import tcs.familytree.core.relation.Relation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +32,9 @@ public class SimplePerson implements Person {
         this.id = id;
         this.firstName = firstName;
         this.names = names;
+        if(names == null){
+            this.names = new ArrayList<>();
+        }
         this.familyName = familyName;
         this.surnames = surnames;
         if(surnames == null){
@@ -40,12 +42,7 @@ public class SimplePerson implements Person {
         }
         this.mother = mother;
         this.father = father;
-//        if(birthDate == null){
-//            birthDate = new SimpleDateBuilder().build();
-//        }
-//        if(deathDate == null){
-//            deathDate = new SimpleDateBuilder().build();
-//        }
+        if(birthDate == null || deathDate == null) throw new NullPointerException("Date cannot be null");
         this.birthDate = birthDate;
         this.deathDate = deathDate;
 
@@ -57,25 +54,7 @@ public class SimplePerson implements Person {
     }
 
     public SimplePerson(Person person){
-        if(person == null)throw new NullPointerException();
-        if(person.getGender() == null) throw new NullPointerException("Gender cannot be null");
-        this.id = person.getId();
-        this.firstName = person.getName();
-        this.names = person.getAllNames();
-        this.familyName = person.getFamilySurname();
-        this.surnames = person.getAllSurnames();
-        if(surnames == null){
-            this.surnames = new ArrayList<>();
-        }
-        this.mother = person.getMother();
-        this.father = person.getFather();
-        this.birthDate = person.getDateOfBirth();
-        this.deathDate = person.getDateOfDeath();
-        this.birthPlace = person.getPlaceOfBirth();
-        this.deathPlace = person.getPlaceOfDeath();
-        this.alive = person.isAlive();
-        this.gender = person.getGender();
-        this.partners = person.getPartners();
+        setPerson(person);
     }
     @Override
     public Person copy(){
@@ -112,9 +91,6 @@ public class SimplePerson implements Person {
 
     @Override
     public List<String> getAllSurnames() {
-        if(surnames == null){
-            return new LinkedList<>();
-        }
         return surnames;
     }
 
@@ -225,11 +201,13 @@ public class SimplePerson implements Person {
 
     @Override
     public void setDateOfBirth(Date dateOfBirth) {
+        if(dateOfBirth == null) throw new NullPointerException("Date cannot be null");
         this.birthDate = dateOfBirth;
     }
 
     @Override
     public void setDateOfDeath(Date dateOfDeath) {
+        if(dateOfDeath == null) throw new NullPointerException("Date cannot be null");
         this.deathDate = dateOfDeath;
     }
 
@@ -250,7 +228,32 @@ public class SimplePerson implements Person {
 
     @Override
     public void setGender(Gender gender) {
+        if(gender == null) throw new NullPointerException("Gender cannot be null");
         this.gender = gender;
+    }
+
+    @Override
+    public void setPerson(Person person) {
+        if(person == null)throw new NullPointerException();
+        if(person.getGender() == null) throw new NullPointerException("Gender cannot be null");
+        this.id = person.getId();
+        this.firstName = person.getName();
+        this.names = person.getAllNames();
+        this.familyName = person.getFamilySurname();
+        this.surnames = person.getAllSurnames();
+        if(surnames == null){
+            this.surnames = new ArrayList<>();
+        }
+        this.mother = person.getMother();
+        this.father = person.getFather();
+        if(person.getDateOfBirth() == null ||person.getDateOfBirth() == null) throw new NullPointerException("Date cannot be null");
+        this.birthDate = person.getDateOfBirth();
+        this.deathDate = person.getDateOfDeath();
+        this.birthPlace = person.getPlaceOfBirth();
+        this.deathPlace = person.getPlaceOfDeath();
+        this.alive = person.isAlive();
+        this.gender = person.getGender();
+        this.partners = person.getPartners();
     }
 
     @Override
@@ -270,32 +273,9 @@ public class SimplePerson implements Person {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(Objects.requireNonNullElse(firstName, "Unknown"));
-        stringBuilder.append(" ");
-        if(familyName == null){
-            if(surnames != null){
-                if(surnames.isEmpty()){
-                    stringBuilder.append("Unknown");
-                }
-                 boolean first = true;
-                for(String surname: surnames){
-                    if(surname == null){
-                        continue;
-                    }
-                    if(!first){
-                        stringBuilder.append(" ");
-                    }
-                    stringBuilder.append(surname);
-                }
-            }else{
-                stringBuilder.append("Unknown");
-            }
-        }else{
-            if(surnames != null){
-                for(String surname: surnames){
-                    stringBuilder.append(" ").append(surname);
-                }
-            }
-        }
+        if(familyName != null) stringBuilder.append(" ").append(familyName);
+        if(surnames != null) stringBuilder.append(" ").append(String.join(" ",surnames));
+        if(familyName == null && (surnames == null || surnames.isEmpty())) stringBuilder.append(" unknown");
         return stringBuilder.toString();
     }
 }

@@ -1,20 +1,20 @@
 package tcs.familytree.views;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import tcs.familytree.core.person.Person;
+import tcs.familytree.core.place.Place;
 import tcs.familytree.viewmodels.GraphViewModel;
 
-import java.net.URL;
 import java.util.*;
 
-public class SimplePersonDescription implements Initializable {
+public class SimplePersonDescription {
 
     Map<TreeItem<String>, Person> treeItemPersonMap = new HashMap<>();
+    Map<TreeItem<String>, Place> treeItemPlaceMap = new HashMap<>();
     TreeItem<String> globalPersonList = null;
 
     GraphViewModel viewModel = null;
@@ -72,6 +72,7 @@ public class SimplePersonDescription implements Initializable {
         TreeItem<String> branchItem8;
         if(displayPerson.getPlaceOfBirth() != null){
             branchItem8 = new TreeItem<>("Miejsce urodzenia: " + displayPerson.getPlaceOfBirth().toString());
+            treeItemPlaceMap.put(branchItem8, displayPerson.getPlaceOfBirth());
         }else{
             branchItem8 = new TreeItem<>("Miejsce urodzenia: [unknown]");
         }
@@ -79,6 +80,7 @@ public class SimplePersonDescription implements Initializable {
         TreeItem<String> branchItem9;
         if(displayPerson.getPlaceOfDeath() != null){
             branchItem9 = new TreeItem<>("Miejsce śmierci: " + displayPerson.getPlaceOfDeath().toString());
+            treeItemPlaceMap.put(branchItem9, displayPerson.getPlaceOfDeath());
         }else{
             branchItem9 = new TreeItem<>("Miejsce śmierci: [unknown]");
         }
@@ -94,7 +96,7 @@ public class SimplePersonDescription implements Initializable {
             return globalPersonList;
         }
 
-        TreeItem<String> personListItem = new TreeItem<>("List of all person");
+        TreeItem<String> personListItem = new TreeItem<>("Lista Wszystkich ludzi");
         List<TreeItem<String>> personList = new LinkedList<>();
 
         for(Person person: viewModel.getGraphProperty().get().getAllPersons()){
@@ -114,7 +116,6 @@ public class SimplePersonDescription implements Initializable {
     }
 
     public void init(GraphViewModel viewModel){
-        System.out.println("init");
         this.viewModel = viewModel;
         if(viewModel == null){
             throw new NullPointerException("INIT - view model don't exist");
@@ -136,24 +137,16 @@ public class SimplePersonDescription implements Initializable {
     @FXML
     public void selectItem(MouseEvent event){
         TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            System.out.println("SELECT ITEM: " + selectedItem.getValue());
-        }else{
+        if (selectedItem == null) {
             return;
         }
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 2) {
             if(treeItemPersonMap.containsKey(selectedItem)){
                 viewModel.updateCentral(treeItemPersonMap.get(selectedItem));
-                System.out.println("Double-clicked and find : " + selectedItem.getValue());
             }
-            System.out.println("Double-clicked on: " + selectedItem.getValue());
+            if(treeItemPlaceMap.containsKey(selectedItem)){
+                viewModel.getMainController().openEditionPanel(treeItemPlaceMap.get(selectedItem), "Place edition");
+            }
         }
-        System.out.println("SELECT ITEM");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("initialize");
-//        init();
     }
 }

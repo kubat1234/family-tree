@@ -1,5 +1,6 @@
 package tcs.familytree.services.database;
 
+import org.jooq.Result;
 import tcs.familytree.core.*;
 import tcs.familytree.core.person.Person;
 import tcs.familytree.core.place.Place;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface DatabaseConnection {
 
     Updater getUpdater();
+
+    Result<org.jooq.Record> sendQuery(String query);
 
     List<Person> getAllPersons();
     Person getPerson(int id);
@@ -64,6 +67,7 @@ public interface DatabaseConnection {
     }
 
     PlaceType getPlaceType(int id);
+    List<PlaceType> getAllPlaceType();
     default boolean checkIfPlaceTypeExist(int id){
         return getPlaceType(id) != null;
     }

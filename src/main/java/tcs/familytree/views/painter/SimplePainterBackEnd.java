@@ -7,7 +7,6 @@ import tcs.familytree.views.plane.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiFunction;
 
 public class SimplePainterBackEnd {
@@ -75,7 +74,6 @@ public class SimplePainterBackEnd {
             OffsetPersonOnPlane secondParent = pop.oPops.stream().
                     filter(x -> p.getParents().contains(x.person)).findAny().orElse(null);
             if(secondParent != null) {
-                System.out.println(p + " <- " + secondParent.person);
                 lines.add(new OpopLine(child, secondParent));
             }
             oPops.add(child);
@@ -84,7 +82,6 @@ public class SimplePainterBackEnd {
             childrenWidth += child.myWidth;
         }
         int newWidth = Math.max(pop.myWidth, childrenWidth);
-        System.out.println(pop.person.getName() + ": " + pop.myWidth+ "; " + childrenWidth);
         childrenWidth = -childrenWidth/2 + (pop.myWidth - slot_width) / 2;
         for(OffsetPersonOnPlane child : oPops) {
             child.offsetX += childrenWidth + child.myWidth/2;

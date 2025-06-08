@@ -27,26 +27,18 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1000, 700);
         scene.setOnKeyPressed(
                 (KeyEvent event) -> {
-                    System.out.println("Pressed: " + event.getCode() + ", target: " + event.getTarget());
                     switch (event.getCode()){
                         case A:
-                            System.out.println("Pressed A");
                             controller.moveLeft();
                             break;
                         case W:
-                            System.out.println("Pressed W");
                             controller.moveUp();
                             break;
                         case S:
-                            System.out.println("Pressed S");
                             controller.moveDown();
                             break;
                         case D:
                             controller.moveRight();
-                            System.out.println("Pressed D");
-                            break;
-                        case SPACE:
-                            System.out.println("Pressed SPACE");
                             break;
                         default:
                             break;
@@ -54,8 +46,6 @@ public class Main extends Application {
                 }
         );
         root.requestFocus();
-
-
         stage.setScene(scene);
         stage.show();
     }

@@ -1,6 +1,7 @@
 package tcs.familytree.services.database;
 
 import org.jooq.DSLContext;
+import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
@@ -11,10 +12,7 @@ import tcs.familytree.core.person.PersonBuilder;
 import tcs.familytree.core.place.Place;
 import tcs.familytree.core.place.PlaceType;
 import tcs.familytree.core.relation.Relation;
-import tcs.familytree.jooq.generated.tables.records.MiejscaRecord;
-import tcs.familytree.jooq.generated.tables.records.OsobyRecord;
-import tcs.familytree.jooq.generated.tables.records.RelacjeSymetryczneRecord;
-import tcs.familytree.jooq.generated.tables.records.TypyMiejscRecord;
+import tcs.familytree.jooq.generated.tables.records.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,6 +42,11 @@ public class RealDatabaseConnection implements DatabaseConnection {
     }
 
     @Override
+    public Result<org.jooq.Record> sendQuery(String query){
+        return dsl.fetch(query);
+    }
+
+    @Override
     public Updater getUpdater() {
         return updater;
     }
@@ -52,15 +55,15 @@ public class RealDatabaseConnection implements DatabaseConnection {
 
     @Override
     public List<Person> getAllPersons() {
-        return dsl.select().from(OSOBY).fetchInto(OsobyRecord.class).stream().map(
-                x -> addPartners(databaseConverter.toPersonBuilder(x), x.getValue(OSOBY.ID)).build()
+        return dsl.select().from(OSOBY_NAZWISKA).fetchInto(OsobyNazwiskaRecord.class).stream().map(
+                x -> addPartners(databaseConverter.toPersonBuilder(x), x.getValue(OSOBY_NAZWISKA.ID)).build()
         ).toList();
     }
 
     @Override
     public Person getPerson(int id) {
         return addPartners(databaseConverter.toPersonBuilder(
-                dsl.select().from(OSOBY).where(OSOBY.ID.eq(id)).fetchOneInto(OsobyRecord.class)),
+                dsl.select().from(OSOBY_NAZWISKA).where(OSOBY_NAZWISKA.ID.eq(id)).fetchOneInto(OsobyNazwiskaRecord.class)),
                 id
         ).build();
     }
@@ -83,6 +86,7 @@ public class RealDatabaseConnection implements DatabaseConnection {
             record.attach(dsl.configuration());
             record.update();
             updater.updatePerson(person);
+            dsl.update(OSOBY_NAZWISKA).set(OSOBY_NAZWISKA.NAZWISKA, String.join(" ",person.getAllSurnames())).where(OSOBY_NAZWISKA.ID.eq(person.getId())).execute();
             return true;
         } catch (Exception e) {
             System.out.println("Błąd podczas aktualizacji osoby o id: " + person.getId() + " " + e.getMessage());
@@ -185,6 +189,11 @@ public class RealDatabaseConnection implements DatabaseConnection {
     @Override
     public PlaceType getPlaceType(int id) {
         return databaseConverter.toPlaceType(dsl.select().from(TYPY_MIEJSC).where(TYPY_MIEJSC.ID.eq(id)).fetchOneInto(TypyMiejscRecord.class));
+    }
+
+    @Override
+    public List<PlaceType> getAllPlaceType() {
+        return dsl.select().from(TYPY_MIEJSC).fetchInto(TypyMiejscRecord.class).stream().map(databaseConverter::toPlaceType).toList();
     }
 
     @Override
