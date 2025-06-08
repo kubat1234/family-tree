@@ -24,6 +24,10 @@ DROP VIEW IF EXISTS praca CASCADE;
 DROP VIEW IF EXISTS osoby_nazwiska CASCADE;
 
 DROP SEQUENCE IF EXISTS nazwiska_kolejnosc_seq CASCADE;
+drop table if exists swiadkowie CASCADE;
+drop table IF EXISTS dokumenty CASCADE;
+drop table if EXISTS instytucje CASCADE;
+drop table IF EXISTS typy_dokumentow CASCADE;
 
 DROP FUNCTION IF EXISTS date_check(d custom_date) CASCADE;
 DROP FUNCTION IF EXISTS date_comp(a custom_date, b custom_date) CASCADE;

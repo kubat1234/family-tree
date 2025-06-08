@@ -217,6 +217,36 @@ CREATE TABLE nazwiska (
     check(data_od < data_do)
 );
 
+--Dokumenty
+
+create table typy_dokumentow(
+	id serial primary key,
+	nazwa VARCHAR
+);
+
+create table instytucje(
+	id serial primary key,
+	nazwa VARCHAR
+);
+
+create table dokumenty(
+	id serial primary key,
+	name varchar(50),
+	osoba INTEGER references OSOBY(id),
+	data_zawarcia custom_date not null default row(null,null,null,false) check(date_check(data_zawarcia)),
+	miejsce_zawarcia INTEGER references miejsca(id),
+	instytucja INTEGER references instytucje(id),
+	typy_dokumentow INTEGER references typy_dokumentow(id)
+);
+
+create table swiadkowie(
+	osoba INTEGER references OSOBY(id),
+	dokument INTEGER references DOKUMENTY(id),
+	primary_key(osoba, dokumenty)
+);
+
+select * from dokumenty;
+
 -- Funckje odpowiedzialnie za spójność tablicy osoby
 
 CREATE OR REPLACE FUNCTION check_if_ancestor(child OSOBY, ancestor OSOBY)
