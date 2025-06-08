@@ -24,21 +24,18 @@ DROP SEQUENCE IF EXISTS nazwiska_kolejnosc_seq CASCADE;
 
 DROP FUNCTION IF EXISTS date_check(d custom_date) CASCADE;
 DROP FUNCTION IF EXISTS date_comp(a custom_date, b custom_date) CASCADE;
-
 DROP FUNCTION IF EXISTS check_if_ancestor(child OSOBY, ancestor OSOBY) CASCADE;
 DROP FUNCTION IF EXISTS check_if_ancestor_update() CASCADE;
-DROP TRIGGER IF EXISTS dobry_poset ON osoby CASCADE;
 DROP FUNCTION IF EXISTS check_if_nadtytul(child tytuly, ancestor tytuly) CASCADE;
 DROP FUNCTION IF EXISTS check_if_nadtytul_update() CASCADE;
-DROP TRIGGER IF EXISTS dobry_poset_tytuly ON tytuly CASCADE;
-
-drop function if exists czy_osoba_zyla(osoba int, data custom_date) cascade;
+DROP FUNCTION IF EXISTS czy_osoba_zyla(osoba int, data custom_date) CASCADE;
 
 DROP VIEW IF EXISTS praca CASCADE;
-DROP VIEW IF EXISTS osoby_nazwiska;
+DROP VIEW IF EXISTS osoby_nazwiska CASCADE;
 
 DROP FUNCTION IF EXISTS dni_w_miesiacu;
 DROP FUNCTION IF EXISTS czy_rok_przestepny;
+DROP FUNCTION IF EXISTS immutable_id();
 
 DROP TYPE IF EXISTS custom_date CASCADE;
 

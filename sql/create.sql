@@ -524,6 +524,44 @@ $$ language plpgsql;
 create trigger safe_person_delete before delete on osoby
 for each row execute function safe_person_delete();
 
+-- nie modyfikujemy id
+
+CREATE OR REPLACE FUNCTION immutable_id() RETURNS TRIGGER AS
+$$
+BEGIN
+	IF NEW.id != OLD.id
+	THEN RAISE EXCEPTION 'CANNOT CHANGE ID OF EXISTING OBJECT';
+	END IF;
+	RETURN NEW;
+END;
+$$ language plpgsql;
+CREATE OR REPLACE TRIGGER grupy_immutable_id BEFORE UPDATE
+ON grupy FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER miejsca_immutable_id BEFORE UPDATE
+ON miejsca FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER nazwiska_immutable_id BEFORE UPDATE
+ON nazwiska FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER osoby_immutable_id BEFORE UPDATE
+ON osoby FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER relacje_niesymetryczne_immutable_id BEFORE UPDATE
+ON relacje_niesymetryczne FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER relacje_symetryczne_immutable_id BEFORE UPDATE
+ON relacje_symetryczne FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER typy_miejsc_immutable_id BEFORE UPDATE
+ON typy_miejsc FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER typy_rns_immutable_id BEFORE UPDATE
+ON typy_rns FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER typy_rs_immutable_id BEFORE UPDATE
+ON typy_rs FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER typy_uwag_immutable_id BEFORE UPDATE
+ON typy_uwag FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER tytuly_immutable_id BEFORE UPDATE
+ON tytuly FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER uwagi_immutable_id BEFORE UPDATE
+ON uwagi FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+CREATE OR REPLACE TRIGGER zawody_immutable_id BEFORE UPDATE
+ON zawody FOR EACH ROW EXECUTE PROCEDURE immutable_id();
+
 -- indeksy
 
 create index idx_osoby_matka on osoby(matka);
