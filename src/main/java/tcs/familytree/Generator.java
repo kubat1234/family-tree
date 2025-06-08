@@ -285,5 +285,13 @@ public class Generator {
         }
 
         System.out.println("\\.");
+
+        System.out.println("COPY zawody_osoby (id_osoby, id_zawodu, stanowisko, miejsce) from stdin with (format csv, delimiter ';',null '');");
+
+        for(int i=0;i<70;i++){
+            System.out.println((random.nextInt(N)+1) + ";" + (random.nextInt(20)+1) + ";" + ((random.nextBoolean() ? "senior" : "junior") + ";" + randPlace()));
+        }
+
+        System.out.println("\\.");
     }
 }
