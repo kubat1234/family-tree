@@ -16,6 +16,7 @@ public interface GraphViewModel extends SingleTreeViewModel {
     Integer y();
     Person central();
     void updateCentral(Person person);
+    void updateCentral();
     void changeMod(Integer x, Integer y);
     Refresher refresh();
     void setSimplePersonDescription(SimplePersonDescription simplePersonDescription);
@@ -26,4 +27,5 @@ public interface GraphViewModel extends SingleTreeViewModel {
     List<Place> getAllPlaces();
     List<PlaceType> getAllPlaceTypes();
     void updateAll();
+    boolean deletePerson(Person person);
 }

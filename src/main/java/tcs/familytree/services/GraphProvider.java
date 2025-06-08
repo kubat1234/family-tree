@@ -20,5 +20,5 @@ public interface GraphProvider {
 
     Result<org.jooq.Record> sendQuery(String query);
     void updateAll();
-
+    boolean deletePerson(Person person);
 }

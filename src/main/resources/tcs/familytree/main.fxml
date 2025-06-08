@@ -14,6 +14,7 @@
         <Menu mnemonicParsing="false" text="Edytuj">
             <MenuItem mnemonicParsing="false" onAction="#openEditionPanelMainPerson" text="Edytuj osobę" />
             <MenuItem mnemonicParsing="false" onAction="#openAddingPanel" text="Dodaj osobę" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteCentralPerson" text="Usuń osobę" />
             <MenuItem mnemonicParsing="false" onAction="#openPlaceEdition" text="Edytuj miejsce" />
         </Menu>
         <Menu mnemonicParsing="false" text="Zaawansowane">

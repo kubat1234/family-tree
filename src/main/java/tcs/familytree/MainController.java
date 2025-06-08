@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,6 +31,31 @@ public class MainController {
 
     public void closeApp() {
         exit();
+    }
+
+    public void deleteCentralPerson(ActionEvent actionEvent) {
+        if(graphViewModel.deletePerson(graphViewModel.central())){
+            graphViewModel.updateCentral();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informacja");
+            alert.setHeaderText(null); // lub ustaw nagłówek
+            alert.setContentText("usunięcie osoby " + graphViewModel.central().getId() + " udane!");
+            alert.showAndWait();
+            Label contentLabel = (Label) alert.getDialogPane().lookup(".content.label");
+            if (contentLabel != null) {
+                contentLabel.setStyle("-fx-text-fill: green;");
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informacja");
+            alert.setHeaderText(null); // lub ustaw nagłówek
+            alert.setContentText("Usunięcie osoby " + graphViewModel.central().getId() + " nie udane!");
+            alert.showAndWait();
+            Label contentLabel = (Label) alert.getDialogPane().lookup(".content.label");
+            if (contentLabel != null) {
+                contentLabel.setStyle("-fx-text-fill: red;");
+            }
+        }
     }
 
     private enum OpenedTab {
@@ -81,7 +108,7 @@ public class MainController {
             throw new RuntimeException(e);
         }
 //        GraphProvider tdp = new TemporaryDataProvider2();
-        graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getPerson(1), tdp, this);
+        graphViewModel = new GraphOrientedViewModel(tdp.getGraphProperty().get().getAllPersons().iterator().next(), tdp, this);
         graphView = null;
         colorClicked("NONE", OpenedTab.NONE);
         refresh();
@@ -221,4 +248,6 @@ public class MainController {
     public void openPlaceEdition(ActionEvent actionEvent) {
         openEditionPanel(graphViewModel.getAllPlaces().getFirst(), "Random Place Edition");
     }
+
+
 }

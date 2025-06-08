@@ -68,6 +68,10 @@ public class GraphOrientedViewModel implements GraphViewModel {
             refresh().centeredPersonChange();
         }
     }
+    @Override
+    public void updateCentral() {
+        updateCentral(graphProperty.get().getAllPersons().iterator().next());
+    }
 
     @Override
     public void changeMod(Integer x, Integer y) {
@@ -113,6 +117,11 @@ public class GraphOrientedViewModel implements GraphViewModel {
     @Override
     public List<PlaceType> getAllPlaceTypes() {
         return provider.getAllPlacesType();
+    }
+
+    @Override
+    public boolean deletePerson(Person person) {
+        return provider.deletePerson(person);
     }
 
     @Override

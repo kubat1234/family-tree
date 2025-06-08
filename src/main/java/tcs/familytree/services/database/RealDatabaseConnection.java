@@ -72,7 +72,7 @@ public class RealDatabaseConnection implements DatabaseConnection {
         dsl.select().from(RELACJE_SYMETRYCZNE).
                 where(RELACJE_SYMETRYCZNE.OSOBA1.eq(id)).or(RELACJE_SYMETRYCZNE.OSOBA2.eq(id)).
                 fetchInto(RelacjeSymetryczneRecord.class).forEach(r -> builder.addPartner(
-                        r.getValue(RELACJE_SYMETRYCZNE.OSOBA1).equals(id)?
+                        r.getValue(RELACJE_SYMETRYCZNE.OSOBA1)!=null && r.getValue(RELACJE_SYMETRYCZNE.OSOBA1).equals(id)?
                         r.getValue(RELACJE_SYMETRYCZNE.OSOBA2):
                         r.getValue(RELACJE_SYMETRYCZNE.OSOBA1)
                 ));
@@ -119,7 +119,7 @@ public class RealDatabaseConnection implements DatabaseConnection {
             updater.updatePerson(id);
             return true;
         } catch (Exception e) {
-            System.out.println("Błąd podczas dodania osoby o id: " + id + " " + e.getMessage());
+            System.out.println("Błąd podczas usuwania osoby o id: " + id + " " + e.getMessage());
             return false;
         }
     }

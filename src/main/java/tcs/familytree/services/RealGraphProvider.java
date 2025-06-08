@@ -51,6 +51,11 @@ public class RealGraphProvider implements GraphProvider{
     }
 
     @Override
+    public boolean deletePerson(Person person) {
+        return connection.deletePerson(person);
+    }
+
+    @Override
     public void updateAll(){
         connection.getUpdater().updateAll();
     };
