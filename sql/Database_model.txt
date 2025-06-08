@@ -112,14 +112,6 @@ Table uwagi_grupy{
   id_uwagi integer [primary key]
 }
 
-Table daty{
-  id_daty integer [primary key]
-  rok integer [not null]
-  miesiac integer
-  dzien integer
-  czy_dokladna boolen [not null]
-}
-
 Table nazwiska{
   id_osoby integer [primary key]
   nazwisko varchar [primary key]
@@ -153,13 +145,13 @@ TABLE dokumenty{
   typy_dokumentow integer
 }
 
-Ref: "osoby"."id" > "relacje_symetryczne"."osoba1"
+Ref: "osoby"."id" < "relacje_symetryczne"."osoba1"
 
-Ref: "osoby"."id" > "relacje_symetryczne"."osoba2"
+Ref: "osoby"."id" < "relacje_symetryczne"."osoba2"
 
-Ref: "osoby"."id" > "relacje_niesymetryczne"."osoba1"
+Ref: "osoby"."id" < "relacje_niesymetryczne"."osoba1"
 
-Ref: "osoby"."id" > "relacje_niesymetryczne"."osoba2"
+Ref: "osoby"."id" < "relacje_niesymetryczne"."osoba2"
 
 Ref: "typy_rs"."id" < "relacje_symetryczne"."typ_rs"
 
@@ -201,10 +193,12 @@ Ref: "osoby"."id" < "osoby"."ojciec"
 
 Ref: "typy_dokumentow"."id" < "dokumenty"."typy_dokumentow"
 
-Ref: "dokumenty"."instytucja" < "instytucje"."id"
+Ref: "dokumenty"."instytucja" > "instytucje"."id"
 
-Ref: "swiadkowie"."osoba" < "osoby"."id"
+Ref: "swiadkowie"."osoba" > "osoby"."id"
 
-Ref: "dokumenty"."miejsce_zawarcia" < "miejsca"."id"
+Ref: "dokumenty"."miejsce_zawarcia" > "miejsca"."id"
 
-Ref: "swiadkowie"."dokument" < "dokumenty"."id"
+Ref: "swiadkowie"."dokument" > "dokumenty"."id"
+
+Ref: "typy_miejsc"."nadtyp" > "typy_miejsc"."id"
