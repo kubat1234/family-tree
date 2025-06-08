@@ -35,7 +35,8 @@ public class MainController {
 
     public void deleteCentralPerson(ActionEvent actionEvent) {
         if(graphViewModel.deletePerson(graphViewModel.central())){
-            graphViewModel.updateCentral();
+//            graphViewModel.refresh().hardRefresh(); TODO
+//            graphViewModel.updateCentral(); TODO
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informacja");
             alert.setHeaderText(null); // lub ustaw nagłówek
