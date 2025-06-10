@@ -232,16 +232,16 @@ create table instytucje(
 create table dokumenty(
 	id serial primary key,
 	name varchar(50),
-	osoba INTEGER references OSOBY(id),
+	osoba INTEGER references OSOBY(id) on delete set null,
 	data_zawarcia custom_date not null default row(null,null,null,false) check(date_check(data_zawarcia)),
-	miejsce_zawarcia INTEGER references miejsca(id),
-	instytucja INTEGER references instytucje(id),
-	typy_dokumentow INTEGER references typy_dokumentow(id)
+	miejsce_zawarcia INTEGER references miejsca(id) on delete set null,
+	instytucja INTEGER references instytucje(id) on delete set null,
+	typy_dokumentow INTEGER references typy_dokumentow(id) on delete set null
 );
 
 create table swiadkowie(
-	osoba INTEGER references OSOBY(id),
-	dokument INTEGER references DOKUMENTY(id),
+	osoba INTEGER references OSOBY(id) on delete cascade,
+	dokument INTEGER references DOKUMENTY(id) on delete cascade,
 	primary key(osoba, dokument)
 );
 
