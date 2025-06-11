@@ -66,3 +66,14 @@ where check_if_nadmiejsce((
 
 select imie, nazwiska, nazwa from osoby_nazwiska o inner join grupy_osoby on o.id = id_osoby inner join grupy g on id_grupy=g.id;
 
+-- LISTA TYTUŁÓW
+select o.id, o.imie, o.nazwisko_rodowe,
+string_agg(coalesce(t.skrot,''),' ') "tytuły"
+from osoby o
+LEFT JOIN (tytuly_osoby t_
+JOIN tytuly t
+ON(t.id = t_.id_tytulu))
+ON(t_.id_osoby = o.id)
+GROUP BY o.id
+ORDER BY 1;
+
